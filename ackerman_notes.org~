@@ -1,0 +1,138 @@
+#+TITLE: Econ202A Notes
+#+AUTHOR: Chris Ackerman
+#+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
+
+* Lecture 1---October 5, 2020
+
+Emphasis will be on neoclassical models of macroeconomic growth.
+
+Office hours after class. Cohort effects are huge; spend lots of time collaborating with classmates. Start with certainty; converge to a single point steady state. With stochastic elements, we converge to a distribution. In both cases, we're studying an optimization problem. The model we're studying is the solution to an optimization problem. We will then discuss how to interpret these solutions as competitive equilibria. In these models, what is chosen by the planner and the competitive outcome are the same. In more realistic models, this won't be the case---there will be distortions. The goal is not to be theoretically rigorous; the focus is on applied macroeconomics---applying macroeconomic tools to study *the real world*. How can we use our theoretical models to interpret the real world or do interesting policy experiments?
+
+** Basic Neoclassical Growth Model Cass-Koopmans)
+Economy consists of many identical infinitely lived households, each with the same preferences and endowments. There are several possible interpretations
+\begin{itemize}
+\item Representative Agent
+\item Benevolent Social Planner
+\item Infinitely Lived family
+\end{itemize}
+There is one production sector, and output is produced from capital and labor. Output can be either consumed or invested. There is only one type of output.
+
+Investment becomes productive capital the following period:
+
+\[
+\max \sum^\infty_{t = 0} \beta^t u(c_t), \quad 0 < \beta < 0
+\]
+subject to
+
+\begin{align*}
+c_t + i_t \le y_t &= F(k_t, n_t) \tag{resource constraint}\\
+k_{t + 1} &\le (1 - \delta)k_t + i_t, \quad 0 < \delta \le 1\\
+0 \le n_t &\le 1\\
+k &=\ \text{ given}
+\end{align*}
+Note that these are resource constraints, not budget constraints. They're different, and commonly confused. There are *no prices* here! $\delta$ is depreciation and $\beta$ is a discount factor. The values for these terms are related to the length of time periods, $t$.
+
+We make some assumptions about the objects in our model. 
+
+The production function $F: \R^2_+ \to \R^+$ is
+
+\begin{enumerate}
+\item continuously differentiable
+\item Homogeneous of degree  1 $\equiv$ constant returns to scale
+\item Strictly quasi-concave
+\item \begin{align*}
+      F(0, n) &= 0 \tag{capital is essential}\\
+F_k &= \text{ marginal product of capital}\\
+&> 0 \\
+F_n &> 0 \tag{ marginal product of labor }\\
+\item INADA conditions
+\[
+\lim_{k \to 0} F_k(k, 1) = \infty \quad \lim_{k \to \infty} F_k(k, 1) = 0
+\]
+\end{enumerate}
+\end{align*}
+
+The utility function $u: \R_+ \to \R$ is
+\begin{itemize}
+\item Bounded---important for dynamic programming
+\item Continuously differentiable
+\item Strictly concave
+\item $\lim_{c \to 0} u'(c) = \infty$
+\end{itemize}
+
+*Note*: We will use functional forms for $F$ and $u$ for almost everything in this class.
+
+We make a few assumptions to simply the planners problem:
+\begin{enumerate}
+\item $F_n > 0 \implies n_t = 1$ for all $t$ and $u'(c) > 0$. We will introduce leisure in the utility function later.
+\item $u'(c) > 0 \implies$ the resource constraint holds with equality,
+\[
+c_t + i_t = F(k_t, n_t)
+\]
+\item $\beta < 1 \implies$ a positive rate of return from giving up consumption today for consumption tomorrow; (actually $MP_k + 1 - \delta$)
+\[
+\implies k_t + 1 = (1 - \delta) k_t + i_t
+\] 
+\item Let
+\[
+f(k) \equiv F(k, 1) + (1 - \delta)k
+\]
+\end{enumerate}
+We can now rewrite this problem as choosing a sequence of capital of stocks:
+\begin{align*}
+\max_{\{k_{t + 1}\}^\infty_{t = 0}}&\ \sum^\infty_{t = 0} \beta^t u(f(k_t) - k_{t +1})\\
+0 \le k_{t + 1} &\le f(k_t)
+\end{align*}
+where $k_0$ is given.
+\begin{itemize}
+\item This is called a "sequence problem" by Stokey and Lucas
+\item There are infinitely many choice variables, so this problem is very hard to solve.
+\item Instead we can use dynamic programming. We will solve the problem recursively, and therefore there's only one choice variable (next period's capital).
+\end{itemize}
+
+** Dynamic Programming
+
+\begin{align*}
+\intertext{Let }
+V(k_0) &\equiv \max_{\{k_{t+1}\}{t = 0}^\infty} \sum^\infty_{t = 0} \beta^t u(f(k_t) - k_{t + 1})\\
+\intertext{given $k_0$. We are maximizing the discounted utility given $k_0$. Rewrite as}
+V(k_0) = \max_{\{k_{t+1}\}{t = 0}^\infty} \left\{ u(f(k_0) - k_1) + \beta \sum^\infty_{t = 1} \beta^{t - 1} u(f(k_t) - k_{t + 1})\right\}\\
+&= \max_{}
+* TODO
+\end{align*}
+
+*** Bellman's Equation
+
+\[
+V(k) = \max_{k'} \left\{ u(f(k) - k') + \beta V(k')\right\}
+\]
+This is a functional equation where the unknown is $V(k)$. $V(k)$ is called the *value function*. $u(f(k) - k')$ is called the "return function". Our First Order Condition is
+\[
+u'(f(k) - k') = \beta V'(k').
+\]
+We want to solve for
+\[
+k' = g(k),
+\]
+which is the *policy function*, often called the *optimal policy function* or *decision rule*. Later we'll prove that we can take FOCs because the function is differentiable.
+
+
+**** Solving for $V(k)$
+\begin{enumerate}
+\item Guess a function $V_0(k)$.
+\item Create a new function by applying a mapping to $V_0(k)$. We apply the operator $T$, so the new function is
+\[
+T(v_0(k)) = \max_{k'} \left\{u(f(k) - k') +_ \beta V_0(k')\right\}
+\]
+\item Let 
+\[
+V_1(k) = T(V_0(k))
+\]
+\item Repeat, forming a sequence of functions where 
+\[
+V_n(k) = T(V_{n - 1}(k)),
+\]
+creating (with a computer) the sequence $\{V_n\}^\infty_{n = 0}$, where each $V_n$ is a function.
+\item Continue creating functions until $V_{n - 1}(k)$ and $V_n(k)$ are the same, or close enough for the desired error term.
+\end{enumerate}
+It turns out that this sequence is a Cauchy sequence, so we're guaranteed to get solutions that are arbitrarily close together. Look up contraction mappings, etc.
