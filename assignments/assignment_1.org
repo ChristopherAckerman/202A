@@ -1,0 +1,47 @@
+#+TITLE: Econ202A Assignment 1
+#+AUTHOR: Chris Ackerman
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \newtheorem*{definition}{Definition}
+#+LATEX_HEADER: \newtheorem*{example}{Example}
+#+LATEX_HEADER: \newtheorem*{theorem}{Theorem}
+#+LATEX_HEADER: \newtheorem*{exercise}{Exercise}
+#+LATEX_HEADER: \newtheorem{question}{Question}
+#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{hyperref} % Required for adding links	and customizing them
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \newcommand{\gr}{\textcolor{ForestGreen}}
+#+LATEX_HEADER: \newcommand{\rd}{\textcolor{red}}
+#+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
+#+LATEX_HEADER: \newcommand{\frall}{\ \forall}
+#+OPTIONS:  ':t
+
+  \newpage
+* Problem 1
+  #+BEGIN_SRC latex
+  Consider the following problem solved be a representative agent:
+  \begin{align*}
+  \max \sum^\infty_{t = 0} &\beta^t \log c_t, \quad 0 < \beta < 1\\
+\intertext{subject to}
+c_t + k_{t + 1} &\le k^\theta_t, \quad 0 < \theta < 1,\\
+k_0 &\text{ given.}
+  \end{align*}
+  \begin{enumerate}[label=(\alph*)]
+    \item $ $
+    \begin{align*}
+    v(k_0) &= \max(u(c_0) + \beta v(k_1))\\
+v(k_0) &= \max(u(f(k_0) - k_1) + \beta v(k_1))
+\end{align*}
+    \item $ $ 
+    \item $ $
+  \end{enumerate}
+  #+END_SRC 
+
+
+  \newpage
+* Problem 2
+
+  \newpage
+* Problem 3 (due to turn in)

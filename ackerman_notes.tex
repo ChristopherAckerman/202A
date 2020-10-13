@@ -1,4 +1,4 @@
-% Created 2020-10-12 Mon 14:12
+% Created 2020-10-13 Tue 13:28
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -47,14 +47,14 @@
 \newpage
 
 \section{Lecture 1---October 5, 2020}
-\label{sec:orgb9cd273}
+\label{sec:orgbb91ca4}
 
 Emphasis will be on neoclassical models of macroeconomic growth.
 
 Office hours after class. Cohort effects are huge; spend lots of time collaborating with classmates. Start with certainty; converge to a single point steady state. With stochastic elements, we converge to a distribution. In both cases, we're studying an optimization problem. The model we're studying is the solution to an optimization problem. We will then discuss how to interpret these solutions as competitive equilibria. In these models, what is chosen by the planner and the competitive outcome are the same. In more realistic models, this won't be the case---there will be distortions. The goal is not to be theoretically rigorous; the focus is on applied macroeconomics---applying macroeconomic tools to study \textbf{the real world}. How can we use our theoretical models to interpret the real world or do interesting policy experiments?
 
 \subsection{Basic Neoclassical Growth Model Cass-Koopmans)}
-\label{sec:org8d1bc9a}
+\label{sec:org65b7df6}
 Economy consists of many identical infinitely lived households, each with the same preferences and endowments. There are several possible interpretations
 \begin{itemize}
 \item Representative Agent
@@ -137,7 +137,7 @@ where \(k_0\) is given.
 \end{itemize}
 
 \subsection{Dynamic Programming}
-\label{sec:org506b400}
+\label{sec:org3bf10a5}
 
 \begin{align*}
 \intertext{Let }
@@ -150,7 +150,7 @@ V(k_1) &= \max_{\{k_{t + 1}\}^\infty_{t = 1}} \sum^\infty_{t = 1}\beta^{t - 1} u
 \end{align*}
 
 \subsubsection{Bellman's Equation}
-\label{sec:orgec9690f}
+\label{sec:org6125617}
 
 \[
 V(k) = \max_{k'} \left\{ u(f(k) - k') + \beta V(k')\right\}
@@ -167,7 +167,7 @@ which is the \emph{policy function}, often called the \emph{optimal policy funct
 
 
 \subsubsection{Solving for \(V(k)\)}
-\label{sec:org02fd983}
+\label{sec:orgef52f58}
 \begin{enumerate}
 \item Guess a function $V_0(k)$.
 \item Create a new function by applying a mapping to $V_0(k)$. We apply the operator $T$, so the new function is
@@ -188,7 +188,7 @@ creating (with a computer) the sequence $\{V_n\}^\infty_{n = 0}$, where each $V_
 It turns out that this sequence is a Cauchy sequence, so we're guaranteed to get solutions that are arbitrarily close together. Look up contraction mappings, etc.
 
 \section{Lecture 2---October 7, 2020}
-\label{sec:org784e10b}
+\label{sec:org5fbb747}
 The \(T\) we discussed yesterday is known as the \emph{Bellman Operator}.
 
 
@@ -274,7 +274,7 @@ from the neoclassical growth model satisfies monotonicity and discounting.
 \end{exercise}
 
 \subsection{Envelope Condition and Euler Equation}
-\label{sec:org9296e09}
+\label{sec:org357e618}
 The FOC for the right hand side of the Bellman equation is
 \[
 u'(f(k) - g(k)) = \beta V'(g(k)),
@@ -377,7 +377,7 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{proof}
 
 \subsection{Things to know for exam/course}
-\label{sec:orgbd4e0e3}
+\label{sec:org3bfe9eb}
 \begin{enumerate}
 \item Contraction mapping theorem
 \item Won't be tested on complete metric space, Cauchy sequence; we'll be dealing with specific functional forms that meet our assumptions
@@ -385,10 +385,10 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{enumerate}
 
 \section{TA Section---October 9, 2020 (Introduction to Dynamic Programming)}
-\label{sec:orgfaa587c}
+\label{sec:org2058d9e}
 
 \subsection{The Sequential Problem and its Solution}
-\label{sec:org0271f1f}
+\label{sec:org2a683c6}
 
 Consider the simple deterministic neoclassical growth model. We don't have prices, just the resource constraint and the capital accumulation equation. We have an infinitely-lived household, so the utility function depends on a sequence of consumption and is time-separable,
 \[
@@ -430,7 +430,7 @@ Simplifying,
 In words, the marginal cost of forgone consumption today must be the same as the discounted value of tomorrow's marginal product of capital, plus the marginal utility from consuming tomorrow's output.
 
 \subsection{Analytic Solution (full depreciation)}
-\label{sec:org10c6b5b}
+\label{sec:orgd03de9d}
 
 \begin{align*}
 u(c) &= \log(c)\\
@@ -464,7 +464,7 @@ s/y &= \alpha \beta\\
 \end{align*}
 
 \subsection{The Recursive Problem and its Solution}
-\label{sec:org4777b09}
+\label{sec:orgdd67d09}
 Define a real-valued function \(V(k)\),
 \begin{align*}
 V(k_0) &= \max_{\left\{k_{t + 1}\right\}^\infty_{t = 0}} \sum^\infty_{t = 0} \beta^t u(f(k_t) - k_{t + 1})\\
@@ -479,7 +479,7 @@ V(k_0) &= \max_{k_1} \beta u(f(k_0) - k_1) + \underbrace{\max_{\left\{k_{t + 1}\
 V(k_0) &= \max_{k_1} u(f(k_0) - k_1) + \beta V(k_1)\\
 V(k) &= \max_{k_1} u(f(k) - k') + \beta V(k')\\
 \intertext{Where $k'$ denotes tomorrow's capital stock. The optimal $k'$ is}
--1\cdot u'(f(k) - k') + \beta V'(k') &= 0\\
+0 &= -1\cdot u'(f(k) - k') + \beta V'(k') \\
 u'(f(k) - k') &= \beta V'(k')\\
 \intertext{Suppose}
 V(k) &= A + \frac{\alpha}{1 - \alpha \beta} \ln(k)\\
@@ -488,7 +488,7 @@ V'(k') &= \frac{\alpha}{1 - \alpha \beta} (k')^{-1}\\
 \end{align*}
 
 \subsection{Habit Persistence}
-\label{sec:org9187251}
+\label{sec:orgb3f9a87}
 
 \[
 u(c_t, c_{t - 1})
@@ -505,13 +505,13 @@ d' &= c
 \end{align*}
 
 \subsection{Value Function Iteration (HW in Matlab)}
-\label{sec:org3a6b6ec}
+\label{sec:orgd6ecfe1}
 
 \section{October 12, 2020}
-\label{sec:orge1325c4}
+\label{sec:org61927e3}
 At the end of class today, we should be able to do everything on assignment 1. 
 \subsection{Steady State}
-\label{sec:org4924ba1}
+\label{sec:orgd001e27}
 The steady state stock of capital is some \(\overline{k}\) such that
 \[
 \overline{k} = g(\overline{k}).
@@ -539,7 +539,7 @@ f'(k) &= 1 - \delta \\
 \end{align*}
 \rd{TODO: Add graphs}
 \subsubsection{Is \(\overline{k} > 0\) unique?}
-\label{sec:org35707e5}
+\label{sec:org4ec8e12}
 If \(f(k)\) us concave, yes---this follows from quasiconcavity and constant returns to scale. See Stokey and Lucas Exercise 4.8 for a more complete explanation.
 \begin{align*}
 f(k) \text{ concave } \implies f''(k) &< 0\\
@@ -550,7 +550,7 @@ f(k) \text{ concave } \implies f''(k) &< 0\\
 f(0) &= 0.
 \end{align*}
 \subsection{Maximum Sustainable Capital Stock}
-\label{sec:org67507bd}
+\label{sec:org3796195}
   \(k^\ast\), the maximum sustainable capital stock, is the largest value of \(k\) such that 
 \[
 f(k) \ge k.
@@ -570,7 +570,7 @@ For \(k\) to \emph{ever} be about \(k^\ast\), \(k^0 > k^\ast\) (perhaps due to a
 Even though we start with an unbounded utility function, we can implicitly bound it without loss of generality. This is important, since it allows us to utilize dynamic programming arguments. In order to be able to formally prove that a solution exists, we need to put an upper bound on utility since the function itself doesn't have an upper bound. From a practical standpoint, in terms of solving a dynamic programming problem, this maximum sustainable capital stock is really useful (in particular for solving Problem 3 on Assignment 1, which is graded and required).
 
 \subsection{Dynamics of the Growth Model}
-\label{sec:org535059a}
+\label{sec:org33a5a5f}
 How \(k_t\) evolves from \(k_0 > 0\) depends on the policy function, \(g(k)\). What do we know about this function? We don't assume anything about the policy function; we have to derive/solve for this policy function. But we still know two useful facts about the policy function that will help us solve this problem.
 \begin{enumerate}
 \item $g(0) = 0$
@@ -591,7 +591,7 @@ so \(\overline{k}\) is a stable steady state. We say that this steady state is s
 \textbf{Key Takeaway:} \(g(k)\) must cross the \(45\) degree line from above!
 
 \subsection{Adding Labor-Leisure Tradeoff}
-\label{sec:org99bbfb0}
+\label{sec:org74b148c}
 
 This ingredient is key to the real business cycle literature. The RBC model is the neoclassical growth model with a labor-leisure tradeoff and a stochastic shock that affects technology (will cover this in more detail later). For now we're just adding a positive-utility alternative to working. Depending on how we specify \(u\), households may not spend all of their time working. In this class we'll always be working with a functional form for \(u\), but this isn't necessary in general.
 
@@ -631,11 +631,11 @@ S' = B(S, d)
 so that \(S'\) is a choice variable along with a subset of the decision variables. We can't hold \(S'\) constant since it isn't chosen directly. We want to rewrite the problem so that \(S\) doesn't appear in two different places in our optimization problem.
 
 \subsection{Problem 3, Assignment 1}
-\label{sec:orgceac077}
+\label{sec:orgbc63df7}
 The code should be very short; it's a straightforward problem to solve. Here's a sketch for how to solve this problem, which is important since it's (a simplified version of) how to solve problems like this in real life. 
 
 \subsubsection{Solving a Dynamic Program where the state space has a finite number of elements}
-\label{sec:orgd79050c}
+\label{sec:orgbb09223}
 If capital is on a grid and there is a maximum sustainable capital stock, 
 \[
 k = \left\{k_1, k_2, \ldots, k_N\right\}.
@@ -668,5 +668,5 @@ for $i = 1, \ldots, N$. Here $g(i, 1)$ is the row number corresponding to $\max$
 \end{itemize}
 \end{enumerate}
 
-\textbf{End of deterministic growth; will start stochastic growth next class.}
+\noindent \textbf{End of deterministic growth; will start stochastic growth next class.}
 \end{document}

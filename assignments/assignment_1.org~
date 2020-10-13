@@ -1,0 +1,24 @@
+#+TITLE: Econ202A Assignment 1
+#+AUTHOR: Chris Ackerman
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \newtheorem*{definition}{Definition}
+#+LATEX_HEADER: \newtheorem*{example}{Example}
+#+LATEX_HEADER: \newtheorem*{theorem}{Theorem}
+#+LATEX_HEADER: \newtheorem*{exercise}{Exercise}
+#+LATEX_HEADER: \newtheorem{question}{Question}
+#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{hyperref} % Required for adding links	and customizing them
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \newcommand{\gr}{\textcolor{ForestGreen}}
+#+LATEX_HEADER: \newcommand{\rd}{\textcolor{red}}
+#+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
+#+LATEX_HEADER: \newcommand{\frall}{\ \forall}
+#+OPTIONS:  ':t
+
+* Problem 1
+
+* Problem 2
+
+* Problem 3 (due to turn in)

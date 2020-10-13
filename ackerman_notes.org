@@ -441,7 +441,7 @@ V(k_0) &= \max_{k_1} \beta u(f(k_0) - k_1) + \underbrace{\max_{\left\{k_{t + 1}\
 V(k_0) &= \max_{k_1} u(f(k_0) - k_1) + \beta V(k_1)\\
 V(k) &= \max_{k_1} u(f(k) - k') + \beta V(k')\\
 \intertext{Where $k'$ denotes tomorrow's capital stock. The optimal $k'$ is}
--1\cdot u'(f(k) - k') + \beta V'(k') &= 0\\
+0 &= -1\cdot u'(f(k) - k') + \beta V'(k') \\
 u'(f(k) - k') &= \beta V'(k')\\
 \intertext{Suppose}
 V(k) &= A + \frac{\alpha}{1 - \alpha \beta} \ln(k)\\
