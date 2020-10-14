@@ -1,4 +1,4 @@
-% Created 2020-10-13 Tue 13:28
+% Created 2020-10-14 Wed 14:20
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -28,6 +28,7 @@
 \newcommand{\gr}{\textcolor{ForestGreen}}
 \newcommand{\rd}{\textcolor{red}}
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
 \newcommand{\frall}{\ \forall}
 \author{Chris Ackerman}
 \date{\today}
@@ -47,14 +48,14 @@
 \newpage
 
 \section{Lecture 1---October 5, 2020}
-\label{sec:orgbb91ca4}
+\label{sec:orge5ade8f}
 
 Emphasis will be on neoclassical models of macroeconomic growth.
 
 Office hours after class. Cohort effects are huge; spend lots of time collaborating with classmates. Start with certainty; converge to a single point steady state. With stochastic elements, we converge to a distribution. In both cases, we're studying an optimization problem. The model we're studying is the solution to an optimization problem. We will then discuss how to interpret these solutions as competitive equilibria. In these models, what is chosen by the planner and the competitive outcome are the same. In more realistic models, this won't be the case---there will be distortions. The goal is not to be theoretically rigorous; the focus is on applied macroeconomics---applying macroeconomic tools to study \textbf{the real world}. How can we use our theoretical models to interpret the real world or do interesting policy experiments?
 
 \subsection{Basic Neoclassical Growth Model Cass-Koopmans)}
-\label{sec:org65b7df6}
+\label{sec:org50e104f}
 Economy consists of many identical infinitely lived households, each with the same preferences and endowments. There are several possible interpretations
 \begin{itemize}
 \item Representative Agent
@@ -137,7 +138,7 @@ where \(k_0\) is given.
 \end{itemize}
 
 \subsection{Dynamic Programming}
-\label{sec:org3bf10a5}
+\label{sec:org143092c}
 
 \begin{align*}
 \intertext{Let }
@@ -150,7 +151,7 @@ V(k_1) &= \max_{\{k_{t + 1}\}^\infty_{t = 1}} \sum^\infty_{t = 1}\beta^{t - 1} u
 \end{align*}
 
 \subsubsection{Bellman's Equation}
-\label{sec:org6125617}
+\label{sec:org9f124bb}
 
 \[
 V(k) = \max_{k'} \left\{ u(f(k) - k') + \beta V(k')\right\}
@@ -167,7 +168,7 @@ which is the \emph{policy function}, often called the \emph{optimal policy funct
 
 
 \subsubsection{Solving for \(V(k)\)}
-\label{sec:orgef52f58}
+\label{sec:orgaadf8b0}
 \begin{enumerate}
 \item Guess a function $V_0(k)$.
 \item Create a new function by applying a mapping to $V_0(k)$. We apply the operator $T$, so the new function is
@@ -188,7 +189,7 @@ creating (with a computer) the sequence $\{V_n\}^\infty_{n = 0}$, where each $V_
 It turns out that this sequence is a Cauchy sequence, so we're guaranteed to get solutions that are arbitrarily close together. Look up contraction mappings, etc.
 
 \section{Lecture 2---October 7, 2020}
-\label{sec:org5fbb747}
+\label{sec:org1de2c80}
 The \(T\) we discussed yesterday is known as the \emph{Bellman Operator}.
 
 
@@ -274,7 +275,7 @@ from the neoclassical growth model satisfies monotonicity and discounting.
 \end{exercise}
 
 \subsection{Envelope Condition and Euler Equation}
-\label{sec:org357e618}
+\label{sec:orgfb42c79}
 The FOC for the right hand side of the Bellman equation is
 \[
 u'(f(k) - g(k)) = \beta V'(g(k)),
@@ -300,7 +301,7 @@ w(k) &\le v(k) \text{ for } k \text{ near } k_0.
 Intuitively, we're holding the future fixed and the only thing that's moving is the current capital stock. We only require this condition to hold locally; the picture below is a zoomed-in version of the Envelope Theorem. We aren't assuming anything about the behavior of either of these functions anywhere else.
 
 \begin{center}
-\includegraphics[width=0.75\textwidth, keepaspectratio=true]{figures/envelope_theorem.pdf}
+\includegraphics[width=.9\linewidth]{./figures/envelope_theorem.pdf}
 \end{center}
 
 \begin{definition}[Envelope Condition]
@@ -377,7 +378,7 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{proof}
 
 \subsection{Things to know for exam/course}
-\label{sec:org3bfe9eb}
+\label{sec:org8e74e76}
 \begin{enumerate}
 \item Contraction mapping theorem
 \item Won't be tested on complete metric space, Cauchy sequence; we'll be dealing with specific functional forms that meet our assumptions
@@ -385,10 +386,10 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{enumerate}
 
 \section{TA Section---October 9, 2020 (Introduction to Dynamic Programming)}
-\label{sec:org2058d9e}
+\label{sec:org8be0f83}
 
 \subsection{The Sequential Problem and its Solution}
-\label{sec:org2a683c6}
+\label{sec:org670d61c}
 
 Consider the simple deterministic neoclassical growth model. We don't have prices, just the resource constraint and the capital accumulation equation. We have an infinitely-lived household, so the utility function depends on a sequence of consumption and is time-separable,
 \[
@@ -430,7 +431,7 @@ Simplifying,
 In words, the marginal cost of forgone consumption today must be the same as the discounted value of tomorrow's marginal product of capital, plus the marginal utility from consuming tomorrow's output.
 
 \subsection{Analytic Solution (full depreciation)}
-\label{sec:orgd03de9d}
+\label{sec:orgab653e7}
 
 \begin{align*}
 u(c) &= \log(c)\\
@@ -464,7 +465,7 @@ s/y &= \alpha \beta\\
 \end{align*}
 
 \subsection{The Recursive Problem and its Solution}
-\label{sec:orgdd67d09}
+\label{sec:orga4b0aea}
 Define a real-valued function \(V(k)\),
 \begin{align*}
 V(k_0) &= \max_{\left\{k_{t + 1}\right\}^\infty_{t = 0}} \sum^\infty_{t = 0} \beta^t u(f(k_t) - k_{t + 1})\\
@@ -488,7 +489,7 @@ V'(k') &= \frac{\alpha}{1 - \alpha \beta} (k')^{-1}\\
 \end{align*}
 
 \subsection{Habit Persistence}
-\label{sec:orgb3f9a87}
+\label{sec:org699d308}
 
 \[
 u(c_t, c_{t - 1})
@@ -505,13 +506,13 @@ d' &= c
 \end{align*}
 
 \subsection{Value Function Iteration (HW in Matlab)}
-\label{sec:orgd6ecfe1}
+\label{sec:org0b14353}
 
 \section{October 12, 2020}
-\label{sec:org61927e3}
+\label{sec:orgd76ffeb}
 At the end of class today, we should be able to do everything on assignment 1. 
 \subsection{Steady State}
-\label{sec:orgd001e27}
+\label{sec:orgc9b52e7}
 The steady state stock of capital is some \(\overline{k}\) such that
 \[
 \overline{k} = g(\overline{k}).
@@ -539,7 +540,7 @@ f'(k) &= 1 - \delta \\
 \end{align*}
 \rd{TODO: Add graphs}
 \subsubsection{Is \(\overline{k} > 0\) unique?}
-\label{sec:org4ec8e12}
+\label{sec:org3a0a6ae}
 If \(f(k)\) us concave, yes---this follows from quasiconcavity and constant returns to scale. See Stokey and Lucas Exercise 4.8 for a more complete explanation.
 \begin{align*}
 f(k) \text{ concave } \implies f''(k) &< 0\\
@@ -550,7 +551,7 @@ f(k) \text{ concave } \implies f''(k) &< 0\\
 f(0) &= 0.
 \end{align*}
 \subsection{Maximum Sustainable Capital Stock}
-\label{sec:org3796195}
+\label{sec:org193b71f}
   \(k^\ast\), the maximum sustainable capital stock, is the largest value of \(k\) such that 
 \[
 f(k) \ge k.
@@ -570,7 +571,7 @@ For \(k\) to \emph{ever} be about \(k^\ast\), \(k^0 > k^\ast\) (perhaps due to a
 Even though we start with an unbounded utility function, we can implicitly bound it without loss of generality. This is important, since it allows us to utilize dynamic programming arguments. In order to be able to formally prove that a solution exists, we need to put an upper bound on utility since the function itself doesn't have an upper bound. From a practical standpoint, in terms of solving a dynamic programming problem, this maximum sustainable capital stock is really useful (in particular for solving Problem 3 on Assignment 1, which is graded and required).
 
 \subsection{Dynamics of the Growth Model}
-\label{sec:org33a5a5f}
+\label{sec:org7dcbc0b}
 How \(k_t\) evolves from \(k_0 > 0\) depends on the policy function, \(g(k)\). What do we know about this function? We don't assume anything about the policy function; we have to derive/solve for this policy function. But we still know two useful facts about the policy function that will help us solve this problem.
 \begin{enumerate}
 \item $g(0) = 0$
@@ -591,7 +592,7 @@ so \(\overline{k}\) is a stable steady state. We say that this steady state is s
 \textbf{Key Takeaway:} \(g(k)\) must cross the \(45\) degree line from above!
 
 \subsection{Adding Labor-Leisure Tradeoff}
-\label{sec:org74b148c}
+\label{sec:org6187b65}
 
 This ingredient is key to the real business cycle literature. The RBC model is the neoclassical growth model with a labor-leisure tradeoff and a stochastic shock that affects technology (will cover this in more detail later). For now we're just adding a positive-utility alternative to working. Depending on how we specify \(u\), households may not spend all of their time working. In this class we'll always be working with a functional form for \(u\), but this isn't necessary in general.
 
@@ -631,11 +632,11 @@ S' = B(S, d)
 so that \(S'\) is a choice variable along with a subset of the decision variables. We can't hold \(S'\) constant since it isn't chosen directly. We want to rewrite the problem so that \(S\) doesn't appear in two different places in our optimization problem.
 
 \subsection{Problem 3, Assignment 1}
-\label{sec:orgbc63df7}
+\label{sec:orge4930df}
 The code should be very short; it's a straightforward problem to solve. Here's a sketch for how to solve this problem, which is important since it's (a simplified version of) how to solve problems like this in real life. 
 
 \subsubsection{Solving a Dynamic Program where the state space has a finite number of elements}
-\label{sec:orgbb09223}
+\label{sec:org268212f}
 If capital is on a grid and there is a maximum sustainable capital stock, 
 \[
 k = \left\{k_1, k_2, \ldots, k_N\right\}.
@@ -669,4 +670,173 @@ for $i = 1, \ldots, N$. Here $g(i, 1)$ is the row number corresponding to $\max$
 \end{enumerate}
 
 \noindent \textbf{End of deterministic growth; will start stochastic growth next class.}
+\section{October 14, 2020}
+\label{sec:org495d2c3}
+\subsection{Stochastic Growth}
+\label{sec:org8c7aefb}
+The sequence problem is
+\begin{align*}
+\max E &\sum^\infty_{t = 0} \beta^t u(c_t)\\
+\intertext{subject to}
+c_t + k{t + 1} &= z_t f(k_t)\\
+z_0, k_0 &\text{ given}.
+\end{align*}
+The new ingredient is \(z\), which is a stochastic shock to technology. \(\{z_t\}^\infty_{t = 0}\) is a stochastic process where \(z_t\) is observed at the beginning of period \(t\). What is being chosen at \(t = 0\)? We're choosing ``contingent claims''; next period capital given shocks until date \(t\). Essentially we're making choices contingent on every possible realization until date \(t\). Since there are so many things to choose, the recursive approach is very convenient here. We are going to make assumptions so that we don't need to keep track of the entire history.
+\[
+\left\{k_{t + 1}(z_0, \ldots ,z_t)\right\}^\infty_{t = 0}
+\]
+The resource constraint must be satisfied for every possible realization. The recursive formulation is extremely useful. Suppose \(Z \overset{\text{iid}}{\sim} G(z)\). Then
+\[
+v(z, k) = \max_{k'} \left\{u(\underbrace{zf(k) - k'}_{\text{known at }t}) + \beta \int_{z'} v(z', k')dG(z')\right\}.
+\]
+\(dG(z')\) is the density of \(z'\); we're weighting our integration by the frequency of outcomes. Note that \(z\) is part of the state since it is observed before any decisions are made. We can solve this problem by applying the contraction mapping theorem as before and iterate on the Bellman mapping. The only difference is that we need to compute the expected value for the second term on the right hand side. We assume that \(z\) follows a Markov process:
+\[
+\p(z_{t + 1} \in A \mid z_j (j \le t)) = \p(z_{t + 1} \in A \mid z_t).
+\]
+This means that we can ignore the infinite history and just focus on the current state.
+Some examples:
+\begin{enumerate}
+\item First order autoregressive process,
+\[
+z_{t + 1} = \rho z_t + \varepsilon_{t + 1}, \quad \varepsilon_{t + 1} \text{ iid}
+\]
+\begin{itemize}
+\item $\rho = 1 \implies$ iid
+\item $\rho = 1 \implies$ random walk
+\end{itemize}
+\item Markov chain $\iff$ there are a fininte number of possible values of $z$.
+\end{enumerate}
+Is this condition unreasonably restrictive?
+\begin{align*}
+\intertext{Suppose}
+z_{t + 1} &= \rho_1 z_t + \rho_2 z_{t - 1} + \varepsilon_{t + 1}.\\
+\intertext{Then we can let}\\
+\tilde{z}_t &= \begin{bmatrix}z_t\\z_{t + 1}\end{bmatrix}\\
+&= A\\
+\implies \tilde{z}_{t + 1} &= \begin{bmatrix}\rho_1 & \rho_2 \\ 1 & 0\end{bmatrix} \tilde{z}_t + \begin{bmatrix}\varepsilon_{t + 1}\\ 0\end{bmatrix}\\
+\implies \tilde{z}' &= A\tilde{z} + B \varepsilon', \quad B=\begin{bmatrix}1\\0\end{bmatrix}
+\end{align*}
+The Markov assumption just means that information relevant to today's decisions consists of a finite set of realizations from the past.
+\subsubsection{Markov Chains}
+\label{sec:org96351e6}
+Stokey and Lucas, 319--334;\quad Ljungquist and Sargent, Chapter 2
+\begin{enumerate}
+\item Let $S$ be a state space consisting of $n$ (finite) elements, $S_1, \ldots , S_n$.
+\item Let $P$ be an $n \times n$ matrix where
+\begin{itemize}
+\item $\sum^n_{j = 1} p_{ij} = 1$ for $i = 1, \ldots, n$ (rows sum to $1$)
+\item $p_{ij} \ge 0$ for all $i, j$
+\end{itemize}
+Each row of $P$ is a probability distribution. In particular,
+\[
+p_{ij} = \p(z_{t + 1} = S_j \mid z_t = S_i).
+\]
+$P$ is called the transition probability matrix.
+\item Let $\Pi_0$ be an $n \times 1$ vector where $\Pi_{0i} \ge 0$ for all $i$, and $\sum^n_{i = 1} \Pi_{0i} = 1$. This is the \gr{initial distribution}, where
+\[
+\Pi_{0i} = \p(z_0 = S_i).
+\]
+\textbf{Note:} For the stochastic growth model, $z_0$ is given. Hence $\Pi_{0i} = 1$ for some $i$.
+\end{enumerate}
+\(S, P\) and \(\Pi_0\) define a Markov Chain. \(P^m\) is a transition probability matrix. In particular, 
+\[
+P^m_{ij} = \p(z_{t + m} = S_j \mid z_t = S_i).
+\]
+\begin{proof}
+Consider $P^2$.
+\begin{align*}
+P^2_{ij} &= \sum^n_{k = 1} P_{ik} P_{kj}\\
+&= \sum^n_{k = 1} \left(\p(z_{t + 1} = S_k \mid z_t = S_i)\cdot \p(z_{t + 2} = S_j \mid Z_{t + 1} = S_k)\right) 
+\end{align*}
+$\implies P^2$ is a transition probability matrix. Recursively multiplying $P^2$ and $P$ can get any $P^m$.
+\end{proof}
+Denote the transpose of \(P\) by \(P^T\). Given \(\Pi_0\), the unconditional distribution of \(z\) at date \(t\) is given by
+\[
+\Pi_t = (P^T)^t \Pi_0.
+\]
+\begin{proof}
+\begin{align*}
+\Pi_1 &= P^T \Pi_0 \tag{convince yourself}\\
+\Pi_{t + 1} &= P^T \Pi_t \tag{convince yourself}\\
+\intertext{Recursively applying this formula,}
+\Pi_2 &= P^T\Pi_1\\
+&= (P^T)^2 \Pi_0\\
+&\vdots\\
+\Pi_t &= (P^T)^t \Pi_0
+\end{align*}
+\end{proof}
+This transition matrix is the thing we're interested in. Next class, we're going to apply this idea to the entire stochastic growth model so that we can characteristic the unconditional probability of the capital stock being a particular value. Then we can take the limit and see what the capital stock and other endogenous variables look like in the limit.
+\paragraph{Two important concepts}
+\begin{enumerate}
+\item An invariant (ergodic, stationary) distribution is some $\Pi$ such that $\Pi = P^T \Pi$. This is the stochastic analog of a steady state.
+\item A limit distribution is some $\Pi_\infty$ where
+\begin{align*}
+\Pi_\infty &= \lim_{t \to \infty} \Pi_t \\
+&= \lim_{t \to \infty} (P^T)^t \Pi_0
+\end{align*}
+\end{enumerate}
+\paragraph{Note}
+\begin{enumerate}
+\item If $\Pi_\infty$ exists and $\lim_{t \to \infty} (P^T)^t$ has identical columns, $\Pi_\infty$ is unique (does not depend on $\Pi_0$).
+\item Any limit distribution is an invariant distribution, and any invariant distribution is a limit distribution for some $\Pi_0$. This is because an invariant distribution, if it exists, may not be unique.
+\item Solving for an invariant distribution:
+\begin{align*}
+\Pi &= P^T \Pi\\
+\implies 0 &= (I - P^T)\Pi\\
+\intertext{$\implies \Pi$ is a normalized (elements sum to $1$) eigenvector associated with a unique eigenvalue of $P^T$.}
+\end{align*}
+\end{enumerate}
+\paragraph{Goal: } Determine when there is one and only one invariant distribution. If this is the case, the limit distribution is unique and independent of \(\Pi_0\).
+\begin{definition}[Ergodic Set]
+A set $E \subseteq S$ is called an \gr{ergodic set} if
+\[
+\p(z' \in E \mid z = z_i) = 1
+\]
+for any $z_i \in E$ and if no proper subset of $E$ has this property.
+\end{definition}
+To reach our goal, we need to consider some examples of Markov chains. First, how do we solve the planner's problem if \(z\) is governed by a Markov chain? Suppose
+\begin{align*}
+z' &\in \{z_L, z_H\}\\
+\intertext{with transition matrix}
+P &= \begin{bmatrix}q & 1 - 1\\1 - q & q\end{bmatrix}\\
+v(z, k) &= \max_{k'} \left\{u(zf(k) - k') + \beta Ev(z', k')\right\}\\
+\intertext{Set up the Bellman equation, first defining}
+v_L(k) &\equiv v(z_L, k),\\
+v_H(k) &\equiv v(z_H, k).\\
+Tv_L(k) &= \max_{k'} \left\{u(z_L f(k) - k') + \beta[qv_L(k') + (1 - q)v_H(k')]\right\}\\
+Tv_H(k) &= \max_{k'} \left\{u(z_H f(k) - k') + \beta[(1 - q)v_L(k') + q v_H(k')]\right\}.\\
+\intertext{Find the two functions, $v_L$ and $v_H$, that are a fixed point of this mapping. Similar to earlier, guess a functional form, and if the Bellman Mapping is closed under the functional form, use the method of undetermined coefficients.}
+\end{align*}
+Later, how do we characterize the limit distribution---the stochastic analog of the steady state?
+\subsubsection{Examples}
+\label{sec:orgdc008ed}
+    \begin{enumerate}
+\item
+\[
+P = \begin{bmatrix}
+q & 1 - q\\
+1 - 1 & q
+\end{bmatrix}
+\]
+\begin{enumerate}
+\item $0 < q < 1 \implies$ there is only one ergodic set, $\{z_L, z_H\}$, since $P_{ij} > 0$ for all $i, j$. Solve $\Pi = P^T\Pi \implies \Pi = \begin{bmatrix}\frac{1}{2} \\ \frac{1}{2}\end{bmatrix}$, which is the unique solution/distribution.
+\end{enumerate}
+\item 
+\[
+q = 1 \implies P = \begin{pmatrix} 1 & 0 \\ 0 & 1\end{pmatrix}
+\]
+In this case, there are \(2\) ergodic sets,
+\[
+E_1 = \{Z_L\},\quad E_2 = \{Z_H\}.
+\]
+Each state is an \gr{absorbing state}; once you get to that state you never get out. In this case, any \(\Pi\) is an invariant distribution. Note that
+\[
+\Pi_\infty = \lim_{t \to \infty} (P^T)^t \Pi_0 = \Pi_0.
+\]
+\item 
+\[
+q = 0 \implies P = \begin{bmatrix}0 & 1 \\ 1 & 0\end{bmatrix}
+\]
+There is one ergodic set,\(\{z_L, z_H\}\).
+\end{enumerate}
 \end{document}

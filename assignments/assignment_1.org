@@ -30,12 +30,32 @@ k_0 &\text{ given.}
   \end{align*}
   \begin{enumerate}[label=(\alph*)]
     \item $ $
-    \begin{align*}
-    v(k_0) &= \max(u(c_0) + \beta v(k_1))\\
-v(k_0) &= \max(u(f(k_0) - k_1) + \beta v(k_1))
-\end{align*}
+    \begin{align}
+%     v(k_0) &= \max(u(c_0) + \beta v(k_1))\\
+% v(k_0) &= \max(u(f(k_0) - k_1) + \beta v(k_1))\\
+% u'(f(k_0) - k_1) &= \beta v'(k_1)\\
+% F(k_t) &= k_t^\theta\\
+U'(f(k_t) - k_{t + 1}) &= \beta U' (f(k_{t + 1}) - k_{t + 2})f'(k_{t + 1}) \tag{Euler Equation}\\
+\frac{1}{k^\theta_t - k_{t + 1}} &= \beta \frac{\theta k^{\theta - 1}_{t + 1}}{k^\theta_{t + 1} - k_{t + 2}}\\
+\frac{1}{k^\theta_{T - 1} - k_T} &= \beta \frac{\theta k^{\theta - 1}_T}{k^\theta_T}\\
+k_T &= \frac{\theta \beta}{1 + \theta \beta}k^\theta_{T - 1}\\
+k_{t + 1} &= \frac{\theta \beta (1 - (\theta \beta)^{T - t})}{1 - (\theta \beta)^{T - t + 1}} k^\theta_t\\
+k_{t + 1} &= \theta \beta k_{t}^\theta
+\end{align}
     \item $ $ 
+    \begin{align}
+    \overline{k} &= \theta \beta \overline{k}^\theta\\
+\overline{k}^{1 - \theta} &= \theta \beta\\
+\overline{k} &= (\theta \beta)^{\frac{1}{1 - \theta}}
+\end{align}
     \item $ $
+    \begin{align}
+    u'(f(k) - k') &= \beta v'(k')\tag{FOC from Bellman}\\
+U'(f(k_t) - k_{t + 1}) &= \beta U' (f(k_{t + 1}) - k_{t + 2})f'(k_{t + 1}) \tag{Euler Equation}\\
+V'(S) &= R_k (k) + \beta V'(k') B_S(S) \tag{Envelope Condition \rd{Read up on this}}\\
+\frac{1}{k^\theta - k'} &= \frac{\theta \beta}{1 - \theta \beta}\frac{1}{k'}\\
+k' &= \theta \beta k^\theta
+    \end{align}
   \end{enumerate}
   #+END_SRC 
 
