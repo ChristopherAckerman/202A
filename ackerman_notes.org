@@ -5,6 +5,7 @@
 #+LATEX_HEADER: \newtheorem*{definition}{Definition}
 #+LATEX_HEADER: \newtheorem*{example}{Example}
 #+LATEX_HEADER: \newtheorem*{theorem}{Theorem}
+#+LATEX_HEADER: \newtheorem*{corollary}{Corollary}
 #+LATEX_HEADER: \newtheorem*{exercise}{Exercise}
 #+LATEX_HEADER: \newtheorem{question}{Question}
 #+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
@@ -790,3 +791,149 @@ There is one ergodic set,$\{z_L, z_H\}$.
 \end{enumerate}
 
 
+* October 19, 2020
+  Our graded homework assignment will be due on Friday, October 30. We already have the first two problems, and will have the third one soon. \rd{Do problem 1 tomorrow.}
+** Examples of Markov Chains
+\begin{enumerate}
+\item[2.]
+\[
+P = \begin{bmatrix}
+0.7 & 0.2 & 0.1 \\
+0 & 0.5 & 0.5 \\
+0 & 0.9 & 0.9
+\end{bmatrix}
+\]
+How many ergodic sets? remember we can't use the whole state space as an ergodic set. Therefore we only have one ergodic set,
+\[
+E = \{Z_2, Z_3\}.   
+\]
+We call $Z_1$ a \gr{transient state} since it has probability $0$ in the limiting distribution. We want to be able to break down Markov chains into ergodic sets and transient states (this is common on exams, and there is an example on the assignment).
+\item[3.] Let $P_1$ be an $m \times m$ matrix with all positive elements, $P_w \ldots (n - m)\times (n - m) \ldots$,
+\[
+P = \begin{bmatrix}
+P_1 & 0 \\
+0 & P_2
+\end{bmatrix}_{n \times n},
+\]
+where $P$ is an $n \times n$ matrix and $P_1$ and $P_2$ each define a Markov chain on their own ($P_1$ and $P_2$ are transition probability matrices). This setup gives us two ergodic sets,
+\begin{align*}
+E_1 &= \{Z_1,\ldots , Z_m\}, \text{ and}\\
+E_2 &= \{Z_{m + 1}, \ldots , Z_n\}. 
+\end{align*}
+In this case, we don't have any transient states. An invariant distribution for Markov chain $P$ is some $\Pi$ such that
+\[
+\Pi = a \begin{bmatrix}
+\Pi_1 \\ 0
+\end{bmatrix} + (1 - a)
+\begin{bmatrix}
+0 \\ \Pi_2
+\end{bmatrix},
+\]
+where $\Pi$ is the unique invariant distribution of $E_1$, and $\Pi_2$ is the unique invariant distribution of $\Pi_2$. This definition holds for any $a \in [0, 1]$. We can think of $a$ as the probability weight assigned to the first ergodic set in the initial distribution,
+\[
+a = \sum^m_{i = 1}\pi_{0i}.
+\]
+\item[4.]
+This is the general case of cyclically moving subsets. Let $P_1$ be an $m \times(n - m)$ matrix $P_2 \ldots (n - m) \times m \ldots$,
+\[
+P = \begin{bmatrix}
+0 & P_1 \\
+P_2 & 0
+\end{bmatrix}.
+\]
+The limiting distribution here does not exist (the way we defined it) for most initial distributions since we end up switching between the two states.
+\end{enumerate}
+When does a Markov chain have a unique invariant distribution?
+\begin{theorem}
+Let $Z = \{z_1, \ldots, z_n\}$ and $P$ be a corresponding transition probability matrix. $P$ has a unique ergodic set if and only if there exists a state $z_j \in Z$ such that, for every $i \in \{1, \ldots, n\}$, there exists a $t \ge 1$ such that $p_{ij}^{(t)} > 0$. In this case, the invariant distribution is unique.
+\end{theorem}
+In words, we can get to every $z_j$ from $z_i$ infinitely many times with positive probability. This does not rule out cyclically moving subsets. To check potential limiting distributions, we only need to look at states we can get to from anywhere else in the state space.
+\begin{corollary}
+If $p_{ij} > 0$ for all $i, j$, then there is a unique stationary distribution  and no cyclically moving subsets.
+\end{corollary}
+This won't work in our stochastic growth model because our transition matrix will have lots of zeroes. This corollary also eliminates transient states, which are an important feature of the stochastic growth model.
+** Application to the stochastic growth model
+\begin{align*}
+V(z, k) &= \max_{k' \in K} \{u(f(k) - k') + \beta E V(z', k')\}\\
+\text{s.t.\quad} z' &\in \{z_L, z_H\} \\
+\intertext{with transition matrix}
+P &= \begin{bmatrix}q & 1 - q\\1 - q & q\end{bmatrix} \tag{$q \in (0, 1)$}\\
+K &= \{K_1, K_2, \ldots, K_n\}
+\end{align*}
+We can solve for the policy function
+\begin{equation*}
+k' = g(z, k ) = \left\{
+\begin{array}{ll}
+g_L(k) & \text{ if }z = z_L\\
+g_H(k)  & \text{ if }z = z_H\\
+\end{array}
+\right.
+\end{equation*}
+Form a $2n \times 2n$ transition probability matrix (the size of the state space) $\hat{P}$ as follows. Let $S$ be the set of all $z, k$ combinations.
+\begin{align*}
+S_2 &= (z_L, K_1)\\
+S_2 &= (z_L, K_2)\\
+&\vdots \\
+S_n &= (z_L, K_n)\\
+S_{n + 1} &= (z_H, K_1)\\
+&\vdots \\
+S_{2n} &= (z_H, K_n)
+\end{align*}
+Lots of these are going to be zeros since we'll never jump from the lowest $K$ to the highest $K$ in one period. There's a positive probability we can get to a high capital state eventually, but it will take many periods of investment to get there. This is why the stochastic growth model violates the condition from our earlier corollary. With this setup,
+\begin{align*}
+\hat{P}_{ij} &= \p (z' = S_{j1} \mid z = S_{ij})\cdot \p(k' = S_{j2}\mid S_i )\\
+&= P_{S_i, S_{j1}} \cdot X(g(S_i) = S_{j2}),\\
+\intertext{where}
+X(\text{statement}) &= \left\{
+\begin{array}{ll}
+1 & \text{ if statement is true}\\
+0 & \text{ if statement is false}
+\end{array}
+\right.\\
+\intertext{We can find an invariant distribution by solving}
+\hat{\Pi} &= \hat{P}^T \hat{\Pi}.
+\end{align*}
+We can use $\hat{\Pi}$ to compute any statistic of interest.
+\begin{example}[Compute the standard deviation of output]
+\begin{align*}
+y &= F(k, 1)\\
+\sigma_y &= \sqrt{Ey^2 - (Ey)^2}\\
+Ey &= E (z F(k_1))\\ &= \sum^{2n}_{i = 1} \hat{\pi}_1 S_{i1}F(S_{i2}, 1)\\
+Ey^2 &= E(zF(k, 1))^2\\ &= \sum^{2n}_{i = 1} \hat{\pi}_i (S_i, F(S_{i2}, 1))^2
+\end{align*}
+\end{example}
+There are three ways to show that the invariant distribution is unique:
+\begin{enumerate}
+\item $\hat{P}^T$ has one and only one unit eigenvalue.
+\item All of the rows of $\lim_{t \to \infty} \hat{P}^t$ are identical.
+\item Use a theorem given the shape of the policy function
+\end{enumerate}
+\rd{ADD GRAPHS WITH POLICY FUNCTIONS AND THEIR SHAPES.}
+
+
+$E = [k_L, k_H]$ is the unique ergodic set for capital. The conditions for our theorem are satisfied for any state $S$ where $k = K_j$ for $k_L \le K_j \le k_H$. In words, we can pick any element of the grid between $k_L$ and $k_H$ and any state. The only restriction is that we are in the ergodic set.  This solution assumes that $k$ is on a grid.
+\begin{example}
+\begin{align*}
+V(z, k) &= \max_{k'}\{\log(e^z k^\theta - k') + \beta V(z', k'))\}\\
+Z &\sim N(0, \sigma^2).
+\end{align*}
+Characterize the limit distribution of $\log k$ and $\log y$. Is it unique? In other words, does it depend on $z_0$ and/or $k_0$? This problem will be part of our graded homework. \textbf{Hints:}
+\begin{enumerate}
+\item The normal distribution is fully characterized by its mean and variance.
+\item Do problem 2.7 in Stokey and Lucas. In this more complicated problem we will also have to calculate the policy function.
+\end{enumerate}
+Here, we are able to find a closed form solution for the stationary distribution. We could also do the same thing when the state space has a finite number of elements. In most interesting cases, this is impossible.
+\end{example}
+** Using Simulation (Law of Large Numbers) to characterize the invariant distribution
+   Given 
+\begin{align*}
+k_{t + 1} &= g(z_t, k_t)\\
+\intertext{and values for $z_0$ and $k_0$,}
+Z_{t + 1} &\sim G(z' \mid z_t)
+\end{align*}
+\begin{enumerate}
+\item Draw $z_t, t = 1, \ldots, T_0$ using a random number generator.
+\item Compute $\{k_t\}^{T_0}_{t = 1}$ using $k_{t + 1} = g(z_t, k_t)$.
+\item Discard everything except $z_{T_0}$ and $k_{T_0}$ to remove any dependence on the initial condition.
+\item Repeat steps $1$ and $2$ setting $z_0 = z_{T_0}$ and $k_0 = k_{T_0}$ to obtain $\{z_t, k_t\}^T_{t = 0}$, where $T$ is large.
+\end{enumerate}
