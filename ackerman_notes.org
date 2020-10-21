@@ -2,16 +2,18 @@
 #+AUTHOR: Chris Ackerman
 #+LATEX_HEADER: \usepackage{amsthm}
 #+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{hyperref} 
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{enumitem}
 #+LATEX_HEADER: \newtheorem*{definition}{Definition}
 #+LATEX_HEADER: \newtheorem*{example}{Example}
 #+LATEX_HEADER: \newtheorem*{theorem}{Theorem}
 #+LATEX_HEADER: \newtheorem*{corollary}{Corollary}
 #+LATEX_HEADER: \newtheorem*{exercise}{Exercise}
+#+LATEX_HEADER: \newtheorem*{problem}{Problem}
 #+LATEX_HEADER: \newtheorem{question}{Question}
-#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
-#+LATEX_HEADER: \usepackage{hyperref} 
-#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
-#+LATEX_HEADER: \usepackage{booktabs}
 #+LATEX_HEADER: \newcommand{\gr}{\textcolor{ForestGreen}}
 #+LATEX_HEADER: \newcommand{\rd}{\textcolor{red}}
 #+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
@@ -936,4 +938,204 @@ Z_{t + 1} &\sim G(z' \mid z_t)
 \item Compute $\{k_t\}^{T_0}_{t = 1}$ using $k_{t + 1} = g(z_t, k_t)$.
 \item Discard everything except $z_{T_0}$ and $k_{T_0}$ to remove any dependence on the initial condition.
 \item Repeat steps $1$ and $2$ setting $z_0 = z_{T_0}$ and $k_0 = k_{T_0}$ to obtain $\{z_t, k_t\}^T_{t = 0}$, where $T$ is large.
+\item Compute the statistic of interest,
+\[
+E \phi (z, k) \approx \frac{1}{T} \sum^T_{t = 1} \phi(z_t, k_t),
+\]
+where $\phi(z, k)$ is some function of $z$ and $k$.
 \end{enumerate}
+
+* October 21, 2020
+* Relationship between AR and MC
+   \begin{equation}
+Z_{t + 1} = \rho z_t + \varepsilon_{t + 1}, \quad \varepsilon_{t + 1} \sim \mathcal{N}(0, \sigma_\varepsilon^2)\tag{AR}
+   \end{equation}
+Assume we also have a two state Markov chain, $z \in \{z_L, z_H\}$, with transition matrix $P$.
+
+\begin{problem}
+Assume we are given values for $\rho$ and $\sigma_\varepsilon$. Find values for $z_L, z_H$, and $P$ so that the first and second moments are the same for both stochastic processes.
+\end{problem}
+Here's a start\ldots
+\begin{enumerate}
+\item (AR) is a symmetric stochastic process. In the limit, we spend equal time both above and below the mean, $\implies$
+\[
+P = \begin{bmatrix}q & 1 - q\\ 1 - q & q\end{bmatrix}
+\]
+\item
+\[
+Ez = 0 \implies z_L = -\sigma \text{ and } z_H = \sigma
+\]
+\end{enumerate}
+So, we need to find values for $\sigma$ and $q$ that match second moments.
+
+\paragraph{Answer.}
+\[
+q = \frac{1 + \rho}{2}, \quad \sigma = \frac{\sigma_\varepsilon}{\sqrt{1 - \rho^2}}
+\]
+\rd{Add graphs from class (after doing calculations/simulations) time permitting.}
+
+** General Equilibrium
+So far, we have studied solutions to the planner's problem. These allocations are also an equilibrium allocation where quantities are chosen by households and firms, and prices clear markets. This result follows from the Second Welfare Theorem. Mostly, we are interested in equilibria in economies with distortions (for example taxes and externalities). We are also interested in prices---usage rates, rental rates, the interest rate, asset prices, etc. How do we model a decentralized economy and define an equilibrium? There are three main approaches.
+
+#+ATTR_LATEX: :booktabs t
+|-----------------------+------------------------------------------------------------------|
+| Arrow-Debreu          | Very general and abstract.                                       |
+|                       | Prices don't correspond to prices in the real world.             |
+|-----------------------+------------------------------------------------------------------|
+| Sequence of Markets   | Popular in asset pricing.                                        |
+|                       | Prices correspond to their real world problem.                   |
+|                       | Agents solve a sequence problem.                                 |
+|-----------------------+------------------------------------------------------------------|
+| Recursive Competitive | An alternative sequence of markets approach.                     |
+| Equilibrium           | Households solve a dynamic program.                              |
+|                       | This approach has the advantage of suggesting a solution method. |
+|-----------------------+------------------------------------------------------------------|
+
+
+\begin{example}[Sequence of Markets approach]
+There are $N$ identical households and one firm with CRS technology (WLOG).
+\begin{enumerate}
+\item[\textbf{Markets.}] Markets are held \textbf{each} period.
+\item[\textbf{Goods.}] Supplied by the firm, demanded by households. Price$= 1$ (numeraire).
+\item[\textbf{Labor.}] Supplied by households, demanded by firms. Price$_t = w_t$. Each household is endowed with 1 unit of time each period, which they can use for either labor or leisure.
+\item[\textbf{Capital.}] Accumulated and owned by households, who rent capital to firms. Rental Price$_t = r_t$.
+\item[\begin{tabular}{r}\textbf{Household's}\\ \textbf{Problem.}\end{tabular}]
+\begin{align*}
+\max \sum^\infty_{t = 0} & \beta^t u(c_t, 1 - h_t)\\
+\intertext{subject to}
+c_t + i_t &= w_t h_t + r_t h_t\\
+k_{t + 1} &= (1 - \delta)k_t + i_t\\
+k_0 &\text{ given}
+\end{align*}
+The household is now subject to a budget constraint, not a resource constraint. Unlike a resource constraint, a budget constraint involves prices.
+\item[\textbf{Firm's Problem.}]
+\begin{align*}
+\max &\{y_t - w_t h_t - r_t k_t\},\quad t = 0, 1, 2, \ldots\\
+\intertext{subject to}
+y_t &= F(k_t, h_t)
+\end{align*}
+The firm solves a static problem---all the dynamics are in the household's problem. The firm solves the same problem each period; they're renting capital and paying labor for each period. Nothing (for the firms) carries through each period. The assumption that households own capital and firms rent it means that the firm solves a static problem.
+\end{enumerate}
+\end{example}time
+\begin{definition}[Competitive Equilibrium]
+A \gr{competitive equilibrium} is
+\begin{enumerate}[label=(\alph*)]
+\item An allocation for households
+\[
+\{c_t^d, i_t^d, k_t^s, h_t^s\}^\infty_{t = 0}
+\]
+\item An allocation for firms
+\[
+\{h_t^d, k_t^d, y_t^s\}^\infty_{t = 0}
+\]
+\item Prices
+\[
+\{w_t, r_t\}^\infty_{t = 0}
+\]
+\end{enumerate}
+such that
+\begin{enumerate}
+\item Given $\{w_t, r_t\}^\infty_{t = 0}$, the household allocation solves the household's problem (given prices).
+\item Given $\{w_t, r_t\}^\infty_{t = 0}$, the firm's allocation solves its problem for $t = 0, 1, 2, \ldots$ (given prices).
+\item Markets clear:
+\begin{align*}
+h_t^d &= Nh_t^s \tag{Labor markets}\\
+k_t^d &= Nk_t^s \tag{Capital rental}
+\end{align*}
+\end{enumerate}
+\end{definition}
+
+The goods market is guaranteed to clear,
+\[
+y_t^s = N(c_t^d + i_t^d),
+\]
+by Walras' Law.
+
+In this notation, the $d$ and $s$ superscripts denote ``demand'' and ``supply''. The household problem is a sequence problem; the firm's problem is a \emph{sequence of problems}, because it is static.
+\begin{exercise}
+Show that, in a $T$-period version of this economy, the social planner's allocation and the equilibrium allocations are identical.
+\end{exercise}
+\begin{exercise}[Walras' Law]
+Prove Walras' Law for this economy. Show that, if the labor and capital markets are in equilibrium, the goods market automatically clears.
+\end{exercise}
+
+* October 26, 2020 
+** Recursive Competitive Equilibrium (same economy)
+In this setup, the allocations and prices are functions rather than sequences. First, notice that
+\begin{enumerate}
+\item From the first order conditions of the sequence version of the firm's problem,
+\begin{align*}
+w_t &= F_2(k_t, h_t)\\
+r_t &= F_1(k_t, h_t)
+\end{align*}
+\item The first order condition for $h_t$ in the household's problem is
+\[
+u_2(c_t, 1 - h_t) = u_1(c_t, 1 - h_t)w_t
+\]
+\item
+\[
+c_t = w_t h_t + r_t k_t + (1 - \delta)k_t - k_{t + 1}
+\]
+\end{enumerate}
+Combining these three conditions, we obtain
+\[
+h_t = \mathcal{H}(k_t, k_{t + 1}).
+\]
+Let $\{K_t\}^\infty_{t = 0}$ be the equilibrium sequence of (per capita) capital stock. Then,
+\[
+H_t = \mathcal{H} (K_t, K_{t + 1}).
+\]
+
+The household's problem is
+\begin{align*}
+v(K, k) &= \max_{h, k'} \{u(c, 1 - h) + \beta v(K', k')\}\\
+\intertext{subject to}
+c + k' &= wh + rk + (1 - \delta)k\\
+w &= w(K)\\
+r &= r(K)\\
+K' &= G(K) \tag{perceived law of motion}
+\end{align*}
+
+The firm's problem is
+\begin{align*}
+\max_{k', h'} &\{F(k^t, h^t) - wh^f - rk^f\}\\
+\intertext{subject to}
+w &= w(K)\\
+r &= r(K)
+\end{align*}
+
+\begin{definition}[Recursive Competitive Equilibrium]
+A \gr{recursive competitive equilibrium} is 
+\begin{enumerate}[label=(\alph*)]
+\item Decision rules for households,
+\[
+h(K, k), \quad k'(K, k),
+\]
+\item Decision rules for the firm,
+\[
+h^f(K),\quad k^f(K),
+\]
+\item Pricing functions,
+\[
+w(K),\quad r(K),
+\]
+\item And a perceived law of motion,
+\[
+G(k)
+\]
+\end{enumerate}
+such that
+\begin{enumerate}
+\item Given $w(K), r(K)$ and $G(K)$, the decision rules for the households solve the household's dynamic program.
+\item Given $w(k)$ and $r(k)$, the firm's decision rules solve the firm's problem.
+\item Markets clear,
+\begin{align*}
+Nh(K, K) &= h^f(K)\\
+NK &= k^f(K).
+\end{align*}
+\item Rational expectations,
+\[
+k'(K, K) = G(K).
+\]
+\end{enumerate}
+\end{definition}
