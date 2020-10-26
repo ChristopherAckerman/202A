@@ -1,4 +1,4 @@
-% Created 2020-10-21 Wed 14:08
+% Created 2020-10-26 Mon 14:09
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -51,14 +51,14 @@
 \newpage
 
 \section{Lecture 1---October 5, 2020}
-\label{sec:orgd15640f}
+\label{sec:org091bafd}
 
 Emphasis will be on neoclassical models of macroeconomic growth.
 
 Office hours after class. Cohort effects are huge; spend lots of time collaborating with classmates. Start with certainty; converge to a single point steady state. With stochastic elements, we converge to a distribution. In both cases, we're studying an optimization problem. The model we're studying is the solution to an optimization problem. We will then discuss how to interpret these solutions as competitive equilibria. In these models, what is chosen by the planner and the competitive outcome are the same. In more realistic models, this won't be the case---there will be distortions. The goal is not to be theoretically rigorous; the focus is on applied macroeconomics---applying macroeconomic tools to study \textbf{the real world}. How can we use our theoretical models to interpret the real world or do interesting policy experiments?
 
 \subsection{Basic Neoclassical Growth Model Cass-Koopmans)}
-\label{sec:org260c361}
+\label{sec:orga6523db}
 Economy consists of many identical infinitely lived households, each with the same preferences and endowments. There are several possible interpretations
 \begin{itemize}
 \item Representative Agent
@@ -141,7 +141,7 @@ where \(k_0\) is given.
 \end{itemize}
 
 \subsection{Dynamic Programming}
-\label{sec:org6bb6484}
+\label{sec:org98a2fe6}
 
 \begin{align*}
 \intertext{Let }
@@ -154,7 +154,7 @@ V(k_1) &= \max_{\{k_{t + 1}\}^\infty_{t = 1}} \sum^\infty_{t = 1}\beta^{t - 1} u
 \end{align*}
 
 \subsubsection{Bellman's Equation}
-\label{sec:org9f17713}
+\label{sec:org4ff7bb0}
 
 \[
 V(k) = \max_{k'} \left\{ u(f(k) - k') + \beta V(k')\right\}
@@ -171,7 +171,7 @@ which is the \emph{policy function}, often called the \emph{optimal policy funct
 
 
 \subsubsection{Solving for \(V(k)\)}
-\label{sec:org74c6b44}
+\label{sec:orgbbcd4e4}
 \begin{enumerate}
 \item Guess a function $V_0(k)$.
 \item Create a new function by applying a mapping to $V_0(k)$. We apply the operator $T$, so the new function is
@@ -192,7 +192,7 @@ creating (with a computer) the sequence $\{V_n\}^\infty_{n = 0}$, where each $V_
 It turns out that this sequence is a Cauchy sequence, so we're guaranteed to get solutions that are arbitrarily close together. Look up contraction mappings, etc.
 
 \section{Lecture 2---October 7, 2020}
-\label{sec:org751e3bf}
+\label{sec:orgf6f7a93}
 The \(T\) we discussed yesterday is known as the \emph{Bellman Operator}.
 
 
@@ -278,7 +278,7 @@ from the neoclassical growth model satisfies monotonicity and discounting.
 \end{exercise}
 
 \subsection{Envelope Condition and Euler Equation}
-\label{sec:org12aedd4}
+\label{sec:org836c809}
 The FOC for the right hand side of the Bellman equation is
 \[
 u'(f(k) - g(k)) = \beta V'(g(k)),
@@ -381,7 +381,7 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{proof}
 
 \subsection{Things to know for exam/course}
-\label{sec:org9a35c51}
+\label{sec:org6b9c7fb}
 \begin{enumerate}
 \item Contraction mapping theorem
 \item Won't be tested on complete metric space, Cauchy sequence; we'll be dealing with specific functional forms that meet our assumptions
@@ -389,10 +389,10 @@ The last line uses the fact that $F_x \ge 0$ (one of our assumptions) and $x_t \
 \end{enumerate}
 
 \section{TA Section---October 9, 2020 (Introduction to Dynamic Programming)}
-\label{sec:orgbeeccc0}
+\label{sec:org173ba86}
 
 \subsection{The Sequential Problem and its Solution}
-\label{sec:org9753e0f}
+\label{sec:org28b4765}
 
 Consider the simple deterministic neoclassical growth model. We don't have prices, just the resource constraint and the capital accumulation equation. We have an infinitely-lived household, so the utility function depends on a sequence of consumption and is time-separable,
 \[
@@ -434,7 +434,7 @@ Simplifying,
 In words, the marginal cost of forgone consumption today must be the same as the discounted value of tomorrow's marginal product of capital, plus the marginal utility from consuming tomorrow's output.
 
 \subsection{Analytic Solution (full depreciation)}
-\label{sec:org39a36ab}
+\label{sec:org6c14d24}
 
 \begin{align*}
 u(c) &= \log(c)\\
@@ -468,7 +468,7 @@ s/y &= \alpha \beta\\
 \end{align*}
 
 \subsection{The Recursive Problem and its Solution}
-\label{sec:orge33ff36}
+\label{sec:org688417c}
 Define a real-valued function \(V(k)\),
 \begin{align*}
 V(k_0) &= \max_{\left\{k_{t + 1}\right\}^\infty_{t = 0}} \sum^\infty_{t = 0} \beta^t u(f(k_t) - k_{t + 1})\\
@@ -492,7 +492,7 @@ V'(k') &= \frac{\alpha}{1 - \alpha \beta} (k')^{-1}\\
 \end{align*}
 
 \subsection{Habit Persistence}
-\label{sec:orge94249e}
+\label{sec:orgf3d4123}
 
 \[
 u(c_t, c_{t - 1})
@@ -509,13 +509,13 @@ d' &= c
 \end{align*}
 
 \subsection{Value Function Iteration (HW in Matlab)}
-\label{sec:org30ab449}
+\label{sec:org59a8f0e}
 
 \section{October 12, 2020}
-\label{sec:orgdfb949e}
+\label{sec:org9142ed1}
 At the end of class today, we should be able to do everything on assignment 1. 
 \subsection{Steady State}
-\label{sec:orgde7cf10}
+\label{sec:org21ec41f}
 The steady state stock of capital is some \(\overline{k}\) such that
 \[
 \overline{k} = g(\overline{k}).
@@ -543,7 +543,7 @@ f'(k) &= 1 - \delta \\
 \end{align*}
 \rd{TODO: Add graphs}
 \subsubsection{Is \(\overline{k} > 0\) unique?}
-\label{sec:org9aa0ba7}
+\label{sec:org7b2177e}
 If \(f(k)\) us concave, yes---this follows from quasiconcavity and constant returns to scale. See Stokey and Lucas Exercise 4.8 for a more complete explanation.
 \begin{align*}
 f(k) \text{ concave } \implies f''(k) &< 0\\
@@ -554,7 +554,7 @@ f(k) \text{ concave } \implies f''(k) &< 0\\
 f(0) &= 0.
 \end{align*}
 \subsection{Maximum Sustainable Capital Stock}
-\label{sec:org661ea3e}
+\label{sec:orge30d380}
   \(k^\ast\), the maximum sustainable capital stock, is the largest value of \(k\) such that 
 \[
 f(k) \ge k.
@@ -574,7 +574,7 @@ For \(k\) to \emph{ever} be about \(k^\ast\), \(k^0 > k^\ast\) (perhaps due to a
 Even though we start with an unbounded utility function, we can implicitly bound it without loss of generality. This is important, since it allows us to utilize dynamic programming arguments. In order to be able to formally prove that a solution exists, we need to put an upper bound on utility since the function itself doesn't have an upper bound. From a practical standpoint, in terms of solving a dynamic programming problem, this maximum sustainable capital stock is really useful (in particular for solving Problem 3 on Assignment 1, which is graded and required).
 
 \subsection{Dynamics of the Growth Model}
-\label{sec:org704c2fb}
+\label{sec:orgcb350c3}
 How \(k_t\) evolves from \(k_0 > 0\) depends on the policy function, \(g(k)\). What do we know about this function? We don't assume anything about the policy function; we have to derive/solve for this policy function. But we still know two useful facts about the policy function that will help us solve this problem.
 \begin{enumerate}
 \item $g(0) = 0$
@@ -595,7 +595,7 @@ so \(\overline{k}\) is a stable steady state. We say that this steady state is s
 \textbf{Key Takeaway:} \(g(k)\) must cross the \(45\) degree line from above!
 
 \subsection{Adding Labor-Leisure Tradeoff}
-\label{sec:org903e594}
+\label{sec:org4e45963}
 
 This ingredient is key to the real business cycle literature. The RBC model is the neoclassical growth model with a labor-leisure tradeoff and a stochastic shock that affects technology (will cover this in more detail later). For now we're just adding a positive-utility alternative to working. Depending on how we specify \(u\), households may not spend all of their time working. In this class we'll always be working with a functional form for \(u\), but this isn't necessary in general.
 
@@ -635,11 +635,11 @@ S' = B(S, d)
 so that \(S'\) is a choice variable along with a subset of the decision variables. We can't hold \(S'\) constant since it isn't chosen directly. We want to rewrite the problem so that \(S\) doesn't appear in two different places in our optimization problem.
 
 \subsection{Problem 3, Assignment 1}
-\label{sec:orgcc5062c}
+\label{sec:org4031035}
 The code should be very short; it's a straightforward problem to solve. Here's a sketch for how to solve this problem, which is important since it's (a simplified version of) how to solve problems like this in real life. 
 
 \subsubsection{Solving a Dynamic Program where the state space has a finite number of elements}
-\label{sec:orgc1bafba}
+\label{sec:org10b17d7}
 If capital is on a grid and there is a maximum sustainable capital stock, 
 \[
 k = \left\{k_1, k_2, \ldots, k_N\right\}.
@@ -674,9 +674,9 @@ for $i = 1, \ldots, N$. Here $g(i, 1)$ is the row number corresponding to $\max$
 
 \noindent \textbf{End of deterministic growth; will start stochastic growth next class.}
 \section{October 14, 2020}
-\label{sec:org3e56744}
+\label{sec:orgd0d75ad}
 \subsection{Stochastic Growth}
-\label{sec:orgf1fe9e0}
+\label{sec:orgb4b9e53}
 The sequence problem is
 \begin{align*}
 \max E &\sum^\infty_{t = 0} \beta^t u(c_t)\\
@@ -721,7 +721,7 @@ z_{t + 1} &= \rho_1 z_t + \rho_2 z_{t - 1} + \varepsilon_{t + 1}.\\
 \end{align*}
 The Markov assumption just means that information relevant to today's decisions consists of a finite set of realizations from the past.
 \subsubsection{Markov Chains}
-\label{sec:org64b7b9d}
+\label{sec:orgdef6517}
 Stokey and Lucas, 319--334;\quad Ljungquist and Sargent, Chapter 2
 \begin{enumerate}
 \item Let $S$ be a state space consisting of $n$ (finite) elements, $S_1, \ldots , S_n$.
@@ -812,7 +812,7 @@ Tv_H(k) &= \max_{k'} \left\{u(z_H f(k) - k') + \beta[(1 - q)v_L(k') + q v_H(k')]
 \end{align*}
 Later, how do we characterize the limit distribution---the stochastic analog of the steady state?
 \subsubsection{Examples}
-\label{sec:org7cfc205}
+\label{sec:org60312ea}
     \begin{enumerate}
 \item
 \[
@@ -845,10 +845,10 @@ There is one ergodic set,\(\{z_L, z_H\}\).
 
 
 \section{October 19, 2020}
-\label{sec:orgbee7fbc}
+\label{sec:org4795735}
 Our graded homework assignment will be due on Friday, October 30. We already have the first two problems, and will have the third one soon. \rd{Do problem 1 tomorrow.}
 \subsection{Examples of Markov Chains}
-\label{sec:org8864a1f}
+\label{sec:org4670c46}
 \begin{enumerate}
 \item[2.]
 \[
@@ -908,7 +908,7 @@ If $p_{ij} > 0$ for all $i, j$, then there is a unique stationary distribution  
 \end{corollary}
 This won't work in our stochastic growth model because our transition matrix will have lots of zeroes. This corollary also eliminates transient states, which are an important feature of the stochastic growth model.
 \subsection{Application to the stochastic growth model}
-\label{sec:org70855a2}
+\label{sec:org816d2e3}
 \begin{align*}
 V(z, k) &= \max_{k' \in K} \{u(f(k) - k') + \beta E V(z', k')\}\\
 \text{s.t.\quad} z' &\in \{z_L, z_H\} \\
@@ -981,7 +981,7 @@ Characterize the limit distribution of $\log k$ and $\log y$. Is it unique? In o
 Here, we are able to find a closed form solution for the stationary distribution. We could also do the same thing when the state space has a finite number of elements. In most interesting cases, this is impossible.
 \end{example}
 \subsection{Using Simulation (Law of Large Numbers) to characterize the invariant distribution}
-\label{sec:org515f06d}
+\label{sec:org7e5daba}
 Given 
 \begin{align*}
 k_{t + 1} &= g(z_t, k_t)\\
@@ -1001,9 +1001,9 @@ where $\phi(z, k)$ is some function of $z$ and $k$.
 \end{enumerate}
 
 \section{October 21, 2020}
-\label{sec:org94f6a40}
+\label{sec:org2636063}
 \section{Relationship between AR and MC}
-\label{sec:org358d557}
+\label{sec:org4bd19b1}
    \begin{equation}
 Z_{t + 1} = \rho z_t + \varepsilon_{t + 1}, \quad \varepsilon_{t + 1} \sim \mathcal{N}(0, \sigma_\varepsilon^2)\tag{AR}
    \end{equation}
@@ -1032,7 +1032,7 @@ q = \frac{1 + \rho}{2}, \quad \sigma = \frac{\sigma_\varepsilon}{\sqrt{1 - \rho^
 \rd{Add graphs from class (after doing calculations/simulations) time permitting.}
 
 \subsection{General Equilibrium}
-\label{sec:orgaa0e056}
+\label{sec:org2e7c00c}
 So far, we have studied solutions to the planner's problem. These allocations are also an equilibrium allocation where quantities are chosen by households and firms, and prices clear markets. This result follows from the Second Welfare Theorem. Mostly, we are interested in equilibria in economies with distortions (for example taxes and externalities). We are also interested in prices---usage rates, rental rates, the interest rate, asset prices, etc. How do we model a decentralized economy and define an equilibrium? There are three main approaches.
 
 \begin{center}
@@ -1120,8 +1120,10 @@ Show that, in a $T$-period version of this economy, the social planner's allocat
 Prove Walras' Law for this economy. Show that, if the labor and capital markets are in equilibrium, the goods market automatically clears.
 \end{exercise}
 
+\section{October 26, 2020}
+\label{sec:org487b059}
 \subsection{Recursive Competitive Equilibrium (same economy)}
-\label{sec:org9c427a4}
+\label{sec:orgda5089c}
 In this setup, the allocations and prices are functions rather than sequences. First, notice that
 \begin{enumerate}
 \item From the first order conditions of the sequence version of the firm's problem,
@@ -1159,7 +1161,7 @@ K' &= G(K) \tag{perceived law of motion}
 
 The firm's problem is
 \begin{align*}
-\max_{k', h'} &\{F(k^t, h^t) - wh^f - rk^f\}\\
+\max_{k^f, h^f} &\{F(k^f, h^f) - wh^f - rk^f\}\\
 \intertext{subject to}
 w &= w(K)\\
 r &= r(K)
@@ -1200,4 +1202,125 @@ k'(K, K) = G(K).
 \]
 \end{enumerate}
 \end{definition}
+This definition is helpful because it suggests a procedure for solving for an equilibrium. From the first order condition for the firm's problem,
+\begin{align*}
+w(K) &= F_2(k^f, h^f),\\
+r(K) &= F_1(k^f, h^f).\\
+\intertext{With market clearing, this becomes}
+w(K) &= F_2(nK, nH)\\
+&= F_2(K, H)\\
+r(K) &= F_1(K, H),
+\intertext{where $H$ is per capita hours worked. $n$ cancels out becuase of constant returns to scale. Nowe, we can fold the firm's FOC into the household's dynamic program.}
+v(K, k) &= \max_{k', h} \{u(c, 1 - h) + \beta v(K', k')\}\\
+\text{s.t. } c + k' &= wh + rk + (1 - \delta)k\\
+w &= F_2(K, H)\\
+r &= F_1(K, H)\\
+K' &= G(K)\tag{determined in equilibrium}\\
+H &= \mathcal{H}(K).\tag{determined in equilibrium}\\
+\intertext{In equilibrium,}
+\mathcal{H}(K) &= h(K, k), \text{ and} \\
+G(K) &= k'(K, K).
+\end{align*}
+
+\begin{definition}[Alternative formulation of RCE]
+A recursive competitive equilibrium is
+\begin{enumerate}
+\item Decision rules for households, functions
+\[
+h(K, k) \text{ and } k'(K, k). 
+\]
+\item Functions
+\[
+\mathcal{H}(K) \text{ and }G (k)
+\]
+such that 
+\begin{enumerate}[label=(\alph*)]
+\item Given functions $H(K)$ and $G(K)$ (since the household takes these as given when solving their DP), the household's decision rules solve their dynamic program.
+\item
+\[
+H(K) = h(K, K) \text{ and } G(K) = k'(K, K)
+\]
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+This formulation removes two of the conditions from our initial formulation, and now we only have to solve 4 equations, not 7. 
+
+\subsection{Implied Solution Procedure}
+\label{sec:org009d613}
+This isn't how we would do this today (would use Euler equations, but won't learn that this quarter), but here's a solution procedure that makes sense based on what we've done so far.
+
+\begin{enumerate}
+\item Outer Loop---Guess functions $G(K)$ and $\mathcal{H}(K)$.
+\item Inner Loop:
+\begin{enumerate}
+\item Solve the household's program to obtain
+\[
+k' = (K, k) \text{ and } h(K, k)
+\]
+\item Set 
+\[
+\hat{G}(K) = k'(K, K) \text{ and } \hat{\mathcal{H}}(K) = h(K, K)
+\]
+\item If 
+\[
+\max_K |\hat{G}(K) - G(K)| > \varepsilon \text{ or } \max_K |\hat{\mathcal{H}}(K) - \mathcal{H}(K)| > 0,
+\]
+set 
+\[
+G(K) = \hat{G}(K) \text{ and }\mathcal{H}(K) = \hat{\mathcal{H}}(K).
+\]
+\item Repeat outer loop.
+\end{enumerate}
+\end{enumerate}
+
+\begin{example}[Asset Pricing]
+There are privately issued bonds, promises to deliver one unit of consumption goods next perio. The price of the bond in period $t$ is $q_t < 1$.
+\[
+q_t = \frac{1}{1 + R_t} \text{ where } R_t = \text{ intererest rate.}
+\]
+Note that for every borrower, there must be a corresponding lender.
+\begin{align*}
+\implies B &= \text{ per capita bond holdings}\\
+&= 0.\\
+\intertext{Let}
+b &= \text{ individual bond holdings}\\
+> 0 &\implies \text{ lender}\\
+< 0 &\implies \text{ borrower}
+\end{align*}
+\paragraph{Household's Problem.} Suppose the household is self-employed.
+\begin{align*}
+v(K, k, b) &= \max_{k', b', h} \{u(c, 1 - h) + \beta v(K', k', b')\}\\
+\intertext{subject to}
+c + k' + q(K)b' &= F(k, h) + b + (1 - \delta)k,\\
+K' &= G(K).
+\end{align*}
+A recursive competitive equilibrium is
+\begin{enumerate}[label=(\alph*)]
+\item Household decision rules
+\[
+h(K, k, b),\quad k'(K, k, b), \quad b'(K, k, b).
+\]
+\item A pricing function
+\[
+q(K).
+\]
+\item A law of motion, 
+\[
+G(K).
+\]
+\end{enumerate}
+such that
+\begin{enumerate}
+\item Given $q(K)$ and $G(K)$, the household's decision rules solve the household's dynamic program.  
+\item The bond market clears:
+\[
+b'(K, K, 0) = 0.
+\]
+\item Rational expectations:
+\[
+k'(K, K, 0) = G(K).
+\]
+\end{enumerate}
+Recall that there is always one less pricing function than there are markets. Here there are two markets and one pricing function.
+\end{example}
 \end{document}

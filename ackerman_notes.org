@@ -1098,7 +1098,7 @@ K' &= G(K) \tag{perceived law of motion}
 
 The firm's problem is
 \begin{align*}
-\max_{k', h'} &\{F(k^t, h^t) - wh^f - rk^f\}\\
+\max_{k^f, h^f} &\{F(k^f, h^f) - wh^f - rk^f\}\\
 \intertext{subject to}
 w &= w(K)\\
 r &= r(K)
@@ -1139,3 +1139,135 @@ k'(K, K) = G(K).
 \]
 \end{enumerate}
 \end{definition}
+This definition is helpful because it suggests a procedure for solving for an equilibrium. From the first order condition for the firm's problem,
+\begin{align*}
+w(K) &= F_2(k^f, h^f),\\
+r(K) &= F_1(k^f, h^f).\\
+\intertext{With market clearing, this becomes}
+w(K) &= F_2(nK, nH)\\
+&= F_2(K, H)\\
+r(K) &= F_1(K, H),
+\intertext{where $H$ is per capita hours worked. $n$ cancels out becuase of constant returns to scale. Nowe, we can fold the firm's FOC into the household's dynamic program.}
+v(K, k) &= \max_{k', h} \{u(c, 1 - h) + \beta v(K', k')\}\\
+\text{s.t. } c + k' &= wh + rk + (1 - \delta)k\\
+w &= F_2(K, H)\\
+r &= F_1(K, H)\\
+K' &= G(K)\tag{determined in equilibrium}\\
+H &= \mathcal{H}(K).\tag{determined in equilibrium}\\
+\intertext{In equilibrium,}
+\mathcal{H}(K) &= h(K, k), \text{ and} \\
+G(K) &= k'(K, K).
+\end{align*}
+
+\begin{definition}[Alternative formulation of RCE]
+A recursive competitive equilibrium is
+\begin{enumerate}
+\item Decision rules for households, functions
+\[
+h(K, k) \text{ and } k'(K, k). 
+\]
+\item Functions
+\[
+\mathcal{H}(K) \text{ and }G (k)
+\]
+such that 
+\begin{enumerate}[label=(\alph*)]
+\item Given functions $H(K)$ and $G(K)$ (since the household takes these as given when solving their DP), the household's decision rules solve their dynamic program.
+\item
+\[
+H(K) = h(K, K) \text{ and } G(K) = k'(K, K)
+\]
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+This formulation removes two of the conditions from our initial formulation, and now we only have to solve 4 equations, not 7. 
+
+** Implied Solution Procedure
+This isn't how we would do this today (would use Euler equations, but won't learn that this quarter), but here's a solution procedure that makes sense based on what we've done so far.
+
+\begin{enumerate}
+\item Outer Loop---Guess functions $G(K)$ and $\mathcal{H}(K)$.
+\item Inner Loop:
+\begin{enumerate}
+\item Solve the household's program to obtain
+\[
+k' = (K, k) \text{ and } h(K, k)
+\]
+\item Set 
+\[
+\hat{G}(K) = k'(K, K) \text{ and } \hat{\mathcal{H}}(K) = h(K, K)
+\]
+\item If 
+\[
+\max_K |\hat{G}(K) - G(K)| > \varepsilon \text{ or } \max_K |\hat{\mathcal{H}}(K) - \mathcal{H}(K)| > 0,
+\]
+set 
+\[
+G(K) = \hat{G}(K) \text{ and }\mathcal{H}(K) = \hat{\mathcal{H}}(K).
+\]
+\item Repeat outer loop.
+\end{enumerate}
+\end{enumerate}
+
+\begin{example}[Asset Pricing]
+There are privately issued bonds, promises to deliver one unit of consumption goods next perio. The price of the bond in period $t$ is $q_t < 1$.
+\[
+q_t = \frac{1}{1 + R_t} \text{ where } R_t = \text{ intererest rate.}
+\]
+Note that for every borrower, there must be a corresponding lender.
+\begin{align*}
+\implies B &= \text{ per capita bond holdings}\\
+&= 0.\\
+\intertext{Let}
+b &= \text{ individual bond holdings}\\
+> 0 &\implies \text{ lender}\\
+< 0 &\implies \text{ borrower}
+\end{align*}
+\paragraph{Household's Problem.} Suppose the household is self-employed.
+\begin{align*}
+v(K, k, b) &= \max_{k', b', h} \{u(c, 1 - h) + \beta v(K', k', b')\}\\
+\intertext{subject to}
+c + k' + q(K)b' &= F(k, h) + b + (1 - \delta)k,\\
+K' &= G(K).
+\end{align*}
+A recursive competitive equilibrium is
+\begin{enumerate}[label=(\alph*)]
+\item Household decision rules
+\[
+h(K, k, b),\quad k'(K, k, b), \quad b'(K, k, b).
+\]
+\item A pricing function
+\[
+q(K).
+\]
+\item A law of motion, 
+\[
+G(K).
+\]
+\end{enumerate}
+such that
+\begin{enumerate}
+\item Given $q(K)$ and $G(K)$, the household's decision rules solve the household's dynamic program.  
+\item The bond market clears:
+\[
+b'(K, K, 0) = 0.
+\]
+\item Rational expectations:
+\[
+k'(K, K, 0) = G(K).
+\]
+\end{enumerate}
+Recall that there is always one less pricing function than there are markets. Here there are two markets and one pricing function. What can we say about $q$ (or $R$)? We can derive two Euler equations, one for capital and one for bonds:
+\begin{align*}
+u_1(c_t, 1 - h_t) &= \beta u_1(c_{t+ 1}, 1 - h_{t + 1})[F_1(k_{t + 1}, h_{t + 1}) + 1 - \delta] \tag{$k_{t + 1}$}\\
+u_1(c_t, 1 - h_t) q_t &= \beta u_1(c_{t + 1}, 1 - h_{t+ 1})\tag{$h_{t + 1}$}.
+\end{align*}
+Note that this in a model with uncertainty, the RHS of these equations would have expected values. We can rewrite the bond Euler equation as
+\begin{align*}
+q_t &= \frac{\beta u_1(c_{t + 1}, 1 - h_{t + 1})}{u_1(c_t, h_t)}.\\
+\intertext{Substituting this into the capital Euler Equation,}
+q_t &= \frac{1}{F_1(k_{t + 1}, h_{t + 1}) + 1 - \delta}\\
+\implies R_t &= \frac{1}{q_t} - 1\\
+&= F_1(k_{t + 1}, h_{t + 1}) - \delta
+\end{align*}
+\end{example}
