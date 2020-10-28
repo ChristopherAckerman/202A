@@ -1,0 +1,83 @@
+% Created 2020-10-27 Tue 23:00
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{exercise}{Exercise}
+\newtheorem*{problem}{Problem}
+\newtheorem{question}{Question}
+\newcommand{\gr}{\textcolor{ForestGreen}}
+\newcommand{\rd}{\textcolor{red}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\frall}{\ \forall}
+\author{Chris Ackerman}
+\date{\today}
+\title{Econ202A Homework \#1}
+\hypersetup{
+ pdfauthor={Chris Ackerman},
+ pdftitle={Econ202A Homework \#1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Question 1}
+\label{sec:org6258388}
+
+\begin{enumerate}[label=(\alph*)]
+\item
+\begin{align*}
+\max &\sum^\infty_{t = 0} 0.99 \log c_t \\
+\text{s.t. } c_t + k_{t + 1} &\le k_t^{0.36}\\
+%\implies c_t &= k^{0.36}_t - k_{t + 1}\\
+k_0 & \text{ given}\\
+\intertext{We can formulate this as a dynamic programming problem,}
+V(k_0) &= \max_{\{k_{t + 1}\}^\infty_{t = 1}} \sum^\infty_{t = 1} 0.99^{t - 1} \log(c_t)\\
+\intertext{Starting from $v_0(k) = 0$,}
+\max \log c_t \text{ s.t. } c_t &\le k^{0.36}_t - k_{t + 1}\\
+\implies c &= k^{0.36}\\
+\intertext{Now iterate on the Bellman equation.}
+v_1(k) &= 0.36 \log k\\
+c_2 &= \frac{1}{1 + 0.99 \cdot 0.36} k^{0.36}\\
+k' &= \frac{0.99 \cdot 0.36}{1 + 0.99 \cdot 0.36} k^{0.36}\\
+\intertext{Take the limit as $t \to \infty$\ldots}
+c &= (1 - 0.99 \cdot 0.36)k^{0.36}\\
+\gr{k_{t + 1} &= 0.99 \cdot 0.36 k^{0.36}}
+\end{align*}
+\item
+\begin{align*}
+\overline{k} &= 0.99 \cdot 0.36 k^{0.36}\\
+\overline{k}^{0.64} &= 0.3564\\
+\gr{\overline{k} &= 0.19948}
+\end{align*}
+\end{enumerate}
+\end{document}

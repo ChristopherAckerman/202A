@@ -1271,3 +1271,117 @@ q_t &= \frac{1}{F_1(k_{t + 1}, h_{t + 1}) + 1 - \delta}\\
 &= F_1(k_{t + 1}, h_{t + 1}) - \delta
 \end{align*}
 \end{example}
+* October 28, 2020
+** Neoclassical Growth with Technological Progress and Population Growth
+   We're now adding nonstationarity to our planner's problem.
+\paragraph{Planner's Problem.}
+\begin{align*}
+N_t &= \text{ population at date } t\\
+A_t &= \text{ technological progress at date } t\\
+\max &\sum^\infty_{t = 0} N_t \beta^t u(c_t, 1 - h_t)\\
+\text{s.t. }\quad N_t c_t + N_{t + 1} k_{t + 1} &= F(N_t k_t, A_t N_t h_t) + (1 - \delta) N_t k_t\\
+N_{t + 1} &= \eta N_t, \quad \eta > 1\\
+A_{t + 1} &= \gamma A_t, \quad \gamma > 1\\
+\intertext{$A_0, N_0, k_0$ given.}
+\end{align*}
+
+\paragraph{Note.}
+
+\begin{enumerate}
+\item $k_t, c_t$ and $h_t$ are per capita
+\item Without loss of generality,
+\[
+A_0 = N_0 = 1 \implies A_t = \gamma^t \text{ and } N_t = \eta_t
+\]
+\item Preferences place equal weight on individuals alive at $t$.
+\item Technological progress is \emph{labor augmenting}. We need this so that both arguments of the production function grow at the same rate.
+\end{enumerate}
+
+We can rewrite this problem as
+\begin{align*}
+\max \sum^\infty_{t = 0} (\beta \eta)^t u(c_t, 1 - h_t)\\
+\text{s.t. }\quad c_t + \eta k_{t + 1} &= F(k_t, h_t \rd{\gamma^t}) + (1 - \delta) k_t,\\
+k_0 &= \text{ given.}
+\end{align*}
+
+\paragraph{Role of Stationarity.}
+\begin{enumerate}
+\item Recursive solution methods require that we solve a stationary dynamic programming problem. The term in red ($\rd{\gamma^t}$) is the source of nonstationarity in this model.
+\item Balanced Growth---the neoclassical growth model was designed so that
+\begin{align*}
+\frac{k}{y}, \frac{c}{y}, \frac{I}{y} &\underset{t \to \infty}{\to} \text{ constant, and}\\
+h &\underset{t \to \infty}{\to} \text{ constant.}
+\end{align*}
+\end{enumerate}
+
+In the long run, $C, I, y$ and $k$ all grow at the same rate. This allows us to transform the problem:
+\begin{align*}
+\hat{c}_t &\equiv \frac{c_t}{g_t},\\
+\hat{k}_t &= \frac{k_t}{g_t}, \quad g > 1\\
+\implies g^t \hat{c}_t + \eta g^{t + 1}\hat{k}_{t + 1} &= F(g^t \hat{k}_t, \gamma^t h_t) + (1 - \delta) g^t \hat{k}_t\\
+\implies \hat{c}_t + \eta g \hat{k}_{t + 1} &= F \left(\hat{k}_t, \left(\frac{\gamma}{g}\right)^t h_t\right) + (1 - \delta) \hat{k}_t\\
+\intertext{$\implies$ set $g = \lambda$ to eliminate nonstationarity from the resource constraint.}
+\end{align*}
+
+\paragraph{Note.} Assignment 3, Problem 4B has us consider a problem where balanced growth won't apply. In this case, suppose
+\[
+\hat{k}_t \equiv \frac{k_t}{g^t_k}, \text{and }\quad \hat{c}_t \equiv \frac{c_t}{g_c^t}
+\]
+and find values for $g_k$ and $g_c$ in exactly the same way we found $g$ for the neoclassical growth case. What about our assumption of labor augmenting technological progress? Is it reasonable? Why don't we have
+\begin{align*}
+y_t &= \rd{A_t} F(k_t, A_t h_t), \text{ or}\\
+y_t &= F(\textcolor{blue}{A_t}k_t, A_t h_t)\text{?}
+\end{align*}
+We usually assume Cobb-Douglas production,
+\begin{align*}
+y_t = h^\theta_t(A_t h_t)^{1 - \theta} &= \hat{A}_t k^\theta_t h^{1 - \theta}_t\\
+\text{where }\quad \hat{A}_t = A^{1 - \theta}_t.\\
+\intertext{This would not hold in the more general CES production function,}
+y_t &= \left[\theta k_t^\rho + (1 - \delta) (A_t h_t)^\rho \right]^{\frac{1}{\rho}}.\\
+\intertext{Also, for Cobb-Douglas,}
+\frac{w_t h_t}{y_t} &= 1 - \theta,\text{ and}\\
+\frac{r_t k_t}{y_t} &= \theta, \text{ where}\\
+w &= \text{ margianl product of labor, and}\\
+r &= \text{ marginal product of capital.}
+\end{align*}
+It turns out that factor shares have been roughly constant in data (at least until recently). Therefore we're often willing to work with Cobb-Douglas, and it's really convenient for analytic techniques. There is a problem with our change of variables
+\begin{align*}
+\max &\sum^\infty_{t = 0} (\beta \eta)^t u(\gamma^t \hat{c}_t, 1 - h_t)\\
+\text{s.t. }\quad \hat{c}_t + \eta \gamma \hat{k}_{t + 1} &= F(\hat{k}_t, h_t) + (1 - \delta)\hat{k}_t.\\
+\intertext{We \emph{need} $\gamma^t$ to drop out of the objective. For example,}
+(\beta \eta)^t u(\gamma^t \hat{c}_t, 1 - h_t) &= (\beta \eta \gamma)^t u(\hat{c}_t, 1 - h_t).\\
+\intertext{More specifically, the first order condition for $h_t$ is}
+\gamma^t u_1(\hat{c}_t \gamma^t, 1 - h_t) F_2(\hat{k}_t, h_t) &= u_2(\gamma^t \hat{c}_t, 1 - h_t),\\
+\intertext{or, as $t \to \infty$,}
+\underbrace{\gr{\frac{\gamma^t u(\overline{c}\gamma^t, 1 - \overline{h})}{u_2(\overline{c}\gamma^t, 1 - \overline{h})}}}_{\text{\rd{Must be constant!}}} &= \frac{1}{F_2(\overline{k}, \overline{h})}.\tag{1}\\
+\intertext{We can interpret this as a requirement that the wealth and substitution effects must cancel. Alternatively, we can look at the Euler Equation,}
+ u_1(\gamma^t \hat{c}_t, 1 - h_t) &= \gamma \beta u_1(\gamma^{t + 1}\hat{c}_{t + 1}, 1 - h_{t + 1})\cdot [F_1(\hat{k}_{t + 1}, h_{t + 1}) + 1 - \delta]\\
+\intertext{or, as $t \to \infty$,}
+\underbrace{\gr{\frac{u_1(\gamma^t \overline{c}, 1 - \overline{h})}{u_1(\gamma^{t + 1}\overline{c}, 1 - \overline{h})}}}_{\text{\rd{Must be constant!}}} &= \beta \gamma [F_1(\overline{k}, \overline{h}) + 1 - \delta]\tag{2}.\\
+\intertext{We can interpret this as a requirement that there is a constant intertemporal elasticity of substitution.}
+\end{align*}
+
+\begin{theorem}
+Conditions (1) and (2) are satisfied if and only if
+\[
+u(c, 1 - h) = \left\{
+\begin{array}{ll}
+\frac{c^{1 - \sigma}}{1 - \sigma} w(1 - h) & \begin{array}{l} 0 < \sigma < 1 \\ \sigma > 1\end{array}\\
+\log c + w(1 - h) & \sigma = 1, 
+\end{array}
+\right.
+\]
+where $w(\cdot)$ is some arbitrary function.
+\end{theorem}
+\paragraph{Note.} We probabilty want our function $w$ to be increasing, continuously differentiable and concave. Utility functions that satisfy this theorem are called \gr{balanced growth preferences}. There are two standard functional forms:
+\begin{enumerate}
+\item
+\[
+u(c_t, 1 - h_t) = \frac{[c_t^\sigma (1 - h_t)^{1 - \sigma}]^{1 - \sigma}}{1 - \sigma}, \quad \sigma > 0, \sigma \ne 1
+\]
+\item
+\[
+u(c_t, 1 - h_t) = \log c_t A \log(1 - h_t)
+\]
+\end{enumerate}
+Other functional forms exist that are \emph{not} consistent with balanced growth. This is the end of material that appears on the exam. Next week, we'll talk about calibration (how to find values for the parameters in our model).
