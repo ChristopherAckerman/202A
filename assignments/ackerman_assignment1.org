@@ -34,23 +34,158 @@
 %\implies c_t &= k^{0.36}_t - k_{t + 1}\\
 k_0 & \text{ given}\\
 \intertext{We can formulate this as a dynamic programming problem,}
-V(k_0) &= \max_{\{k_{t + 1}\}^\infty_{t = 1}} \sum^\infty_{t = 1} 0.99^{t - 1} \log(c_t)\\
+V(k) &= \max_{k'} [\log(c_t) + 0.99 V(k')]\\
 \intertext{Starting from $v_0(k) = 0$,}
 \max \log c_t \text{ s.t. } c_t &\le k^{0.36}_t - k_{t + 1}\\
-\implies c &= k^{0.36}\\
-\intertext{Now iterate on the Bellman equation.}
-v_1(k) &= 0.36 \log k\\
-c_2 &= \frac{1}{1 + 0.99 \cdot 0.36} k^{0.36}\\
-k' &= \frac{0.99 \cdot 0.36}{1 + 0.99 \cdot 0.36} k^{0.36}\\
-\intertext{Take the limit as $t \to \infty$\ldots}
-c &= (1 - 0.99 \cdot 0.36)k^{0.36}\\
-\gr{k_{t + 1}} &= \gr{0.99 \cdot 0.36 k^{0.36}}
+\intertext{We know, from the functional forms for production and utility, that the solution takes the form}
+V(k) &= A + \frac{0.36}{1 - 0.36 \cdot 0.99} \log (k),\\
+\implies \gr{k'} &= \gr{0.36 \cdot 0.99 k^{0.36}}
 \end{align*}
 \item
 \begin{align*}
-\overline{k} &= 0.99 \cdot 0.36 k^{0.36}\\
-\overline{k}^{0.64} &= 0.3564\\
-\gr{\overline{k}} &= \gr{0.19948}
+% \overline{k} &= 0.99 \cdot 0.36 k^{0.36}\\
+% \overline{k}^{0.64} &= 0.3564\\
+% \gr{\overline{k}} &= \gr{0.19948}
+\intertext{Starting from the Bellman Equation}
+V(k) &= \max_{k'} [\log(c_t) + 0.99 V(k')]\\
+\intertext{We can take the first order condition with respect to $k'$ and then apply the envelope theorem to get}
+\rd{\frac{1}{c_t}} &= \beta \rd{\frac{1}{c_t}} 0.36 k^{0.36 - 1}\\
+\gr{\overline{k}} &=  \gr{0.19948}
 \end{align*}
+\newpage
+\item Matlab code:
+\begin{verbatim}
+beta = 0.99;
+delta = 0;
+epsilon = 1e-6;
+alpha = 0.36;
+delta = 1;
+
+ks = ((1 - beta*(1 - delta))/(alpha * beta))^(1/(alpha  - 1));
+
+kmin = 0;
+kmax = 0.2;
+grid_size = 10000;
+
+dk = (kmax-kmin)/(grid_size - 1);
+kgrid = linspace(kmin, kmax, grid_size);
+v = zeros(grid_size, 1);
+dr = zeros(grid_size, 1);
+norm = 1;
+
+while norm > epsilon;
+    for i=1:grid_size
+        tmp = (kgrid(i)^alpha + (1 - delta)*kgrid(i) - kmin);
+        imax = min(floor(tmp/dk) + 1, grid_size);
+        
+        c = kgrid(i)^alpha + (1 - delta)*kgrid(i) - kgrid(1:imax);
+        util = log(c);
+        [tv(i), dr(i)] = max(util + beta*(1:imax));
+    end;
+    norm = max(abs(tv - v));
+    v = tv;
+end;
+\end{verbatim}
+This returns a steady-state capital stock value of \gr{0.1995}
+
+\newpage
+\item[(e)] Since there is depreciation, I increased the maximum capital stock and used enough more grid points than recommended in the problem.
+
+Matlab code 
+\begin{verbatim}
+beta = 0.99;
+epsilon = 1e-6;
+alpha = 0.36;
+delta = .02;
+
+ks = ((1 - beta*(1 - delta))/(alpha * beta))^(1/(alpha  - 1));
+
+kmin = 0;
+kmax = 50;
+grid_size = 10000;
+
+dk = (kmax-kmin)/(grid_size - 1);
+kgrid = linspace(kmin, kmax, grid_size);
+v = zeros(grid_size, 1);
+dr = zeros(grid_size, 1);
+norm = 1;
+
+while norm > epsilon;
+    for i=1:grid_size
+        tmp = (kgrid(i)^alpha + (1 - delta)*kgrid(i) - kmin);
+        imax = min(floor(tmp/dk) + 1, grid_size);
+        
+        c = kgrid(i)^alpha + (1 - delta)*kgrid(i) - kgrid(1:imax);
+        util = log(c);
+        [tv(i), dr(i)] = max(util + beta*(1:imax));
+    end;
+    norm = max(abs(tv - v));
+    v = tv;
+end;\end{verbatim}
+This returns a steady-state capital stock value of \gr{48.2992}
+\end{enumerate}
+#+END_SRC
+
+\newpage
+* Question 2 
+  #+BEGIN_SRC latex
+  \begin{enumerate}[label=(\alph*)]
+  \item
+\begin{align*}
+V(x, k) &= \max_{k'}[u(e^{z_t} k_t^\theta - k_{t + 1}) + \beta \int_{z'} V(z', k') dG(z')]\\
+\text{s.t. } c_t + k_{t + 1} &\le e^{z_t} k_t^\theta\\
+\intertext{From the common functional forms that we know, this implies the law of motion}
+k' &= E + F\log + Gz
+\end{align*}
+\item Since we have two states, we need to set up two functions
+\begin{align*}
+v_l(k) &\equiv v(z_l, k)\\
+v_h(k) &\equiv v(z_h, k)\\
+Tv_l(k) &= \max_{k'}(u(z_l)f(k) - k') + \beta [qv_l(k') + (1 - q)v_h(k')]\\
+Tv_h(k) &= \max_{k'}(u(z_h)f(k) - k') + \beta [(1 - q)v_l(k') + q v_h(k')]\\
+\intertext{For this two-state Markov problem, the functional form is}
+v^l_0(k) &= E_l F \log(k)\\
+v^h_0(k) &= E_h F \log(k)\\
+\intertext{And we split our guesses across states.}
+k' &= \left\{
+\begin{array}{ll}
+E_l F \log(k) &\text{ if } z = z_l\\
+E_h F \log(k) &\text{ if } z = z_h\\
+\end{array}
+\right.
+\end{align*}
+  \end{enumerate}
+  #+END_SRC
+
+\newpage
+* Question 3
+#+BEGIN_SRC latex
+\begin{enumerate}[label=(\alph*)]
+\item 
+\begin{align*}
+V(k) &= \max_{c, i, h_1, h_2, k_1, k'} \{u(c, 1 - h_1 - h_2) + \beta V(k')\}\\
+\text{s.t. } i &= f_1(k_1, h_1)\\
+c &= f_2(k - k_1, h_2)\\
+k' &= i + (1 - \delta)k
+\end{align*}
+\item Our RCE in this case has four components and four constraints:
+\begin{enumerate}[label=\arabic*.]
+\item Household decision rules $c(K, k)$, $h(K, k)$, and $k'(K, k)$ along with a value function $V(K, k)$
+\item Two decision rules for each firm, $k^c(K)$, $h^c(K)$, $k^i(K)$, $h^i(K)$
+\item Three price functions, $p_c(K)$, $r(K)$, $w(K)$
+\item A law of motion for the aggregate capital stock $K' = \hat{G}(K)$
+\end{enumerate}
+such that
+\begin{enumerate}[label=(\alph*)]
+\item Given the price functions and perceived aggregate law of motion, the household decision rules solve the household's problem.
+\item Given the price functions, $k(K)$ and $h(K)$ solve the firm's problem (for each firm)
+\item Markets clear:
+\begin{align*}
+h(K, K) &= h^c(K) + h^i(K)\\
+K &= k^c(K) + k^i(K)\\
+k'(K, K) - (1 - \delta)K &= F_1(k^i, h^i)
+\end{align*}
+\item $\hat{G}(K) = k'(K, K)$
+\end{enumerate}
 \end{enumerate}
 #+END_SRC
