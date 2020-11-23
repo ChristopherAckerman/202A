@@ -1,0 +1,24 @@
+#+TITLE: Econ202A Homework #2
+#+AUTHOR: Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie 
+#+LATEX_HEADER: \usepackage{amsthm}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage[margin=1.25in]{geometry}
+#+LATEX_HEADER: \usepackage{hyperref} 
+#+LATEX_HEADER: \usepackage[dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX_HEADER: \newtheorem*{definition}{Definition}
+#+LATEX_HEADER: \newtheorem*{example}{Example}
+#+LATEX_HEADER: \newtheorem*{theorem}{Theorem}
+#+LATEX_HEADER: \newtheorem*{corollary}{Corollary}
+#+LATEX_HEADER: \newtheorem*{exercise}{Exercise}
+#+LATEX_HEADER: \newtheorem*{problem}{Problem}
+#+LATEX_HEADER: \newtheorem{question}{Question}
+#+LATEX_HEADER: \newcommand{\gr}{\textcolor{ForestGreen}}
+#+LATEX_HEADER: \newcommand{\rd}{\textcolor{red}}
+#+LATEX_HEADER: \newcommand{\R}{\mathbb{R}}
+#+LATEX_HEADER: \newcommand{\p}{\mathbb{P}}
+#+LATEX_HEADER: \newcommand{\frall}{\ \forall}
+#+OPTIONS:  ':t
+
+\newpage

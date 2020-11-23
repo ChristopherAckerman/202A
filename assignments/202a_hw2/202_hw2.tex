@@ -1,0 +1,119 @@
+% Created 2020-11-23 Mon 18:05
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\newtheorem*{definition}{Definition}
+\newtheorem*{example}{Example}
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{exercise}{Exercise}
+\newtheorem*{problem}{Problem}
+\newtheorem{question}{Question}
+\newcommand{\gr}{\textcolor{ForestGreen}}
+\newcommand{\rd}{\textcolor{red}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\frall}{\ \forall}
+\author{Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie}
+\date{\today}
+\title{Econ202A Homework \#2}
+\hypersetup{
+ pdfauthor={Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie},
+ pdftitle={Econ202A Homework \#2},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\newpage
+
+\begin{enumerate}
+\item In this economy, assume that $r = \delta$. Prove Hall’s Corollary 1 and 2, and 4. In addition, how would you go about estimating the implied regression in Corrolary 4?
+
+\newpage
+\item Explain the economic intuition for why the stochastic process for income is irrelevant in terms of being able to forecast future consumption. 
+
+\newpage
+\item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in theregression that is negative. 
+
+\newpage
+\item  Obtain quarterly real consumption (in chained dollars) from the U.S.
+national income and product accounts from 1950 through 2019. Fit the following
+regression:
+\[
+\ln(c_t) = \mu + \lambda \ln(c_{t-1}) + u_t
+\]
+
+\newpage
+\item  Do you think that this is a reasonable statistical model of the log of
+consumption? (Your answer to this question may include a discussion regarding
+the value of the autoregressive coefficient, the R-square, and whether there is
+autocorrelation in the $u_t$ residuals.)
+
+\newpage
+Next, consider the following economy.
+\begin{align*}
+\max & E_0 \sum^\infty_{t = 0}\beta^t \ln (c_t)\\
+\intertext{subject to}
+z_t A_t^{1 - \theta} k_t^\theta + (1 - \delta)k_t &= c_t + k_{t + 1}\\
+A_t &= (1 + \gamma)^t, \quad t = 0, 1, \ldots \\
+\ln(z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t,\quad \varepsilon_t \sim \mathcal{N}(0, \sigma^2_\varepsilon)
+\end{align*}
+
+Assume that the time period is annual. Construct a detrended version of
+this economy and show the first order conditions. Choose $\beta$ so that the return
+to capital in the steady state of the detrended economy is five percent, choose
+$\theta$ so that capital’s share of income is 30 percent, and choose a depreciation rate
+such that the share of investment to GDP in the steady state is 20 percent.
+Choose $\rho = 0.95$, $\sigma^2_\varepsilon
+ = .002$ and $\gamma = 0.02$.
+
+\newpage
+\item 
+ Log-linearize this model around its deterministic steady state. (For sim-
+plicity, assume that $z$ in the steady state is 1).
+
+\newpage
+\item Use the formula of Blanchard and Kahn to show that there is a unique
+stationary solution to the linearized system.
+
+\newpage
+\item Using a random number generator (Matlab has a built-in function for
+this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
+and assuming that $k_0$ is equal to its steady state value, use the linearized system
+to construct 1100 values values of output, consumption, and investment.
+
+\newpage
+\item Discard the first 100 observations, and then fit an AR(1) process to the
+log of consumption, measured as the log-deviation of consumption from the
+steady state value. Report the value of the AR(1) coefficient in the regression,
+and evaluate whether there is autocorrelation in the residuals.
+
+\newpage
+\item Compare the regression coefficient in (9) and your assessment of the
+autocorrelation in the residuals, to your answers in (4) and (5). Does the RBC
+model provide a good approximation to consumption dynamics? What does it
+tell us about using consumption data to try to discriminate between the Hall
+\end{enumerate}
+\end{document}
