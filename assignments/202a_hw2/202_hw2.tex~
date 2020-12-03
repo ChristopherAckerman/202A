@@ -1,4 +1,4 @@
-% Created 2020-11-23 Mon 18:04
+% Created 2020-12-03 Thu 12:07
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -46,8 +46,6 @@
 \begin{document}
 
 \maketitle
-\tableofcontents
-
 \newpage
 
 \begin{enumerate}
@@ -90,6 +88,32 @@ $\theta$ so that capital’s share of income is 30 percent, and choose a depreci
 such that the share of investment to GDP in the steady state is 20 percent.
 Choose $\rho = 0.95$, $\sigma^2_\varepsilon
  = .002$ and $\gamma = 0.02$.
+
+\begin{align}
+\intertext{Rearranging terms, we have}
+k_{t + 1} &= A-t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
+Y_t &= A_t^{1 - \theta} k_t^\theta\\
+c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
+\intertext{To detrend, divide by $A-t$. Let's define a few new variables,}
+\hat{k}_t &= \frac{K_t}{A_t}\\
+\hat{y}_t &= \frac{Y_t}{A_t}\\
+\hat{c}_t &= \frac{C_t}{A_t}.\\
+\intertext{Now, we can substitute these back into the original equations.}
+\hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+\hat{y}_t &= \frac{k^\theta}{A^\theta}\\
+\hat{c}_t &= (1 - \theta) \hat{y}_t.\\
+\intertext{First order conditions give us}
+\frac{1}{\hat{c}_t} &= \frac{\beta}{1 + \gamma} E_t \left\{\frac{1}{\hat{c}_{t + 1}}\left[\frac{\theta \hat{y}_{t + 1}}{\hat{k}_{t + 1}} + 1 - \delta \right]\right\}.\\
+\intertext{In the steady state, we have}
+\frac{\overline{k}}{\overline{y}} &= \frac{\theta \beta}{1 + \gamma - \beta (1 - \delta)}\\
+\frac{\overline{c}}{\overline{y}} &= \frac{1 + \gamma - \beta(1 - \delta) - \theta \beta (1 + \gamma - 1 + \delta)}{1 + \gamma - \beta (1 - \delta)}.\tag{consumption-share}\\
+\intertext{Now let's solve for parameters. We're given $\gamma = 0.02$, and we have to figure out $\beta$, $\theta$ and $\delta$. Since we have Cobb Douglas production, $\theta = 0.3$. To solve for $\beta$, note that the 5\% return implies}
+\beta &= \frac{1}{1.05}\\
+&= 0.95238.\\
+\intertext{To solve for $\delta$, we're going to use equation \ref{consumption-share}. We're told that investment in the steady state is 20\% of GDP, so that implies that consumption is 80\% of GDP,}
+0.8 &= \frac{1.02 - 0.95238(1 - \delta) - 0.3 \cdot 0.95238 (1.02 - 1 + \delta)}{1.02 - 0.95238 (1 - \delta)}\\
+\implies \delta &= .082.
+\end{align}
 
 \newpage
 \item 
