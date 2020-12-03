@@ -69,7 +69,7 @@ Choose $\rho = 0.95$, $\sigma^2_\varepsilon
 k_{t + 1} &= A-t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
 Y_t &= A_t^{1 - \theta} k_t^\theta\\
 c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
-\intertext{To detrend, divide by $A-t$. Let's define a few new variables,}
+\intertext{To detrend, divide by $A_t$. Let's define a few new variables,}
 \hat{k}_t &= \frac{K_t}{A_t}\\
 \hat{y}_t &= \frac{Y_t}{A_t}\\
 \hat{c}_t &= \frac{C_t}{A_t}.\\
