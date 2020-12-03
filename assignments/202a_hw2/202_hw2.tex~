@@ -1,4 +1,4 @@
-% Created 2020-12-03 Thu 14:00
+% Created 2020-12-03 Thu 14:43
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -55,7 +55,7 @@
 \item Explain the economic intuition for why the stochastic process for income is irrelevant in terms of being able to forecast future consumption. 
 
 \newpage
-\item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in theregression that is negative. 
+\item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in the regression that is negative. 
 
 \newpage
 \item  Obtain quarterly real consumption (in chained dollars) from the U.S.
@@ -91,7 +91,7 @@ Choose $\rho = 0.95$, $\sigma^2_\varepsilon
 
 \begin{align}
 \intertext{Rearranging terms, we have}
-k_{t + 1} &= A-t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
+k_{t + 1} &= A_t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
 Y_t &= A_t^{1 - \theta} k_t^\theta\\
 c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
 \intertext{To detrend, divide by $A_t$. Let's define a few new variables,}
@@ -99,8 +99,8 @@ c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
 \hat{y}_t &= \frac{Y_t}{A_t}\\
 \hat{c}_t &= \frac{C_t}{A_t}.\\
 \intertext{Now, we can substitute these back into the original equations.}
-\hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
-\hat{y}_t &= \frac{k^\theta}{A^\theta}\\
+A_t \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+\hat{y}_t &= k^\theta\\
 \hat{c}_t &= (1 - \theta) \hat{y}_t.\\
 \intertext{First order conditions give us}
 \frac{1}{\hat{c}_t} &= \frac{\beta}{1 + \gamma} E_t \left\{\frac{1}{\hat{c}_{t + 1}}\left[\frac{\theta \hat{y}_{t + 1}}{\hat{k}_{t + 1}} + 1 - \delta \right]\right\}.\\
