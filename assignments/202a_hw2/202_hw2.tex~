@@ -1,4 +1,4 @@
-% Created 2020-12-03 Thu 14:43
+% Created 2020-12-03 Thu 14:51
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -99,7 +99,8 @@ c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
 \hat{y}_t &= \frac{Y_t}{A_t}\\
 \hat{c}_t &= \frac{C_t}{A_t}.\\
 \intertext{Now, we can substitute these back into the original equations.}
-A_t \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+1 + \gamma \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \hat{y}_t &= k^\theta\\
 \hat{c}_t &= (1 - \theta) \hat{y}_t.\\
 \intertext{First order conditions give us}
