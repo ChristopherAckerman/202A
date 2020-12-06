@@ -1,4 +1,4 @@
-% Created 2020-12-03 Thu 14:51
+% Created 2020-12-06 Sun 12:29
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -106,7 +106,6 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \intertext{First order conditions give us}
 \frac{1}{\hat{c}_t} &= \frac{\beta}{1 + \gamma} E_t \left\{\frac{1}{\hat{c}_{t + 1}}\left[\frac{\theta \hat{y}_{t + 1}}{\hat{k}_{t + 1}} + 1 - \delta \right]\right\}.\\
 \intertext{In the steady state, we have}
-\frac{\overline{k}}{\overline{y}} &= \frac{\theta \beta}{1 + \gamma - \beta (1 - \delta)}\\
 \frac{\overline{c}}{\overline{y}} &= \frac{1 + \gamma - \beta(1 - \delta) - \theta \beta (1 + \gamma - 1 + \delta)}{1 + \gamma - \beta (1 - \delta)}.\tag{$\ast$}\label{consumption-share}\\
 \intertext{Now let's solve for parameters. We're given $\gamma = 0.02$, and we have to figure out $\beta$, $\theta$ and $\delta$. Since we have Cobb Douglas production, $\theta = 0.3$. To solve for $\beta$, note that the 5\% return implies}
 \beta &= \frac{1}{1.05}\\
@@ -118,8 +117,79 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 
 \newpage
 \item 
- Log-linearize this model around its deterministic steady state. (For sim-
-plicity, assume that $z$ in the steady state is 1).
+ Log-linearize this model around its deterministic steady state. (For simplicity, assume that $z$ in the steady state is 1).
+
+% \begin{align*}
+% \max &E_0 \sum^\infty_{t = 0} \beta^t \ln (c_t)\\
+% \text{s.t. } c_t + i_t &\le y_t \\
+% i_t &= k_{t + 1} - (1 - \delta) k_t \\
+% y_t &= z_t A^{1 - \theta}_t k^\theta_t \\
+% A_t &= (1 + \gamma)^t \\
+% \ln (z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t \\
+% \varepsilon_t &\sim \mathcal{N}(0, \sigma^2_\varepsilon)\\
+% \intertext{Set up the recursive problem:}
+% V(K_t, z_{t - 1}) &= \ln (c_t) + \beta E[V(K_t, z_t) \mid z_{t - 1}]\\
+% \text{s.t. } K_{t + 1} &= (1 - \delta)K_t + y_t - c_t \\
+% y_t &= z_t A_t^{1 - \theta}K_t^\theta \\
+% \ln (z_t) &= \rho \ln (z_{t - 1})\\
+% \intertext{Take first order conditions:}
+% \frac{1}{c_t} &= \lambda \\
+% \beta E[V'(K_{t + 1}, z_t) \mid z_{t - 1}] &= \lambda \\
+% \implies \frac{1}{c_t} &= \beta E [V'(K_{t + 1}, z) \mid z_{t - 1}]\\
+% V'(K_t, z_{t - 1}) &= \frac{1}{c_t} (\theta z_t A_t^{1 - \theta}K_t^{\theta - 1} + 1 - \delta)\tag{Envelope}\\
+% \frac{c_{t + 1}}{c_t} &= \beta E [\theta z_{t + 1} A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta]\\
+% \intertext{Define some new variables \ldots}
+% \hat{K}_t &\equiv \frac{K_t}{A_t}\\
+% \hat{c}_t &\equiv \frac{c_t}{A_t}\\
+% \hat{y}_t &\equiv \frac{y_t}{A_t}\\
+% \intertext{Now substitute these new variables into our old equations:}
+% k_{t + 1} &= (1 - \delta)K_t + y_t - c_t \tag{old}\\
+% \implies \hat{K}_{t + 1} A &= (1 - \delta) \hat{K}_t + \hat{c}_t - \hat{c}_t\\
+% y_t &= z_t A^{1 - \theta}_t k^\theta_t \tag{old}\\
+% \implies \hat{y}_t &= z_t \hat{k}_t^\theta \\
+% \frac{c_{t + 1}}{c_t} &= \beta E[\theta z_{t + 1}A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta] \tag{old}\\
+% \implies \frac{\hat{c}_{t + 1}}{\hat{c}_t} &= \frac{\beta}{A} E[\theta z_{t + 1}\hat{K}^{\theta - 1}_{t + 1} + 1 - \delta]
+% \end{align*}
+
+\begin{align*}
+\text{Define } \tilde{x} &\equiv \log\left(\frac{\hat{x}}{\overline{x}}\right).\\
+\intertext{From the Euler equation, we have}
+\frac{\hat{c}_{t + 1}}{\hat{c}_t} &= \frac{\beta}{A} E_t [\theta z_{t + 1}\hat{K}^{\theta - 1}_{t + 1} + 1 - \delta].\\
+\intertext{Substituting our log linearization into the left-hand side, we have}\\
+\frac{\overline{c}\exp(\tilde{c}_{t + 1})}{\overline{c} \exp (\tilde{c}_t)} &\approx (1 + \tilde{c}_{t + 1})(1 - \tilde{c}_t)\tag{LHS}\\
+&\approx 1 + \tilde{c}_{t + 1} - \tilde{c}_t \tag{LHS}.\\
+\intertext{Doing the same thing on the right-hand side, we have}
+\frac{\beta}{A} E_t [\theta \overline{z} (1 + \tilde{z}_{t + 1})\overline{K}(1 + (\theta - 1)\hat{K}_{t + 1}) + 1 - \delta] &=
+\frac{\beta}{A} E_t [\theta \overline{z} \overline{K}^{\theta - 1}(\theta - 1)\tilde{K}_{t + 1} + \theta \overline{z} \overline{K}^{\theta - 1}\tilde{z}_{t + 1} + 1 - \delta]\\
+\intertext{In the steady state,}
+1 &= \frac{\beta}{A}(\theta \overline{z} \overline{K}^{\theta - 1} + 1 - \delta),\\
+\overline{z} &= 1.\\
+\intertext{We can use these to simplify the log-linearized Euler equation:} 
+\tilde{c}_{t + 1} - \tilde{c}_t &= \frac{\beta}{A} E_t [\theta \overline{K}^{\theta - 1}(\theta - 1)\tilde{K}_{t + 1} + \theta \overline{K}^{\theta - 1} \tilde{z}_{t + 1}].\\
+\intertext{Now, let's do the same thing to the budget constraint.}
+\hat{c}_t + A\hat{K}_{t + 1} &= z_t \hat{K}_t^\theta + (1 - \delta)\hat{K}_t \\
+\overline{c}(1 + \tilde{c}_t) + A \overline{K} (1 + \hat{K}_{t + 1}) &= \overline{c} + A\overline{K} + \overline{c}\tilde{c}_t + A\overline{K}\tilde{K}_{t + 1}\tag{LHS}\\
+\overline{z}(1 + \tilde{z}_t)\overline{K}^\theta (1 + \theta \tilde{K}_t) + (1 - \delta)\overline{K}(1 + \tilde{K}_t) &=
+\overline{z} \overline{K}^\theta + \overline{z} \overline{K}^\theta \theta \tilde{K}_t + \overline{z} \overline{K}^\theta \tilde{z}_t + (1 - \delta) \overline{K} + (1 - \delta)\overline{K} \tilde{K}_t \tag{RHS}.\\
+\intertext{In the steady state,}
+\overline{c} + A \overline{K} &= \overline{z}\overline{K}^\theta + (1 - \delta)\overline{K},\\
+\overline{z} &=1,
+\intertext{so we can simplify this expression to}
+\overline{c}\tilde{c}_t + A\overline{K}\tilde{K}_{t + 1} &= \overline{K}^\theta \theta \tilde{K}_t + \overline{K}^\theta \tilde{z}_t + (1 - \delta)\overline{K}\tilde{K}_t,\\
+\intertext{or}
+\tilde{k}_{t + 1} &= \frac{\overline{K}^{\theta - 1}}{A} \theta \tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A} \tilde{z}_t + \frac{1 - \delta}{A}\hat{K}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t.\\
+\intertext{Finally, for the stochastic process, }
+\ln (z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t\\
+\ln (\overline{z}\exp(\tilde{z}_t)) &= \rho \ln (\overline{z} \exp(\tilde{z}_{t - 1})) + \varepsilon_t\\
+\ln (\overline{z}) + \tilde{z}_t &= \rho \ln (\overline{z}) + \rho \tilde{z}_{t - 1} + \varepsilon_t \\
+\implies \tilde{z}_t &= \rho \tilde{z}_{t - 1},\\
+\intertext{or}
+\tilde{z}_{t + 1}&= \rho \tilde{z}_t.\\
+\intertext{Putting everything together, the log-linearized version of this economy is}
+\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A}(\theta - 1)\left[\frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A}\tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A}\tilde{z}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t\right]\right\}\\
+\hat{k}_{t + 1} &= \frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A} \hat{K}_t + \frac{\overline{K}^{\theta - 1}}{A} \tilde{z}_t - \frac{\overline{c}}{A \overline{K}}\tilde{c}_t\\
+\tilde{z}_{t + 1} &= \rho \tilde{z}_t.
+\end{align*}
 
 \newpage
 \item Use the formula of Blanchard and Kahn to show that there is a unique
