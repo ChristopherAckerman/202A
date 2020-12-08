@@ -1,4 +1,4 @@
-% Created 2020-12-06 Sun 12:30
+% Created 2020-12-08 Tue 12:45
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -202,6 +202,27 @@ stationary solution to the linearized system.
 this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
 and assuming that $k_0$ is equal to its steady state value, use the linearized system
 to construct 1100 values values of output, consumption, and investment.
+
+\begin{align*}
+\intertext{I'm having some trouble with this question. I'm not sure if I'm doing something dumb, but I started with Ben's linearized equations and didn't know how to treat $\overline{k}$. The problem says that $k_0 = \overline{k}$, so $\tilde{k}$ should be zero, but $\overline{k}$ was in a bunch of other terms so here's what I've got so far. From earlier in the problem, we have}
+\overline{K}^{\theta - 1} &= \frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}.\\
+\intertext{Substituting this into the expression for $\tilde{K}_{t + 1}$ gives}
+\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t - \underbrace{\frac{\overline{c}}{A \overline{K}}}_{\text{simplify}} \tilde{c}_t\\
+\intertext{To simplify this last term, start with}
+\overline{c} &= \overline{y} + (1 - \delta - A)\overline{k}\overline{k}\\
+\implies \frac{\overline{c}}{\overline{K}} &= \frac{\overline{y} + (1 - \delta - A)\overline{K}}{\overline{K}}\\
+&= \frac{\overline{y}}{\overline{K}} + 1 - \delta - A\\
+\frac{\overline{y}}{\overline{K}} &= \frac{\overline{K}}{\overline{Y}} \cdot 1^{-1}\\
+ &= \frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}}\\
+\implies \frac{\overline{c}}{\overline{K}} &= \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A\right)\\
+\intertext{Putting this all together, the computationally tractable form of $\tilde{k}_{t + 1}$ should be }
+\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t}\\ &\hspace{4em} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t \\ &\hspace{4em} - \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A \right) \cdot A^{-1} \cdot \tilde{c}_t\\
+\intertext{$\overline{z}$ is 1, and everything else is a parameter except for the tilde variables, so this should work (I dropped $t$ subscripts on $A$ but that should be fine). I think this all looks okay but I'm not sure if there was an easier way to do this? If we do the same thing for consumption,}
+\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A} \cdot (\theta - 1) \tilde{k}_{t + 1}\right\}\\
+&= E_t \left\{\beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right)\cdot \frac{\theta - 1}{A} \cdot \tilde{c}_{t + 1}\right\}\\
+&= \beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) \cdot \frac{\theta - 1}{A} \cdot E_t\left\{\tilde{k}_{t + 1}\right\}\\
+\intertext{I'm a bit confused about this expectation, because it's taken at time $t$ and all the terms in $\tilde{k}_{t + 1}$ have $t$ subscripts, so shouldn't they be known? But I thought that consumers chose their consumption based on the expected next-period shock.}
+\end{align*}
 
 \newpage
 \item Discard the first 100 observations, and then fit an AR(1) process to the
