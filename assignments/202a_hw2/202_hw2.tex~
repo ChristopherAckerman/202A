@@ -219,7 +219,7 @@ to construct 1100 values values of output, consumption, and investment.
 \tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t}\\ &\hspace{4em} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t \\ &\hspace{4em} - \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A \right) \cdot A^{-1} \cdot \tilde{c}_t\\
 \intertext{$\overline{z}$ is 1, and everything else is a parameter except for the tilde variables, so this should work (I dropped $t$ subscripts on $A$ but that should be fine). I think this all looks okay but I'm not sure if there was an easier way to do this? If we do the same thing for consumption,}
 \tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A} \cdot (\theta - 1) \tilde{k}_{t + 1}\right\}\\
-&= E_t \left\{\beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right)\cdot \frac{\theta - 1}{A} \cdot \tilde{c}_{t + 1}\right)\\
+&= E_t \left\{\beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right)\cdot \frac{\theta - 1}{A} \cdot \tilde{c}_{t + 1}\right\}\\
 &= \beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) \cdot \frac{\theta - 1}{A} \cdot E_t\left\{\tilde{k}_{t + 1}\right\}\\
 \intertext{I'm a bit confused about this expectation, because it's taken at time $t$ and all the terms in $\tilde{k}_{t + 1}$ have $t$ subscripts, so shouldn't they be known? But I thought that consumers chose their consumption based on the expected next-period shock.}
 \end{align*}
