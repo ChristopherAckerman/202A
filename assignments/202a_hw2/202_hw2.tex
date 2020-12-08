@@ -79,7 +79,7 @@ Attached here is the code used to download and estimate this model.
 
 The relevant output from Matlab is copied below.
 The first output comes from fitting testing the model fit of the AR(1) on the data.
-\begin{lstlisting}[caption={Matlab output from AR(1) model on data}, captionpos=b]
+\begin{lstlisting}[caption={Matlab output from AR(1) model on data}, label=lst:data-output]
     Effective Sample Size: 280
     Number of Estimated Parameters: 3
     LogLikelihood: 954.097
@@ -95,7 +95,7 @@ The first output comes from fitting testing the model fit of the AR(1) on the da
 \end{lstlisting}
 
 Here is the output from testing to see if an AR(1) model fits the residual from the above model.
-\begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, captionpos=b]
+\begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, label=lst:resid-output]
     ARIMA(1,0,0) Model (Gaussian Distribution):
  
                   Value       StandardError    TStatistic      PValue   
@@ -114,27 +114,45 @@ autocorrelation in the $u_t$ residuals.)
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.75]{residual-autocorrelation-plot.pdf}
-\caption{Question 4 - Autocorrelation plot of residuals}
-\label{fig:q4-autocorrplot}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{data-autocorrelation-plot.pdf}
+  % \captionof{figure}{Question 4 - Autocorrelation plot of data}
+  \label{fig:q4-data-autocorrplot}
+\end{minipage}% Don't delete this comment - o.t. a spurious blank space will be added
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{residual-autocorrelation-plot.pdf}
+  % \captionof{figure}{Question 4 - Autocorrelation plot of residuals}
+  \label{fig:q4-residual-autocorrplot}
+\end{minipage}
 \end{figure}
 
+\begin{figure}[htp]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{data-simulated-autocorrelation-plot.pdf}
+  \captionof{figure}{Question 4 - Autocorrelation plot of simulated data}
+  \label{fig:q4-data-simulated-autocorrplot}
+\end{minipage}% Don't delete this comment - o.t. a spurious blank space will be added
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=.4\linewidth]{residual-simulated-autocorrelation-plot.pdf}
+  \captionof{figure}{Question 4 - Autocorrelation plot of simulated residuals}
+  \label{fig:q4-residual-simulated-autocorrplot}
+\end{minipage}
+\end{figure}
 
-This is a great model. The value of the autoregressive coefficient is highlgy significant.
-The R squared is \( 0.999857 \). Since we are estimating only 1 lag the
-adjusted R squared is very similar.
+The model fits reasonably well. Firstly, the value of the value of the autoregressive coefficient in \ref{lst:data-output} is highly significant (with a p-value near 0 even), along with strong significance in the constant and variance. The R squared is \( 0.999857 \) (with the adjusted R being very similar since we are only estimating one lag) suggesting that the model explains the data very well. We also do a rudimentary test to see if the error is white noise in \ref{lst:resid-output} which shows that we cannot reject the null hypothesis at the 5\% significance that residuals have an AR(1) structure.
 
-Notice that the autocorrelation graph for the sample residuals show that most
-of the lags are within the confidence intervals around 0 (with the exception of
-the 2nd lag.) I'd say that shows that the model fits the data pretty well. The
-is zero and the there is likely 0 to no autocorrelation so the residuals are
-indeed whitenoise.
+In figure \ref{fig:q4-data-autocorrplot} we see that the data clearly has a lagged structure. It is to be expected that with an AR(1) with a value for \( \rho \) close to 1, the lagged effects of the shock should be persistent. That is, we should {\itshape expect} non-zero auto correlation at all lags, which is in contrast to, say, an MA(q) process which only has non-zero autocorrelation for the first \( q \) lags. 
 
-I suppose that I could also see if the adjusted R squared goes up or down if
-I put a 2nd lag in the model (see Hall's first few paragraphs on how there is
-no more predictive power in adding more lags) but I feel like that would be
-beating a dead horse.
+The autocorrelations of the residual of the above model are plotted in figure \ref{fig:q4-residual-autocorrplot}. This figure shows that most of the lags are within the confidence intervals around 0 and hence looks reasonably like white noise.
 
+To verify our intuitions, we simulate an AR model with the same sample moments as the data in figures \ref{fig:q4-data-simulated-autocorrplot} and \ref{fig:q4-residual-simulated-autocorrplot}. Both confirm our findings that the data fits an AR(1) reasonably well.
+
+There are some minor discrepancies when considering the Box-Ljuyng test that are persistent even with more lags. Despite that, we still believe that given the evidence that an AR(1) for consumption is a {\itshape reasonable} model.
 
 \newpage
 Next, consider the following economy.
