@@ -1,4 +1,4 @@
-% Created 2020-12-08 Tue 12:58
+% Created 2020-12-08 Tue 13:46
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -221,7 +221,11 @@ to construct 1100 values values of output, consumption, and investment.
 \tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A} \cdot (\theta - 1) \tilde{k}_{t + 1}\right\}\\
 &= E_t \left\{\beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right)\cdot \frac{\theta - 1}{A} \cdot \tilde{c}_{t + 1}\right\}\\
 &= \beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) \cdot \frac{\theta - 1}{A} \cdot E_t\left\{\tilde{k}_{t + 1}\right\}\\
-\intertext{I'm a bit confused about this expectation, because it's taken at time $t$ and all the terms in $\tilde{k}_{t + 1}$ have $t$ subscripts, so shouldn't they be known? But I thought that consumers chose their consumption based on the expected next-period shock.}
+\intertext{I'm a bit confused about this expectation, because it's taken at time $t$ and all the terms in $\tilde{k}_{t + 1}$ have $t$ subscripts, so shouldn't they be known? But I thought that consumers chose their consumption based on the expected next-period shock. One last thing that I'm pretty sure is me being dumb/lazy, but it seems like I need to use $\tilde{k}$ to calculate $k$ in order to get $y$ and $i$ and solve the problem. Is there a straightforward way to do this? }
+\tilde{k} &\equiv \log \left(\frac{\hat{k}}{\overline{k}}\right)\\
+e^{\tilde{k}} &= \frac{\hat{K}}{\overline{K}}\\
+&= \frac{K_t}{\overline{K}A_t}\\
+\intertext{Do we have a nice expression/number for $\overline{K}$, or do I have to solve for this using an approach from Gary's half of the class?}
 \end{align}
 
 \newpage
