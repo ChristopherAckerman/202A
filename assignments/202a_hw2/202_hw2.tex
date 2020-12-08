@@ -21,6 +21,14 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{booktabs}
 \usepackage{enumitem}
+% For inputting matlab code directly into the PDF
+\usepackage[numbered,framed]{matlab-prettifier}
+\lstset{
+  style              = Matlab-editor,
+  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
 \newtheorem*{definition}{Definition}
 \newtheorem*{example}{Example}
 \newtheorem*{theorem}{Theorem}
@@ -65,11 +73,68 @@ regression:
 \ln(c_t) = \mu + \lambda \ln(c_{t-1}) + u_t
 \]
 
+Attached here is the code used to download and estimate this model.
+
+\lstinputlisting[caption = {Testing the Life Cycle-Permanent Income Hypothesis}]{testLifeCycleHypothesis.m}
+
+The relevant output from Matlab is copied below.
+The first output comes from fitting testing the model fit of the AR(1) on the data.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on data}, captionpos=b]
+    Effective Sample Size: 280
+    Number of Estimated Parameters: 3
+    LogLikelihood: 954.097
+    AIC: -1902.19
+    BIC: -1891.29
+ 
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant      0.020958      0.0056916        3.6822        0.0002312
+    AR{1}          0.99846      0.0007193        1388.1                0
+    Variance    6.4235e-05     2.7222e-06        23.597      4.1773e-123
+\end{lstlisting}
+
+Here is the output from testing to see if an AR(1) model fits the residual from the above model.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, captionpos=b]
+    ARIMA(1,0,0) Model (Gaussian Distribution):
+ 
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant    6.1197e-05     0.00049822       0.12283          0.90224
+    AR{1}         0.060598       0.034226        1.7705         0.076641
+    Variance    6.4005e-05     2.8928e-06        22.125      1.8103e-108
+\end{lstlisting}
+
 \newpage
 \item  Do you think that this is a reasonable statistical model of the log of
 consumption? (Your answer to this question may include a discussion regarding
 the value of the autoregressive coefficient, the R-square, and whether there is
 autocorrelation in the $u_t$ residuals.)
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{residual-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of residuals}
+\label{fig:q4-autocorrplot}
+\end{figure}
+
+
+This is a great model. The value of the autoregressive coefficient is highlgy significant.
+The R squared is \( 0.999857 \). Since we are estimating only 1 lag the
+adjusted R squared is very similar.
+
+Notice that the autocorrelation graph for the sample residuals show that most
+of the lags are within the confidence intervals around 0 (with the exception of
+the 2nd lag.) I'd say that shows that the model fits the data pretty well. The
+is zero and the there is likely 0 to no autocorrelation so the residuals are
+indeed whitenoise.
+
+I suppose that I could also see if the adjusted R squared goes up or down if
+I put a 2nd lag in the model (see Hall's first few paragraphs on how there is
+no more predictive power in adding more lags) but I feel like that would be
+beating a dead horse.
+
 
 \newpage
 Next, consider the following economy.
