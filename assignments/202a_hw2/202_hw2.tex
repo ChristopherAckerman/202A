@@ -21,6 +21,14 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{booktabs}
 \usepackage{enumitem}
+% For inputting matlab code directly into the PDF
+\usepackage[numbered,framed]{matlab-prettifier}
+\lstset{
+  style              = Matlab-editor,
+  basicstyle         = \mlttfamily,
+  escapechar         = ",
+  mlshowsectionrules = true,
+}
 \newtheorem*{definition}{Definition}
 \newtheorem*{example}{Example}
 \newtheorem*{theorem}{Theorem}
@@ -151,11 +159,82 @@ regression:
 \ln(c_t) = \mu + \lambda \ln(c_{t-1}) + u_t
 \]
 
+Attached here is the code used to download and estimate this model.
+
+\lstinputlisting[caption = {Testing the Life Cycle-Permanent Income Hypothesis}]{testLifeCycleHypothesis.m}
+
+The relevant output from Matlab is copied below.
+The first output comes from fitting testing the model fit of the AR(1) on the data.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on data}, label=lst:data-output]
+    Effective Sample Size: 280
+    Number of Estimated Parameters: 3
+    LogLikelihood: 954.097
+    AIC: -1902.19
+    BIC: -1891.29
+ 
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant      0.020958      0.0056916        3.6822        0.0002312
+    AR{1}          0.99846      0.0007193        1388.1                0
+    Variance    6.4235e-05     2.7222e-06        23.597      4.1773e-123
+\end{lstlisting}
+
+Here is the output from testing to see if an AR(1) model fits the residual from the above model.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, label=lst:resid-output]
+    ARIMA(1,0,0) Model (Gaussian Distribution):
+ 
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant    6.1197e-05     0.00049822       0.12283          0.90224
+    AR{1}         0.060598       0.034226        1.7705         0.076641
+    Variance    6.4005e-05     2.8928e-06        22.125      1.8103e-108
+\end{lstlisting}
+
 \newpage
 \item  Do you think that this is a reasonable statistical model of the log of
 consumption? (Your answer to this question may include a discussion regarding
 the value of the autoregressive coefficient, the R-square, and whether there is
 autocorrelation in the $u_t$ residuals.)
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{data-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of data}
+\label{fig:q4-data-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{residual-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of residuals}
+\label{fig:q4-residual-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{data-simulated-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of simulated data}
+\label{fig:q4-data-simulated-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{residual-simulated-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of simulated residuals}
+\label{fig:q4-residual-simulated-autocorrplot}
+\end{figure}
+
+The model fits reasonably well. Firstly, the value of the value of the autoregressive coefficient in listing \ref{lst:data-output} (i.e the code output) is highly significant (with a p-value near 0 even), along with strong significance in the constant and variance. The R squared is \( 0.999857 \) (with the adjusted R being very similar since we are only estimating one lag) suggesting that the model explains the data very well. We also do a rudimentary test to see if the error is white noise in listing \ref{lst:resid-output} which shows that we cannot reject the null hypothesis at the 5\% significance that residuals have an AR(1) structure.
+
+In figure \ref{fig:q4-data-autocorrplot} we see that the data clearly has a lagged structure. It is to be expected that with an AR(1) with a value for \( \rho \) close to 1, the lagged effects of the shock should be persistent. That is, we should {\itshape expect} non-zero auto correlation at all lags, which is in contrast to, say, an MA(q) process which only has non-zero autocorrelation for the first \( q \) lags. 
+
+The autocorrelations of the residual of the above model are plotted in figure \ref{fig:q4-residual-autocorrplot}. This figure shows that most of the lags are within the confidence intervals around 0 and hence looks reasonably like white noise.
+
+To verify our intuitions, we simulate an AR model with the same sample moments as the data in figures \ref{fig:q4-data-simulated-autocorrplot} and \ref{fig:q4-residual-simulated-autocorrplot}. Both confirm our findings that the data fits an AR(1) reasonably well.
+
+There are some minor discrepancies when considering the Box-Ljuyng test that are persistent even with more lags. Despite that, we still believe that given the evidence that an AR(1) for consumption is a {\itshape reasonable} model.
 
 \newpage
 Next, consider the following economy.
