@@ -1,4 +1,4 @@
-% Created 2020-12-08 Tue 13:46
+% Created 2020-12-08 Tue 16:32
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -33,11 +33,11 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\p}{\mathbb{P}}
 \newcommand{\frall}{\ \forall}
-\author{Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie}
+\author{Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, Ben Pirie and Luna Shen}
 \date{\today}
 \title{Econ202A Homework \#2}
 \hypersetup{
- pdfauthor={Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie},
+ pdfauthor={Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, Ben Pirie and Luna Shen},
  pdftitle={Econ202A Homework \#2},
  pdfkeywords={},
  pdfsubject={},
@@ -50,12 +50,98 @@
 
 \begin{enumerate}
 \item In this economy, assume that $r = \delta$. Prove Hall’s Corollary 1 and 2, and 4. In addition, how would you go about estimating the implied regression in Corrolary 4?
+Solving the constrained maximization problem we have the following
+\begin{align*}
+    \mathcal{L} = E_t \sum_{\tau=0}^{T-\tau} \frac{u(c_{t+\tau})}{(1+\delta)^\tau} + \lambda \left(\sum_{\tau=0}^{T-\tau} \frac{c_{t+\tau}}{(1+r)^\tau} - \sum_{\tau=0}^{T-\tau}\frac{w_{t+\tau}}{(1+r)^\tau} - A_t \right)
+\end{align*}
+
+The FOC with respect to $c_{t+\tau}$ is then given by
+\begin{align*}
+    [c_{t+\tau}]: \quad  E_t \frac{u'(c_{t+\tau})}{(1+\delta)^\tau} + \lambda \frac{1}{(1+r)^\tau} = 0
+\end{align*}
+\begin{align*}
+    \tau = 0 & \Rightarrow E_t [u'(c_t)] = u'(c_t) = -\lambda\\
+    \tau = 1 & \Rightarrow E_t [u'(c_{t+1})] = - \lambda \frac{1+\delta}{1+r}
+\end{align*}
+
+From this two conditions we get
+\begin{align*}
+    E_t [u'(c_{t+1})] =  \frac{1+\delta}{1+r} u'(c_t)
+\end{align*}
+
+\begin{corollary}
+No information available in period $t$ apart from the level of consumption, $c_t$, helps predict future consumption, $c_{t+1}$, in the sense of affecting the expected value of marginal utility. In particular, income or wealth in periods $t$ or earlier are irrelevant, once $c_t$ is known. 
+\end{corollary}
+
+\begin{proof}
+Once we obtain the equation above, we can conclude that both income or wealth do not predict the future level of consumption in the sense of affecting the expected value of marginal utility. Moreover, considering the case where $r=\delta$, we get
+\begin{align*}
+    E_t [u'(c_{t+1})] =   u'(c_t)
+\end{align*}
+which means that there are no other factors expect current level of consumption that affect the future consumption (assuming that we have time separable utility function, depending on consumption only).
+\end{proof}
+
+\begin{corollary}
+Marginal utility obeys the regression relation, $u'(c_{t+1}) = \gamma u'(c_t) + \varepsilon_{t+1}$, where $\gamma = (1+\delta)/(1+r)$ and $\varepsilon_{t+1}$ is a true regression disturbance; that is, $E_t [\varepsilon_{t+1}] = 0$.
+\end{corollary}
+
+\begin{proof}
+Taking the conditional expectation at period t we get
+\begin{align*}
+     E_t [u'(c_{t+1})] =  \gamma E_t [u'(c_t)] + E_t[\varepsilon_{t+1}]
+\end{align*}
+Since the consumption at period $t$ is known, $E_t [u'(c_t)] = u'(c_t)$. The relation from constrained maximization problem is that $E_t [u'(c_{t+1})] =  (1+\delta)/(1+r) u'(c_t)$. Then, indeed, the marginal utility can be expressed as the above stated regression relation with $\gamma = (1+\delta)/(1+r)$ and $E_t[\varepsilon_{t+1}] = E_t [u'(c_{t+1})] -  \gamma E_t [u'(c_t)] = E_t [u'(c_{t+1})] - (1+\delta)/(1+r) u'(c_t)=0$.
+\end{proof}
+
+\begin{corollary}[Corollary 4 from Hall's paper]
+If the utility function has the constant elasticity of substitution form, $u(c_t) = c_t^{(\sigma-1)/\sigma}$, then the following statistical model describes the evolution of consumption: $c_{t+1}^{-1/\sigma} = \gamma c_t^{-1/\sigma} + \varepsilon_{t+1}$.
+\end{corollary}
+
+\begin{proof}
+From Corollary 2 we have that the marginal utility of consumption can be represented as the following regression relation
+\begin{align*}
+    u'(c_{t+1}) = \gamma u'(c_t) + \varepsilon_{t+1}
+\end{align*}
+Calculating the marginal utility for the constant elasticity of substitution utility form we get
+\begin{align*}
+    \frac{\sigma-1}{\sigma} c_{t+1}^{-1/\sigma} = \gamma \frac{\sigma-1}{\sigma} c_t^{-1/\sigma} + \varepsilon_{t+1}
+\end{align*}
+Since $(\sigma-1)/\sigma$ is a constant, we can rewrite this regression as follows (without loss of generality)
+\begin{align*}
+    c_{t+1}^{-1/\sigma} = \gamma c_t^{-1/\sigma} + \varepsilon_{t+1}^*
+\end{align*}
+where $\varepsilon_{t+1}^* = \sigma/(\sigma-1) \varepsilon_{t+1}$, and therefore, $E_t[\varepsilon_{t+1}^*] = E_t[\sigma/(\sigma-1) \varepsilon_{t+1}] = \sigma/(\sigma-1) E_t[\varepsilon_{t+1}] = 0$.
+\end{proof}
+
+For estimating this regression we propose the log transformation
+\begin{align*}
+    \ln c_{t+1} = \mu + \gamma \ln c_t + \epsilon_{t+1}
+\end{align*}
+Then we can apply OLS method to estimate this regression, which is asymptotically equivalent to MLE estimator. In this case, the coefficient will be interpreted as a $\gamma$-percentage increase in future consumption in response to a 1-percentage increase in the current consumption.
 
 \newpage
 \item Explain the economic intuition for why the stochastic process for income is irrelevant in terms of being able to forecast future consumption. 
 
+Considering stochastic process for income implies that the deviations from some stationary level are unexpected, thus they do not affect consumption (and are actually disturbance). All the expected deviations (change of trend) are incorporated in current consumption, and do not have any additional information that can help predict the future consumption.
+
 \newpage
 \item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in the regression that is negative. 
+
+Having that marginal utility obeys a random walk apart from the trend, we can consider small deviations from the steady state consumption and expand the implicit equation for $c_{t+1}$ and $c_t$ in a Taylor series.
+\begin{align*}
+   E_t [u'(\Bar{c}) + u''(\Bar{c})(c_{t+1}-\Bar{c})] = \frac{1+\delta}{1+r} [u'(\Bar{c}) + u''(\Bar{c})(c_{t}-\Bar{c})]\\
+\end{align*}
+which can be rewritten as
+\begin{align*}
+    c_{t+1} = \left(\frac{1+\delta}{1+r} -1 \right) \left(\frac{u'(\Bar{c})}{u''(\Bar{c})}-\Bar{c}\right) + \frac{1+\delta}{1+r} c_t + \varepsilon_{t+1}
+\end{align*}
+Since $r<\delta$, we conclude that $(1+\delta)/(1+r)-1>0$. Also, we know that by assumption made in Hall's paper utility function is strictly concave, thus $u''(\Bar{c}) <0$ and $u'(\Bar{c})/u''(\Bar{c})-\Bar{c}<0$. Hence, this regression can be rewritten as follows
+\begin{align*}
+    c_{t+1} = \mu + \gamma c_t + \varepsilon_{t+1}
+\end{align*}
+which is a random walk with a positive drift $\gamma$ and negative constant $\mu$.
+
+Intuitively, this result can be obtained from the fact that under the permanent income hypothesis individual chooses current consumption by estimating the future ability to consume. Thus, any information and changes in income at time $t$ are unexpected, and make changes in future consumption unpredictable. Also, since the interest rate is lower than the rate of subjective time preference, individuals prefer to consume now, and future consumption responds more than 1 for 1 to a change in current consumption.
 
 \newpage
 \item  Obtain quarterly real consumption (in chained dollars) from the U.S.
@@ -119,38 +205,6 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \item 
  Log-linearize this model around its deterministic steady state. (For simplicity, assume that $z$ in the steady state is 1).
 
-% \begin{align*}
-% \max &E_0 \sum^\infty_{t = 0} \beta^t \ln (c_t)\\
-% \text{s.t. } c_t + i_t &\le y_t \\
-% i_t &= k_{t + 1} - (1 - \delta) k_t \\
-% y_t &= z_t A^{1 - \theta}_t k^\theta_t \\
-% A_t &= (1 + \gamma)^t \\
-% \ln (z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t \\
-% \varepsilon_t &\sim \mathcal{N}(0, \sigma^2_\varepsilon)\\
-% \intertext{Set up the recursive problem:}
-% V(K_t, z_{t - 1}) &= \ln (c_t) + \beta E[V(K_t, z_t) \mid z_{t - 1}]\\
-% \text{s.t. } K_{t + 1} &= (1 - \delta)K_t + y_t - c_t \\
-% y_t &= z_t A_t^{1 - \theta}K_t^\theta \\
-% \ln (z_t) &= \rho \ln (z_{t - 1})\\
-% \intertext{Take first order conditions:}
-% \frac{1}{c_t} &= \lambda \\
-% \beta E[V'(K_{t + 1}, z_t) \mid z_{t - 1}] &= \lambda \\
-% \implies \frac{1}{c_t} &= \beta E [V'(K_{t + 1}, z) \mid z_{t - 1}]\\
-% V'(K_t, z_{t - 1}) &= \frac{1}{c_t} (\theta z_t A_t^{1 - \theta}K_t^{\theta - 1} + 1 - \delta)\tag{Envelope}\\
-% \frac{c_{t + 1}}{c_t} &= \beta E [\theta z_{t + 1} A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta]\\
-% \intertext{Define some new variables \ldots}
-% \hat{K}_t &\equiv \frac{K_t}{A_t}\\
-% \hat{c}_t &\equiv \frac{c_t}{A_t}\\
-% \hat{y}_t &\equiv \frac{y_t}{A_t}\\
-% \intertext{Now substitute these new variables into our old equations:}
-% k_{t + 1} &= (1 - \delta)K_t + y_t - c_t \tag{old}\\
-% \implies \hat{K}_{t + 1} A &= (1 - \delta) \hat{K}_t + \hat{c}_t - \hat{c}_t\\
-% y_t &= z_t A^{1 - \theta}_t k^\theta_t \tag{old}\\
-% \implies \hat{y}_t &= z_t \hat{k}_t^\theta \\
-% \frac{c_{t + 1}}{c_t} &= \beta E[\theta z_{t + 1}A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta] \tag{old}\\
-% \implies \frac{\hat{c}_{t + 1}}{\hat{c}_t} &= \frac{\beta}{A} E[\theta z_{t + 1}\hat{K}^{\theta - 1}_{t + 1} + 1 - \delta]
-% \end{align*}
-
 \begin{align*}
 \text{Define } \tilde{x} &\equiv \log\left(\frac{\hat{x}}{\overline{x}}\right).\\
 \intertext{From the Euler equation, we have}
@@ -188,7 +242,7 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \end{align*}
 \begin{align*}
 \intertext{Putting everything together, the log-linearized version of this economy is}
-\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A}(\theta - 1)\left[\frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A}\tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A}\tilde{z}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t\right]\right\}\\
+\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A}\left((\theta - 1)\left[\frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A}\tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A}\tilde{z}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t\right] + \rho \tilde{z}_t \right) + \tilde{c}_t \right\}\\
 \hat{k}_{t + 1} &= \frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A} \hat{K}_t + \frac{\overline{K}^{\theta - 1}}{A} \tilde{z}_t - \frac{\overline{c}}{A \overline{K}}\tilde{c}_t\\
 \tilde{z}_{t + 1} &= \rho \tilde{z}_t.
 \end{align*}
@@ -202,31 +256,6 @@ stationary solution to the linearized system.
 this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
 and assuming that $k_0$ is equal to its steady state value, use the linearized system
 to construct 1100 values values of output, consumption, and investment.
-
-\begin{align}
-\intertext{I'm having some trouble with this question. I'm not sure if I'm doing something dumb, but I started with Ben's linearized equations and didn't know how to treat $\overline{k}$. The problem says that $k_0 = \overline{k}$, so $\tilde{k}$ should be zero, but $\overline{k}$ was in a bunch of other terms so here's what I've got so far. From earlier in the problem, we have}
-\overline{K}^{\theta - 1} &= \frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}.\\
-\intertext{Substituting this into the expression for $\tilde{K}_{t + 1}$ gives}
-\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t - \underbrace{\frac{\overline{c}}{A \overline{K}}}_{\text{simplify}} \tilde{c}_t\\
-\intertext{To simplify this last term, start with}
-\overline{c} &= \overline{y} + (1 - \delta - A)\overline{k}\overline{k}\\
-\implies \frac{\overline{c}}{\overline{K}} &= \frac{\overline{y} + (1 - \delta - A)\overline{K}}{\overline{K}}\\
-&= \frac{\overline{y}}{\overline{K}} + 1 - \delta - A\\
-\frac{\overline{y}}{\overline{K}} &= \frac{\overline{K}}{\overline{Y}} \cdot 1^{-1}\\
- &= \frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}}\\
-\implies \frac{\overline{c}}{\overline{K}} &= \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A\right)\\
-\intertext{Putting this all together, the computationally tractable form of $\tilde{k}_{t + 1}$ should be }
-\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t}\\ &\hspace{4em} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t \\ &\hspace{4em} - \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A \right) \cdot A^{-1} \cdot \tilde{c}_t\\
-\intertext{$\overline{z}$ is 1, and everything else is a parameter except for the tilde variables, so this should work (I dropped $t$ subscripts on $A$ but that should be fine). I think this all looks okay but I'm not sure if there was an easier way to do this? If we do the same thing for consumption,}
-\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A} \cdot (\theta - 1) \tilde{k}_{t + 1}\right\}\\
-&= E_t \left\{\beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right)\cdot \frac{\theta - 1}{A} \cdot \tilde{c}_{t + 1}\right\}\\
-&= \beta \theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) \cdot \frac{\theta - 1}{A} \cdot E_t\left\{\tilde{k}_{t + 1}\right\}\\
-\intertext{I'm a bit confused about this expectation, because it's taken at time $t$ and all the terms in $\tilde{k}_{t + 1}$ have $t$ subscripts, so shouldn't they be known? But I thought that consumers chose their consumption based on the expected next-period shock. One last thing that I'm pretty sure is me being dumb/lazy, but it seems like I need to use $\tilde{k}$ to calculate $k$ in order to get $y$ and $i$ and solve the problem. Is there a straightforward way to do this? }
-\tilde{k} &\equiv \log \left(\frac{\hat{k}}{\overline{k}}\right)\\
-e^{\tilde{k}} &= \frac{\hat{K}}{\overline{K}}\\
-&= \frac{K_t}{\overline{K}A_t}\\
-\intertext{Do we have a nice expression/number for $\overline{K}$, or do I have to solve for this using an approach from Gary's half of the class?}
-\end{align}
 
 \newpage
 \item Discard the first 100 observations, and then fit an AR(1) process to the
