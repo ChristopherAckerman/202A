@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2020-12-08 Tue 11:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Econ202A Homework #2</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Econ202A Homework #2</h1>
+<p>
+\newpage
+</p>
+
+\begin{enumerate}
+\item In this economy, assume that $r = \delta$. Prove Hall’s Corollary 1 and 2, and 4. In addition, how would you go about estimating the implied regression in Corrolary 4?
+
+\newpage
+\item Explain the economic intuition for why the stochastic process for income is irrelevant in terms of being able to forecast future consumption. 
+
+\newpage
+\item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in the regression that is negative. 
+
+\newpage
+\item  Obtain quarterly real consumption (in chained dollars) from the U.S.
+national income and product accounts from 1950 through 2019. Fit the following
+regression:
+\[
+\ln(c_t) = \mu + \lambda \ln(c_{t-1}) + u_t
+\]
+
+\newpage
+\item  Do you think that this is a reasonable statistical model of the log of
+consumption? (Your answer to this question may include a discussion regarding
+the value of the autoregressive coefficient, the R-square, and whether there is
+autocorrelation in the $u_t$ residuals.)
+
+\newpage
+Next, consider the following economy.
+\begin{align*}
+\max & E_0 \sum^\infty_{t = 0}\beta^t \ln (c_t)\\
+\intertext{subject to}
+z_t A_t^{1 - \theta} k_t^\theta + (1 - \delta)k_t &= c_t + k_{t + 1}\\
+A_t &= (1 + \gamma)^t, \quad t = 0, 1, \ldots \\
+\ln(z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t,\quad \varepsilon_t \sim \mathcal{N}(0, \sigma^2_\varepsilon)
+\end{align*}
+
+Assume that the time period is annual. Construct a detrended version of
+this economy and show the first order conditions. Choose $\beta$ so that the return
+to capital in the steady state of the detrended economy is five percent, choose
+$\theta$ so that capital’s share of income is 30 percent, and choose a depreciation rate
+such that the share of investment to GDP in the steady state is 20 percent.
+Choose $\rho = 0.95$, $\sigma^2_\varepsilon
+ = .002$ and $\gamma = 0.02$.
+
+\begin{align}
+\intertext{Rearranging terms, we have}
+k_{t + 1} &= A_t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
+Y_t &= A_t^{1 - \theta} k_t^\theta\\
+c_t &= (1 - \theta) A_t^{1 - \theta} k_t^\theta\\
+\intertext{To detrend, divide by $A_t$. Let's define a few new variables,}
+\hat{k}_t &= \frac{K_t}{A_t}\\
+\hat{y}_t &= \frac{Y_t}{A_t}\\
+\hat{c}_t &= \frac{C_t}{A_t}.\\
+\intertext{Now, we can substitute these back into the original equations.}
+A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+1 + \gamma \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
+\hat{y}_t &= k^\theta\\
+\hat{c}_t &= (1 - \theta) \hat{y}_t.\\
+\intertext{First order conditions give us}
+\frac{1}{\hat{c}_t} &= \frac{\beta}{1 + \gamma} E_t \left\{\frac{1}{\hat{c}_{t + 1}}\left[\frac{\theta \hat{y}_{t + 1}}{\hat{k}_{t + 1}} + 1 - \delta \right]\right\}.\\
+\intertext{In the steady state, we have}
+\frac{\overline{c}}{\overline{y}} &= \frac{1 + \gamma - \beta(1 - \delta) - \theta \beta (1 + \gamma - 1 + \delta)}{1 + \gamma - \beta (1 - \delta)}.\tag{$\ast$}\label{consumption-share}\\
+\intertext{Now let's solve for parameters. We're given $\gamma = 0.02$, and we have to figure out $\beta$, $\theta$ and $\delta$. Since we have Cobb Douglas production, $\theta = 0.3$. To solve for $\beta$, note that the 5\% return implies}
+\beta &= \frac{1}{1.05}\\
+&= 0.95238.\\
+\intertext{To solve for $\delta$, we're going to use equation \ref{consumption-share}. We're told that investment in the steady state is 20\% of GDP, so that implies that consumption is 80\% of GDP,}
+0.8 &= \frac{1.02 - 0.95238(1 - \delta) - 0.3 \cdot 0.95238 (1.02 - 1 + \delta)}{1.02 - 0.95238 (1 - \delta)}\\
+\implies \delta &= .082.
+\end{align}
+
+\newpage
+\item 
+ Log-linearize this model around its deterministic steady state. (For simplicity, assume that $z$ in the steady state is 1).
+
+% \begin{align*}
+% \max &E_0 \sum^\infty_{t = 0} \beta^t \ln (c_t)\\
+% \text{s.t. } c_t + i_t &\le y_t \\
+% i_t &= k_{t + 1} - (1 - \delta) k_t \\
+% y_t &= z_t A^{1 - \theta}_t k^\theta_t \\
+% A_t &= (1 + \gamma)^t \\
+% \ln (z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t \\
+% \varepsilon_t &\sim \mathcal{N}(0, \sigma^2_\varepsilon)\\
+% \intertext{Set up the recursive problem:}
+% V(K_t, z_{t - 1}) &= \ln (c_t) + \beta E[V(K_t, z_t) \mid z_{t - 1}]\\
+% \text{s.t. } K_{t + 1} &= (1 - \delta)K_t + y_t - c_t \\
+% y_t &= z_t A_t^{1 - \theta}K_t^\theta \\
+% \ln (z_t) &= \rho \ln (z_{t - 1})\\
+% \intertext{Take first order conditions:}
+% \frac{1}{c_t} &= \lambda \\
+% \beta E[V'(K_{t + 1}, z_t) \mid z_{t - 1}] &= \lambda \\
+% \implies \frac{1}{c_t} &= \beta E [V'(K_{t + 1}, z) \mid z_{t - 1}]\\
+% V'(K_t, z_{t - 1}) &= \frac{1}{c_t} (\theta z_t A_t^{1 - \theta}K_t^{\theta - 1} + 1 - \delta)\tag{Envelope}\\
+% \frac{c_{t + 1}}{c_t} &= \beta E [\theta z_{t + 1} A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta]\\
+% \intertext{Define some new variables \ldots}
+% \hat{K}_t &\equiv \frac{K_t}{A_t}\\
+% \hat{c}_t &\equiv \frac{c_t}{A_t}\\
+% \hat{y}_t &\equiv \frac{y_t}{A_t}\\
+% \intertext{Now substitute these new variables into our old equations:}
+% k_{t + 1} &= (1 - \delta)K_t + y_t - c_t \tag{old}\\
+% \implies \hat{K}_{t + 1} A &= (1 - \delta) \hat{K}_t + \hat{c}_t - \hat{c}_t\\
+% y_t &= z_t A^{1 - \theta}_t k^\theta_t \tag{old}\\
+% \implies \hat{y}_t &= z_t \hat{k}_t^\theta \\
+% \frac{c_{t + 1}}{c_t} &= \beta E[\theta z_{t + 1}A^{1 - \theta}_{t + 1}K^{\theta - 1}_{t + 1} + 1 - \delta] \tag{old}\\
+% \implies \frac{\hat{c}_{t + 1}}{\hat{c}_t} &= \frac{\beta}{A} E[\theta z_{t + 1}\hat{K}^{\theta - 1}_{t + 1} + 1 - \delta]
+% \end{align*}
+
+\begin{align*}
+\text{Define } \tilde{x} &\equiv \log\left(\frac{\hat{x}}{\overline{x}}\right).\\
+\intertext{From the Euler equation, we have}
+\frac{\hat{c}_{t + 1}}{\hat{c}_t} &= \frac{\beta}{A} E_t [\theta z_{t + 1}\hat{K}^{\theta - 1}_{t + 1} + 1 - \delta].\\
+\intertext{Substituting our log linearization into the left-hand side, we have}\\
+\frac{\overline{c}\exp(\tilde{c}_{t + 1})}{\overline{c} \exp (\tilde{c}_t)} &\approx (1 + \tilde{c}_{t + 1})(1 - \tilde{c}_t)\tag{LHS}\\
+&\approx 1 + \tilde{c}_{t + 1} - \tilde{c}_t \tag{LHS}.\\
+\intertext{Doing the same thing on the right-hand side, we have}
+\frac{\beta}{A} E_t [\theta \overline{z} (1 + \tilde{z}_{t + 1})\overline{K}(1 + (\theta - 1)\hat{K}_{t + 1}) + 1 - \delta] &=
+\frac{\beta}{A} E_t [\theta \overline{z} \overline{K}^{\theta - 1}(\theta - 1)\tilde{K}_{t + 1} + \theta \overline{z} \overline{K}^{\theta - 1}\tilde{z}_{t + 1} + 1 - \delta]\\
+\intertext{In the steady state,}
+1 &= \frac{\beta}{A}(\theta \overline{z} \overline{K}^{\theta - 1} + 1 - \delta),\\
+\overline{z} &= 1.\\
+\intertext{We can use these to simplify the log-linearized Euler equation:} 
+\tilde{c}_{t + 1} - \tilde{c}_t &= \frac{\beta}{A} E_t [\theta \overline{K}^{\theta - 1}(\theta - 1)\tilde{K}_{t + 1} + \theta \overline{K}^{\theta - 1} \tilde{z}_{t + 1}].\\
+\intertext{Now, let's do the same thing to the budget constraint.}
+\hat{c}_t + A\hat{K}_{t + 1} &= z_t \hat{K}_t^\theta + (1 - \delta)\hat{K}_t \\
+\overline{c}(1 + \tilde{c}_t) + A \overline{K} (1 + \hat{K}_{t + 1}) &= \overline{c} + A\overline{K} + \overline{c}\tilde{c}_t + A\overline{K}\tilde{K}_{t + 1}\tag{LHS}\\
+\overline{z}(1 + \tilde{z}_t)\overline{K}^\theta (1 + \theta \tilde{K}_t) + (1 - \delta)\overline{K}(1 + \tilde{K}_t) &=
+\overline{z} \overline{K}^\theta + \overline{z} \overline{K}^\theta \theta \tilde{K}_t + \overline{z} \overline{K}^\theta \tilde{z}_t + (1 - \delta) \overline{K} + (1 - \delta)\overline{K} \tilde{K}_t \tag{RHS}.\\
+\intertext{In the steady state,}
+\overline{c} + A \overline{K} &= \overline{z}\overline{K}^\theta + (1 - \delta)\overline{K},\\
+\overline{z} &=1,
+\intertext{so we can simplify this expression to}
+\overline{c}\tilde{c}_t + A\overline{K}\tilde{K}_{t + 1} &= \overline{K}^\theta \theta \tilde{K}_t + \overline{K}^\theta \tilde{z}_t + (1 - \delta)\overline{K}\tilde{K}_t,\\
+\intertext{or}
+\tilde{k}_{t + 1} &= \frac{\overline{K}^{\theta - 1}}{A} \theta \tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A} \tilde{z}_t + \frac{1 - \delta}{A}\hat{K}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t.\\
+\intertext{Finally, for the stochastic process, }
+\ln (z_t) &= \rho \ln (z_{t - 1}) + \varepsilon_t\\
+\ln (\overline{z}\exp(\tilde{z}_t)) &= \rho \ln (\overline{z} \exp(\tilde{z}_{t - 1})) + \varepsilon_t\\
+\ln (\overline{z}) + \tilde{z}_t &= \rho \ln (\overline{z}) + \rho \tilde{z}_{t - 1} + \varepsilon_t \\
+\implies \tilde{z}_t &= \rho \tilde{z}_{t - 1},\\
+\intertext{or}
+\tilde{z}_{t + 1}&= \rho \tilde{z}_t.\\
+\end{align*}
+\begin{align*}
+\intertext{Putting everything together, the log-linearized version of this economy is}
+\tilde{c}_{t + 1} &= E_t \left\{\frac{\beta \theta \overline{K}^{\theta - 1}}{A}(\theta - 1)\left[\frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A}\tilde{K}_t + \frac{\overline{K}^{\theta - 1}}{A}\tilde{z}_t - \frac{\overline{c}}{A \overline{K}} \tilde{c}_t\right]\right\}\\
+\hat{k}_{t + 1} &= \frac{\theta \overline{K}^{\theta - 1} + 1 - \delta}{A} \hat{K}_t + \frac{\overline{K}^{\theta - 1}}{A} \tilde{z}_t - \frac{\overline{c}}{A \overline{K}}\tilde{c}_t\\
+\tilde{z}_{t + 1} &= \rho \tilde{z}_t.
+\end{align*}
+
+\newpage
+\item Use the formula of Blanchard and Kahn to show that there is a unique
+stationary solution to the linearized system.
+#+begin_example 
+%#+begin_src octave :exports results
+clear;
+% Neoclassical Model 
+% Deterministic Model:
+m =1; % number of pre - determined variables
+n =1; % number of forward - looking variables
+% values for calibration
+barR       = 1.07;
+ItoYratio  = 21/100;
+RKtoYratio = 1-60/100;
+ybar       = 1;
+% Calibration
+ssigma  = 1     ;
+bbeta   = 1/barR;
+ttheta  = RKtoYratio;
+ddelta  = (1-barR)/(1-ttheta/ItoYratio);
+Abar    = ((barR-1+ddelta)/ttheta)^(ttheta)*ybar^((1-ttheta));
+% Steady State
+Kss     = (Abar*ttheta/(barR-1+ddelta))^(1/(1-ttheta));
+Yss     =  Abar*Kss^ttheta;
+Iss     =  ddelta*Kss;
+Css     =  Yss -Iss;
+Rss     =  barR;
+% Define matrices
+% c_t+1 = [ M11    M12    ] [ c_t k_t]
+% k_t+1 = [ M21    M22    ] [ c_t k_t]
+M22= Abar*ttheta*Kss^(ttheta-1)+(1-ddelta); 
+M21= -Css/Kss;
+M12= bbeta*ttheta*Abar*Kss^(ttheta-1)*((ttheta-1)*M22);
+M11= 1+bbeta*ttheta*Abar*Kss^(ttheta-1)*(ttheta-1)*M21;
+% Diagonalize
+M=[M11,M12; M21,M22];
+[Gamma , Lambda ]= eig ( M );
+Lambda = diag ( Lambda );
+[ unused, order ]= sort ( abs ( Lambda) ,'ascend'); % sort eigenvalues in ascending order
+Lambda = diag ( Lambda ( order )); % reorder J and make diagonal again
+Gamma= Gamma(: , order ); % reorder eigenvectors
+
+% check number of eigenvalues outside unit circle equal to n
+if ( sum ( abs ( diag ( Lambda )) >1)~= n )
+ return;
+end
+
+% partition matrices
+Gammainv = inv ( Gamma );
+G11 = Gammainv (1: m ,1: n );
+G12 = Gammainv (1: m , n +1: m + n );
+G21 = Gammainv ( m+1: m +n ,1: n );
+G22 = Gammainv ( m+1: m +n , n +1: m + n );
+Lambda1 = Lambda (1: m ,1: m );
+Lambda2 = Lambda ( m +1: m +n , m +1: m + n );
+% State Variables solution
+% E x_t+1 = H*x_t
+H=inv(-G11*inv(G21)*G22+G12)*Lambda1*(-G11*inv(G21)*G22+G12);
+% Jump Variables: Policy function
+THETA=-inv(G21)*G22;
+% Simulation
+T =100; % number of periods
+x1 = zeros (n , T);
+x2 = zeros (m , T );
+x2(1,1)=0.2;
+for i =1:1:T
+x2 (: , i +1)= H * x2 (: , i );
+x1 (: , i ) =  THETA * x2 (: , i );
+end
+% plot evolution of capital
+plot(linspace(0,T,T+1),Kss*exp(x2),'LineWidth',3,'Color','k')
+grid on
+xlabel('Time')
+ylabel('K_t')
+hold on
+plot(linspace(0,T,T+1),Kss*exp(x2)*0+Kss,'LineWidth',3,'Color','r')
+legend('Capital','Kss')
+
+% plot evolution of consumption
+plot(linspace(0,T,T),Css*exp(x1),'LineWidth',3,'Color','k')
+grid on
+xlabel('Time')
+ylabel('K_t')
+hold on
+plot(linspace(0,T,T),Css*exp(x1)*0+Css,'LineWidth',3,'Color','r')
+legend('Consumption','Css')
+
+%% Avoiding numerical error
+A12=M11*THETA+M12;
+A22=M21*THETA+M22;
+A=[zeros(n,size(A12,2)),A12;zeros(m,size(A22,2)),A22];
+T =100; % number of periods
+x2v(1,1)=0.2;
+x1v(1,1)=THETA*x2v(:,1);
+X=zeros(T,m+n);
+X(1,:)=[x1v,x2v];
+for i =2:1:T
+X(i,:)=(A*X(i-1,:)')';
+end
+% plot evolution of capital
+plot(linspace(0,T,T),Kss*exp(X(:,2)),'LineWidth',3,'Color','k')
+grid on
+xlabel('Time')
+ylabel('K_t')
+hold on
+plot(linspace(0,T,T),Kss*exp(X(:,2))*0+Kss,'LineWidth',3,'Color','r')
+legend('Capital','Kss')
+
+% plot evolution of consumption
+plot(linspace(0,T,T),Css*exp(X(:,1)),'LineWidth',3,'Color','k')
+grid on
+xlabel('Time')
+ylabel('C_t')
+hold on
+plot(linspace(0,T,T),Css*exp(x1)*0+Css,'LineWidth',3,'Color','r')
+legend('Consumption','Css')
+
+%% Stochastic Model
+rrho=0.9;
+M31=0;
+M32=0;
+M33=rrho;
+M23= Abar*Kss^(ttheta-1) ;
+M13= bbeta*Abar*Kss^(ttheta-1)*(M33+(ttheta-1)*M23);
+M=[M11,M12,M13; M21, M22, M23; 0,0,M33];
+m =2; % number of pre - determined variables
+n =1; % number of forward - looking variables
+[Gamma , Lambda ]= eig ( M );
+Lambda = diag ( Lambda );
+[ unused, order ]= sort ( abs ( Lambda) ,'ascend'); % sort eigenvalues in ascending order
+Lambda = diag ( Lambda ( order )); % reorder J and make diagonal again
+Gamma= Gamma(: , order ); % reorder eigenvectors
+
+% check number of eigenvalues outside unit circle equal to n
+if ( sum ( abs ( diag ( Lambda )) >1)~= n )
+ return;
+end
+
+% partition matrices
+Gammainv = inv ( Gamma );
+G11 = Gammainv (1: m ,1: n );
+G12 = Gammainv (1: m , n +1: m + n );
+G21 = Gammainv ( m+1: m +n ,1: n );
+G22 = Gammainv ( m+1: m +n , n +1: m + n );
+Lambda1 = Lambda (1: m ,1: m );
+Lambda2 = Lambda ( m +1: m +n , m +1: m + n );
+% State Variables solution
+% E x_t+1 = H*x_t
+H=inv(-G11*inv(G21)*G22+G12)*Lambda1*(-G11*inv(G21)*G22+G12);
+% Jump Variables: Policy function
+THETA=-inv(G21)*G22;
+% Simulation
+T =20; % number of periods
+Mtilde11=M11;
+Mtilde12=[M12,M13];
+Mtilde21=[M21;M31];
+Mtilde22=[M22,M23;M32,M33];
+A12=Mtilde11*THETA+Mtilde12;
+A22=Mtilde21*THETA+Mtilde22;
+A=[zeros(n,size(n,n)),A12;zeros(m,n),A22];
+T =100; % number of periods
+x2v(1,1)=0;
+x2v(1,2)=0;
+x1v(1,1)=THETA*x2v(1,:)';
+X=zeros(T,m+n);
+error=normrnd(0,0.01,[T,1]);
+X(1,:)=[x1v,x2v];
+for i =2:1:T
+X(i,:)=(A*X(i-1,:)'+[0,0,error(i)]')';
+end
+GDP=Yss*exp((X(:,2)*ttheta+X(:,3)));
+plot(linspace(0,T,T),GDP,'LineWidth',3,'Color','k')
+grid on
+xlabel('Time')
+ylabel('GDP_t')
+hold on
+plot(linspace(0,T,T),GDP*0+Yss,'LineWidth',3,'Color','r')
+legend('GDP (levels)','Yss')
+#+end_example
+%#+end_src
+
+\newpage
+\item Using a random number generator (Matlab has a built-in function for
+this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
+and assuming that $k_0$ is equal to its steady state value, use the linearized system
+to construct 1100 values values of output, consumption, and investment.
+
+%#+begin_src latex 
+\begin{align*}
+\intertext{I'm having some trouble with this question. I'm not sure if I'm doing something dumb, but I started with Ben's linearized equations and didn't know how to treat $\overline{k}$. The problem says that $k_0 = \overline{k}$, so $\tilde{k}$ should be zero, but $\overline{k}$ was in a bunch of other terms so here's what I've got so far. From earlier in the problem, we have}
+\overline{K}^{\theta - 1} &= \frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}.\\
+\intertext{Substituting this into the expression for $\tilde{K}_{t + 1}$ gives}
+\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t - \underbrace{\frac{\overline{c}}{A \overline{K}}}_{\text{simplify}} \tilde{c}_t\\
+\intertext{To simplify this last term, start with}
+\overline{c} &= \overline{y} + (1 - \delta - A)\overline{k}\overline{k}\\
+\implies \frac{\overline{c}}{\overline{K}} &= \frac{\overline{y} + (1 - \delta - A)\overline{K}}{\overline{K}}\\
+&= \frac{\overline{y}}{\overline{K}} + 1 - \delta - A\\
+\frac{\overline{y}}{\overline{K}} &= \frac{\overline{K}}{\overline{Y}} \cdot 1^{-1}\\
+ &= \frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}}\\
+\implies \frac{\overline{c}}{\overline{K}} &= \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A\right)\\
+\intertext{Putting this all together, the computationally tractable form of $\tilde{k}_{t + 1}$ should be }
+\tilde{k}_{t + 1} &= \left[\theta \cdot \left(\frac{\beta \theta \overline{z}}{A - \beta (1 - \delta)}\right) + 1 - \delta \right] \cdot A^{-1} \cdot \tilde{k_t}\\ &\hspace{4em} + \left(\frac{\beta \theta \overline{z}}{A - \beta(1 - \delta)}\right) \cdot A^{-1} \cdot \tilde{z}_t \\ &\hspace{4em} - \left(\frac{A - \beta (1 - \delta)}{\beta \theta \overline{z}} + 1 - \delta - A \right) \cdot A^{-1} \cdot \tilde{c}_t\\
+\intertext{$\overline{z}$ is 1, and everything else is a parameter except for the tilde variables, so this should work (I dropped $t$ subscripts on $A$ but that should be fine). I think this all looks okay but I'm not sure if there was an easier way to do this?}
+\end{align*}
+%#+end_src
+
+\newpage
+\item Discard the first 100 observations, and then fit an AR(1) process to the
+log of consumption, measured as the log-deviation of consumption from the
+steady state value. Report the value of the AR(1) coefficient in the regression,
+and evaluate whether there is autocorrelation in the residuals.
+
+\newpage
+\item Compare the regression coefficient in (9) and your assessment of the
+autocorrelation in the residuals, to your answers in (4) and (5). Does the RBC
+model provide a good approximation to consumption dynamics? What does it
+tell us about using consumption data to try to discriminate between the Hall
+\end{enumerate}
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Chris Ackerman, Eketerina Gurkova, Ali Haider Ismail, and Ben Pirie</p>
+<p class="date">Created: 2020-12-08 Tue 11:28</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
