@@ -313,7 +313,22 @@ this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using the
 and assuming that $k_0$ is equal to its steady state value, use the linearized system
 to construct 1100 values values of output, consumption, and investment.
 \\ The answer to this problem is written in Python.
-\inputminted{python}{q8.py}
+\inputminted[linenos]{python}{q8.py}
+
+\begin{figure}[htp]
+\begin{center}
+\includegraphics[scale=0.75]{log-linear-simulations.pdf}
+\caption{Simulated log deviations}
+\end{center}
+\end{figure}
+
+\begin{figure}[htp]
+\begin{center}
+\includegraphics[scale=0.75]{my-economy-simulations.pdf}
+\caption{Simulated Consumption, Investment, Output, and Capital}
+\end{center}
+\end{figure}
+
 
 \newpage
 \item Discard the first 100 observations, and then fit an AR(1) process to the
