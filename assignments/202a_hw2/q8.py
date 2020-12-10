@@ -1,14 +1,15 @@
 import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.rcParams['text.usetex'] = True
 import numpy as np
 import pandas as pd
+matplotlib.rcParams['text.usetex'] = True
 
 # These parameter values used in multiple functions
 C_ss=0.988469588504255
 K_ss=1.60214152474980
 theta=0.3
 gamma=0.02
+
 
 def simulate_log_linear_economy(
                                 Y_ss=1.15188802402873,
@@ -29,6 +30,7 @@ def simulate_log_linear_economy(
     All x_t are defined as log deviations from the steady state.
     """
     # initialize values for c, k, and z
+    # lists are vectors with one observation for each period.
     c = [initial_c_tilde]
     k = [initial_k_tilde]
     z = [initial_z_tilde]
@@ -116,7 +118,7 @@ def graph_my_economy(my_economy, filename='my-economy-simulations.pdf'):
     ax.legend(frameon=False)
     if filename:
         plt.savefig(filename)
-   
+
 
 if __name__ == '__main__':
     log_linear_economy = simulate_log_linear_economy()
