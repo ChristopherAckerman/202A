@@ -4,12 +4,6 @@ import numpy as np
 import pandas as pd
 matplotlib.rcParams['text.usetex'] = True
 
-# These parameter values used in multiple functions
-C_ss=0.988469588504255
-K_ss=1.60214152474980
-theta=0.3
-gamma=0.02
-
 
 def simulate_log_linear_economy(
                                 Y_ss=1.15188802402873,
@@ -121,6 +115,11 @@ def graph_my_economy(my_economy, filename='my-economy-simulations.pdf'):
 
 
 if __name__ == '__main__':
+    # These parameter values used in multiple functions
+    C_ss=0.988469588504255
+    K_ss=1.60214152474980
+    theta=0.3
+    gamma=0.02
     log_linear_economy = simulate_log_linear_economy()
     graph_log_linear_economy(log_linear_economy)
     my_economy = remove_log_linearization(log_linear_economy)

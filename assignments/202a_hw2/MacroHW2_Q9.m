@@ -1,4 +1,4 @@
-readtable('simulated_log_linear_economy.txt');
+readtable('simulated_log_linear_economy.csv');
 
 %%drop first 100 obs
 ans(1:101,:)=[]; 

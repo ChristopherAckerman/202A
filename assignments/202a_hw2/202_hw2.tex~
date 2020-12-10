@@ -1,4 +1,4 @@
-% Created 2020-12-08 Tue 16:29
+% Created 2020-12-10 Thu 10:18
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -21,6 +21,15 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{booktabs}
 \usepackage{enumitem}
+\usepackage{verbatim}
+\usepackage[numbered,framed]{matlab-prettifier}
+\lstset{
+style              = Matlab-editor,
+basicstyle         = \mlttfamily,
+escapechar         = ",
+mlshowsectionrules = true,
+}
+\usepackage{minted}
 \newtheorem*{definition}{Definition}
 \newtheorem*{example}{Example}
 \newtheorem*{theorem}{Theorem}
@@ -118,11 +127,30 @@ For estimating this regression we propose the log transformation
     \ln c_{t+1} = \mu + \gamma \ln c_t + \epsilon_{t+1}
 \end{align*}
 Then we can apply OLS method to estimate this regression, which is asymptotically equivalent to MLE estimator. In this case, the coefficient will be interpreted as a $\gamma$-percentage increase in future consumption in response to a 1-percentage increase in the current consumption.
+
 \newpage
 \item Explain the economic intuition for why the stochastic process for income is irrelevant in terms of being able to forecast future consumption. 
 
+Considering stochastic process for income implies that the deviations from some stationary level are unexpected, thus they do not affect consumption (and are actually disturbance). All the expected deviations (change of trend) are incorporated in current consumption, and do not have any additional information that can help predict the future consumption.
+
 \newpage
 \item Explain the economic intuition why if $r < \delta$, then consumption evolves as a random walk with positive drift, in which there is a constant term in the regression that is negative. 
+
+Having that marginal utility obeys a random walk apart from the trend, we can consider small deviations from the steady state consumption and expand the implicit equation for $c_{t+1}$ and $c_t$ in a Taylor series.
+\begin{align*}
+   E_t [u'(\Bar{c}) + u''(\Bar{c})(c_{t+1}-\Bar{c})] = \frac{1+\delta}{1+r} [u'(\Bar{c}) + u''(\Bar{c})(c_{t}-\Bar{c})]\\
+\end{align*}
+which can be rewritten as
+\begin{align*}
+    c_{t+1} = \left(\frac{1+\delta}{1+r} -1 \right) \left(\frac{u'(\Bar{c})}{u''(\Bar{c})}-\Bar{c}\right) + \frac{1+\delta}{1+r} c_t + \varepsilon_{t+1}
+\end{align*}
+Since $r<\delta$, we conclude that $(1+\delta)/(1+r)-1>0$. Also, we know that by assumption made in Hall's paper utility function is strictly concave, thus $u''(\Bar{c}) <0$ and $u'(\Bar{c})/u''(\Bar{c})-\Bar{c}<0$. Hence, this regression can be rewritten as follows
+\begin{align*}
+    c_{t+1} = \mu + \gamma c_t + \varepsilon_{t+1}
+\end{align*}
+which is a random walk with a positive drift $\gamma$ and negative constant $\mu$.
+
+Intuitively, this result can be obtained from the fact that under the permanent income hypothesis individual chooses current consumption by estimating the future ability to consume. Thus, any information and changes in income at time $t$ are unexpected, and make changes in future consumption unpredictable. Also, since the interest rate is lower than the rate of subjective time preference, individuals prefer to consume now, and future consumption responds more than 1 for 1 to a change in current consumption.
 
 \newpage
 \item  Obtain quarterly real consumption (in chained dollars) from the U.S.
@@ -132,11 +160,81 @@ regression:
 \ln(c_t) = \mu + \lambda \ln(c_{t-1}) + u_t
 \]
 
+Attached here is the code used to download and estimate this model.
+
+\lstinputlisting[caption = {Testing the Life Cycle-Permanent Income Hypothesis}]{testLifeCycleHypothesis.m}
+
+The relevant output from Matlab is copied below.
+The first output comes from fitting testing the model fit of the AR(1) on the data.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on data}, label=lst:data-output]
+    Effective Sample Size: 280
+    Number of Estimated Parameters: 3
+    LogLikelihood: 954.097
+    AIC: -1902.19
+    BIC: -1891.29
+
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant      0.020958      0.0056916        3.6822        0.0002312
+    AR{1}          0.99846      0.0007193        1388.1                0
+    Variance    6.4235e-05     2.7222e-06        23.597      4.1773e-123
+\end{lstlisting}
+
+Here is the output from testing to see if an AR(1) model fits the residual from the above model.
+\begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, label=lst:resid-output]
+    ARIMA(1,0,0) Model (Gaussian Distribution):
+
+                  Value       StandardError    TStatistic      PValue   
+                __________    _____________    __________    ___________
+
+    Constant    6.1197e-05     0.00049822       0.12283          0.90224
+    AR{1}         0.060598       0.034226        1.7705         0.076641
+    Variance    6.4005e-05     2.8928e-06        22.125      1.8103e-108
+\end{lstlisting}
+
 \newpage
 \item  Do you think that this is a reasonable statistical model of the log of
 consumption? (Your answer to this question may include a discussion regarding
 the value of the autoregressive coefficient, the R-square, and whether there is
 autocorrelation in the $u_t$ residuals.)
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{data-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of data}
+\label{fig:q4-data-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{residual-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of residuals}
+\label{fig:q4-residual-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{data-simulated-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of simulated data}
+\label{fig:q4-data-simulated-autocorrplot}
+\end{figure}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{residual-simulated-autocorrelation-plot.pdf}
+\caption{Question 4 - Autocorrelation plot of simulated residuals}
+\label{fig:q4-residual-simulated-autocorrplot}
+\end{figure}
+
+The model fits reasonably well. Firstly, the value of the value of the autoregressive coefficient in listing \ref{lst:data-output} (i.e the code output) is highly significant (with a p-value near 0 even), along with strong significance in the constant and variance. The R squared is \( 0.999857 \) (with the adjusted R being very similar since we are only estimating one lag) suggesting that the model explains the data very well. We also do a rudimentary test to see if the error is white noise in listing \ref{lst:resid-output} which shows that we cannot reject the null hypothesis at the 5\% significance that residuals have an AR(1) structure.
+
+In figure \ref{fig:q4-data-autocorrplot} we see that the data clearly has a lagged structure. It is to be expected that with an AR(1) with a value for \( \rho \) close to 1, the lagged effects of the shock should be persistent. That is, we should {\itshape expect} non-zero auto correlation at all lags, which is in contrast to, say, an MA(q) process which only has non-zero autocorrelation for the first \( q \) lags. 
+
+The autocorrelations of the residual of the above model are plotted in figure \ref{fig:q4-residual-autocorrplot}. This figure shows that most of the lags are within the confidence intervals around 0 and hence looks reasonably like white noise.
+
+To verify our intuitions, we simulate an AR model with the same sample moments as the data in figures \ref{fig:q4-data-simulated-autocorrplot} and \ref{fig:q4-residual-simulated-autocorrplot}. Both confirm our findings that the data fits an AR(1) reasonably well.
+
+There are some minor discrepancies when considering the Box-Ljuyng test that are persistent even with more lags. Despite that, we still believe that given the evidence that an AR(1) for consumption is a {\itshape reasonable} model.
 
 \newpage
 Next, consider the following economy.
@@ -156,7 +254,7 @@ such that the share of investment to GDP in the steady state is 20 percent.
 Choose $\rho = 0.95$, $\sigma^2_\varepsilon
  = .002$ and $\gamma = 0.02$.
 
-\begin{align}
+\begin{align*}
 \intertext{Rearranging terms, we have}
 k_{t + 1} &= A_t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
 Y_t &= A_t^{1 - \theta} k_t^\theta\\
@@ -180,7 +278,7 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \intertext{To solve for $\delta$, we're going to use equation \ref{consumption-share}. We're told that investment in the steady state is 20\% of GDP, so that implies that consumption is 80\% of GDP,}
 0.8 &= \frac{1.02 - 0.95238(1 - \delta) - 0.3 \cdot 0.95238 (1.02 - 1 + \delta)}{1.02 - 0.95238 (1 - \delta)}\\
 \implies \delta &= .082.
-\end{align}
+\end{align*}
 
 \newpage
 \item 
@@ -232,17 +330,164 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \item Use the formula of Blanchard and Kahn to show that there is a unique
 stationary solution to the linearized system.
 
+\lstinputlisting[caption = {Using BK to show there is a unique stationary solution}]{question_7.m}
+
 \newpage
 \item Using a random number generator (Matlab has a built-in function for
 this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
 and assuming that $k_0$ is equal to its steady state value, use the linearized system
 to construct 1100 values values of output, consumption, and investment.
+\\ The answer to this problem is written in Python.
+\inputminted{python}{q8.py}
+\begin{minted}{python}
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+matplotlib.rcParams['text.usetex'] = True
+
+# These parameter values used in multiple functions
+C_ss=0.988469588504255
+K_ss=1.60214152474980
+theta=0.3
+gamma=0.02
+
+
+def simulate_log_linear_economy(
+                                Y_ss=1.15188802402873,
+                                rho=0.95,
+                                beta=0.952380952380952,
+                                delta=0.082,
+                                mu=0,
+                                sigma=0.002,
+                                n_obs=1100,
+                                initial_k_tilde=0,
+                                initial_c_tilde=0,
+                                initial_z_tilde=0,
+                                my_seed=100
+                            ):
+    """
+    Takes in parameter values.
+    Returns dataframe with a simulated log-linear economy.
+    All x_t are defined as log deviations from the steady state.
+    """
+    # initialize values for c, k, and z
+    # lists are vectors with one observation for each period.
+    c = [initial_c_tilde]
+    k = [initial_k_tilde]
+    z = [initial_z_tilde]
+    c_tilde = initial_c_tilde
+    k_tilde = initial_k_tilde
+    z_tilde = initial_z_tilde
+    t = 0
+    # set seed; draw random shocks
+    np.random.seed(my_seed)
+    epsilon = np.random.normal(mu, sigma, n_obs)
+    while t < n_obs:
+        # use the analytic formulas to calculate next period values
+        A = (1 + gamma) ** t
+        c_t = (beta * theta * K_ss ** (theta - 1)) * (1 / A) * \
+                ((theta - 1) * \
+                (((theta * K_ss ** (theta - 1) + 1 - delta)/A) * k_tilde + \
+                (K_ss ** (theta - 1))/A * z_tilde - \
+                C_ss/(A * K_ss) * c_tilde)) + \
+                rho * z_tilde + \
+                c_tilde
+
+        k_t = ((theta * K_ss ** (theta - 1) + 1 - delta)/A) * k_tilde + \
+            ((K_ss ** (theta - 1))/A) * z_tilde - \
+            (C_ss/(A * K_ss)) * c_tilde
+
+        z_t = rho * z_tilde + epsilon[t]
+
+        # store the new values in each variable's list
+        c.append(c_t)
+        k.append(k_t)
+        z.append(z_t)
+
+        # update the old values with the new values
+        k_tilde = k_t
+        c_tilde = c_t
+        z_tilde = z_t
+
+        # advance time period
+        t += 1
+
+    # send the variables to a dataframe
+    economy = pd.DataFrame(index=range(n_obs + 1))
+    economy['c'] = c
+    economy['k'] = k
+    economy['z'] = z
+    return economy
+
+
+def graph_log_linear_economy(
+        log_linear_economy,
+        filename='log-linear-simulations.pdf'
+                            ):
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(log_linear_economy.index, log_linear_economy['c'],
+            label=r'$\tilde{c}$')
+    ax.plot(log_linear_economy.index, log_linear_economy['k'],
+            label=r'$\tilde{k}$')
+    ax.plot(log_linear_economy.index, log_linear_economy['z'],
+            label=r'$\tilde{z}$')
+    ax.legend(frameon=False)
+    if filename:
+        plt.savefig(filename)
+
+
+def remove_log_linearization(log_linear_economy):
+    my_economy = pd.DataFrame(index=log_linear_economy.index)
+    my_economy['A'] = [(1 + gamma)**t for t in my_economy.index]
+    my_economy['C'] = my_economy['A'] * C_ss * np.exp(log_linear_economy['c'])
+    my_economy['K'] = my_economy['A'] * K_ss * np.exp(log_linear_economy['k'])
+    my_economy['Y'] = my_economy['A'] ** (1 - theta) * my_economy['K'] ** theta
+    my_economy['I'] = my_economy['Y'] - my_economy['C']
+    return my_economy
+
+
+def graph_my_economy(my_economy, filename='my-economy-simulations.pdf'):
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(my_economy.index, my_economy['C'],
+           label=r'$C$')
+    ax.plot(my_economy.index, my_economy['K'],
+           label=r'$K$')
+    ax.plot(my_economy.index, my_economy['Y'],
+           label=r'$Y$')
+    ax.plot(my_economy.index, my_economy['I'],
+           label=r'$I$')
+    ax.legend(frameon=False)
+    if filename:
+        plt.savefig(filename)
+
+
+if __name__ == '__main__':
+    log_linear_economy = simulate_log_linear_economy()
+    graph_log_linear_economy(log_linear_economy)
+    my_economy = remove_log_linearization(log_linear_economy)
+    graph_my_economy(my_economy)
+    my_economy.to_csv('simulated_economy.csv')
+    log_linear_economy.to_csv('simulated_log_linear_economy.csv')
+\end{minted}
 
 \newpage
 \item Discard the first 100 observations, and then fit an AR(1) process to the
 log of consumption, measured as the log-deviation of consumption from the
 steady state value. Report the value of the AR(1) coefficient in the regression,
 and evaluate whether there is autocorrelation in the residuals.
+
+\lstinputlisting[caption = {Fitting AR(1) to Simulated Data}]{MacroHW2_Q9.m}
+
+\begin{center}
+\includegraphics[scale=0.75]{MacroHW2_Q9.JPG}
+\end{center}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{Q9_ResidualAutocorrelationPlot.pdf}
+\caption{Question 9 - Residual Autocorrelation}
+\end{figure}
 
 \newpage
 \item Compare the regression coefficient in (9) and your assessment of the

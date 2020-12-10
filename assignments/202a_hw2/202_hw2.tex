@@ -1,4 +1,4 @@
-% Created 2020-12-08 Tue 16:32
+% Created 2020-12-10 Thu 10:18
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -21,14 +21,15 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{booktabs}
 \usepackage{enumitem}
-% For inputting matlab code directly into the PDF
+\usepackage{verbatim}
 \usepackage[numbered,framed]{matlab-prettifier}
 \lstset{
-  style              = Matlab-editor,
-  basicstyle         = \mlttfamily,
-  escapechar         = ",
-  mlshowsectionrules = true,
+style              = Matlab-editor,
+basicstyle         = \mlttfamily,
+escapechar         = ",
+mlshowsectionrules = true,
 }
+\usepackage{minted}
 \newtheorem*{definition}{Definition}
 \newtheorem*{example}{Example}
 \newtheorem*{theorem}{Theorem}
@@ -171,7 +172,7 @@ The first output comes from fitting testing the model fit of the AR(1) on the da
     LogLikelihood: 954.097
     AIC: -1902.19
     BIC: -1891.29
- 
+
                   Value       StandardError    TStatistic      PValue   
                 __________    _____________    __________    ___________
 
@@ -183,7 +184,7 @@ The first output comes from fitting testing the model fit of the AR(1) on the da
 Here is the output from testing to see if an AR(1) model fits the residual from the above model.
 \begin{lstlisting}[caption={Matlab output from AR(1) model on residuals}, label=lst:resid-output]
     ARIMA(1,0,0) Model (Gaussian Distribution):
- 
+
                   Value       StandardError    TStatistic      PValue   
                 __________    _____________    __________    ___________
 
@@ -197,7 +198,6 @@ Here is the output from testing to see if an AR(1) model fits the residual from 
 consumption? (Your answer to this question may include a discussion regarding
 the value of the autoregressive coefficient, the R-square, and whether there is
 autocorrelation in the $u_t$ residuals.)
-
 \begin{figure}[htp]
 \centering
 \includegraphics[scale=0.75]{data-autocorrelation-plot.pdf}
@@ -254,7 +254,7 @@ such that the share of investment to GDP in the steady state is 20 percent.
 Choose $\rho = 0.95$, $\sigma^2_\varepsilon
  = .002$ and $\gamma = 0.02$.
 
-\begin{align}
+\begin{align*}
 \intertext{Rearranging terms, we have}
 k_{t + 1} &= A_t^{1 - \theta} k_t^\theta + (1 - \delta) k_t - c_t\\
 Y_t &= A_t^{1 - \theta} k_t^\theta\\
@@ -278,7 +278,7 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \intertext{To solve for $\delta$, we're going to use equation \ref{consumption-share}. We're told that investment in the steady state is 20\% of GDP, so that implies that consumption is 80\% of GDP,}
 0.8 &= \frac{1.02 - 0.95238(1 - \delta) - 0.3 \cdot 0.95238 (1.02 - 1 + \delta)}{1.02 - 0.95238 (1 - \delta)}\\
 \implies \delta &= .082.
-\end{align}
+\end{align*}
 
 \newpage
 \item 
@@ -330,17 +330,33 @@ A \hat{k}_{t + 1} &= \hat{y}_t + (1 - \delta) \hat{k}_t - \hat{c}_t\\
 \item Use the formula of Blanchard and Kahn to show that there is a unique
 stationary solution to the linearized system.
 
+\lstinputlisting[caption = {Using BK to show there is a unique stationary solution}]{question_7.m}
+
 \newpage
 \item Using a random number generator (Matlab has a built-in function for
 this), draw 1100 values of $\varepsilon$ to construct the $z$ process. Using these values of $z$,
 and assuming that $k_0$ is equal to its steady state value, use the linearized system
 to construct 1100 values values of output, consumption, and investment.
+\\ The answer to this problem is written in Python.
+\inputminted{python}{q8.py}
 
 \newpage
 \item Discard the first 100 observations, and then fit an AR(1) process to the
 log of consumption, measured as the log-deviation of consumption from the
 steady state value. Report the value of the AR(1) coefficient in the regression,
 and evaluate whether there is autocorrelation in the residuals.
+
+\lstinputlisting[caption = {Fitting AR(1) to Simulated Data}]{MacroHW2_Q9.m}
+
+\begin{center}
+\includegraphics[scale=0.75]{MacroHW2_Q9.JPG}
+\end{center}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.75]{Q9_ResidualAutocorrelationPlot.pdf}
+\caption{Question 9 - Residual Autocorrelation}
+\end{figure}
 
 \newpage
 \item Compare the regression coefficient in (9) and your assessment of the
