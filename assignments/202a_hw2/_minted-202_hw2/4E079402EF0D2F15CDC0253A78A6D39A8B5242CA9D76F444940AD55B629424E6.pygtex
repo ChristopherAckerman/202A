@@ -1,0 +1,133 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+\PYG{n}{matplotlib}\PYG{o}{.}\PYG{n}{rcParams}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}text.usetex\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+
+
+\PYG{k}{def} \PYG{n+nf}{simulate\PYGZus{}log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{(}
+                                \PYG{n}{Y\PYGZus{}ss}\PYG{o}{=}\PYG{l+m+mf}{1.15188802402873}\PYG{p}{,}
+                                \PYG{n}{rho}\PYG{o}{=}\PYG{l+m+mf}{0.95}\PYG{p}{,}
+                                \PYG{n}{beta}\PYG{o}{=}\PYG{l+m+mf}{0.952380952380952}\PYG{p}{,}
+                                \PYG{n}{delta}\PYG{o}{=}\PYG{l+m+mf}{0.082}\PYG{p}{,}
+                                \PYG{n}{mu}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+                                \PYG{n}{sigma}\PYG{o}{=}\PYG{l+m+mf}{0.002}\PYG{p}{,}
+                                \PYG{n}{n\PYGZus{}obs}\PYG{o}{=}\PYG{l+m+mi}{1100}\PYG{p}{,}
+                                \PYG{n}{initial\PYGZus{}k\PYGZus{}tilde}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+                                \PYG{n}{initial\PYGZus{}c\PYGZus{}tilde}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+                                \PYG{n}{initial\PYGZus{}z\PYGZus{}tilde}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+                                \PYG{n}{my\PYGZus{}seed}\PYG{o}{=}\PYG{l+m+mi}{100}
+                            \PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Takes in parameter values.}
+\PYG{l+s+sd}{    Returns dataframe with a simulated log\PYGZhy{}linear economy.}
+\PYG{l+s+sd}{    All x\PYGZus{}t are defined as log deviations from the steady state.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{c+c1}{\PYGZsh{} initialize values for c, k, and z}
+    \PYG{c+c1}{\PYGZsh{} lists are vectors with one observation for each period.}
+    \PYG{n}{c} \PYG{o}{=} \PYG{p}{[}\PYG{n}{initial\PYGZus{}c\PYGZus{}tilde}\PYG{p}{]}
+    \PYG{n}{k} \PYG{o}{=} \PYG{p}{[}\PYG{n}{initial\PYGZus{}k\PYGZus{}tilde}\PYG{p}{]}
+    \PYG{n}{z} \PYG{o}{=} \PYG{p}{[}\PYG{n}{initial\PYGZus{}z\PYGZus{}tilde}\PYG{p}{]}
+    \PYG{n}{c\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{initial\PYGZus{}c\PYGZus{}tilde}
+    \PYG{n}{k\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{initial\PYGZus{}k\PYGZus{}tilde}
+    \PYG{n}{z\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{initial\PYGZus{}z\PYGZus{}tilde}
+    \PYG{n}{t} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{c+c1}{\PYGZsh{} set seed; draw random shocks}
+    \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{n}{my\PYGZus{}seed}\PYG{p}{)}
+    \PYG{n}{epsilon} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{normal}\PYG{p}{(}\PYG{n}{mu}\PYG{p}{,} \PYG{n}{sigma}\PYG{p}{,} \PYG{n}{n\PYGZus{}obs}\PYG{p}{)}
+    \PYG{k}{while} \PYG{n}{t} \PYG{o}{\PYGZlt{}} \PYG{n}{n\PYGZus{}obs}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} use the analytic formulas to calculate next period values}
+        \PYG{n}{A} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{+} \PYG{n}{gamma}\PYG{p}{)} \PYG{o}{**} \PYG{n}{t}
+        \PYG{n}{c\PYGZus{}t} \PYG{o}{=} \PYG{p}{(}\PYG{n}{beta} \PYG{o}{*} \PYG{n}{theta} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss} \PYG{o}{**} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{))} \PYG{o}{*} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{/} \PYG{n}{A}\PYG{p}{)} \PYG{o}{*} \PYGZbs{}
+                \PYG{p}{((}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{*} \PYGZbs{}
+                \PYG{p}{(((}\PYG{n}{theta} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss} \PYG{o}{**} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{delta}\PYG{p}{)}\PYG{o}{/}\PYG{n}{A}\PYG{p}{)} \PYG{o}{*} \PYG{n}{k\PYGZus{}tilde} \PYG{o}{+} \PYGZbs{}
+                \PYG{p}{(}\PYG{n}{K\PYGZus{}ss} \PYG{o}{**} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{))}\PYG{o}{/}\PYG{n}{A} \PYG{o}{*} \PYG{n}{z\PYGZus{}tilde} \PYG{o}{\PYGZhy{}} \PYGZbs{}
+                \PYG{n}{C\PYGZus{}ss}\PYG{o}{/}\PYG{p}{(}\PYG{n}{A} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss}\PYG{p}{)} \PYG{o}{*} \PYG{n}{c\PYGZus{}tilde}\PYG{p}{))} \PYG{o}{+} \PYGZbs{}
+                \PYG{n}{rho} \PYG{o}{*} \PYG{n}{z\PYGZus{}tilde} \PYG{o}{+} \PYGZbs{}
+                \PYG{n}{c\PYGZus{}tilde}
+
+        \PYG{n}{k\PYGZus{}t} \PYG{o}{=} \PYG{p}{((}\PYG{n}{theta} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss} \PYG{o}{**} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{delta}\PYG{p}{)}\PYG{o}{/}\PYG{n}{A}\PYG{p}{)} \PYG{o}{*} \PYG{n}{k\PYGZus{}tilde} \PYG{o}{+} \PYGZbs{}
+            \PYG{p}{((}\PYG{n}{K\PYGZus{}ss} \PYG{o}{**} \PYG{p}{(}\PYG{n}{theta} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{))}\PYG{o}{/}\PYG{n}{A}\PYG{p}{)} \PYG{o}{*} \PYG{n}{z\PYGZus{}tilde} \PYG{o}{\PYGZhy{}} \PYGZbs{}
+            \PYG{p}{(}\PYG{n}{C\PYGZus{}ss}\PYG{o}{/}\PYG{p}{(}\PYG{n}{A} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss}\PYG{p}{))} \PYG{o}{*} \PYG{n}{c\PYGZus{}tilde}
+
+        \PYG{n}{z\PYGZus{}t} \PYG{o}{=} \PYG{n}{rho} \PYG{o}{*} \PYG{n}{z\PYGZus{}tilde} \PYG{o}{+} \PYG{n}{epsilon}\PYG{p}{[}\PYG{n}{t}\PYG{p}{]}
+
+        \PYG{c+c1}{\PYGZsh{} store the new values in each variable\PYGZsq{}s list}
+        \PYG{n}{c}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{c\PYGZus{}t}\PYG{p}{)}
+        \PYG{n}{k}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{k\PYGZus{}t}\PYG{p}{)}
+        \PYG{n}{z}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{z\PYGZus{}t}\PYG{p}{)}
+
+        \PYG{c+c1}{\PYGZsh{} update the old values with the new values}
+        \PYG{n}{k\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{k\PYGZus{}t}
+        \PYG{n}{c\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{c\PYGZus{}t}
+        \PYG{n}{z\PYGZus{}tilde} \PYG{o}{=} \PYG{n}{z\PYGZus{}t}
+
+        \PYG{c+c1}{\PYGZsh{} advance time period}
+        \PYG{n}{t} \PYG{o}{+=} \PYG{l+m+mi}{1}
+
+    \PYG{c+c1}{\PYGZsh{} send the variables to a dataframe}
+    \PYG{n}{economy} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{index}\PYG{o}{=}\PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{n\PYGZus{}obs} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{))}
+    \PYG{n}{economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{c}
+    \PYG{n}{economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{k}
+    \PYG{n}{economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}z\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{z}
+    \PYG{k}{return} \PYG{n}{economy}
+
+
+\PYG{k}{def} \PYG{n+nf}{graph\PYGZus{}log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{(}
+        \PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{,}
+        \PYG{n}{filename}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}log\PYGZhy{}linear\PYGZhy{}simulations.pdf\PYGZsq{}}
+                            \PYG{p}{):}
+    \PYG{n}{fig}\PYG{p}{,} \PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{],}
+            \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}\PYGZbs{}tilde}\PYG{l+s+si}{\PYGZob{}c\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{],}
+            \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}\PYGZbs{}tilde}\PYG{l+s+si}{\PYGZob{}k\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}z\PYGZsq{}}\PYG{p}{],}
+            \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}\PYGZbs{}tilde}\PYG{l+s+si}{\PYGZob{}z\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{frameon}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{filename}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{remove\PYGZus{}log\PYGZus{}linearization}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{):}
+    \PYG{n}{my\PYGZus{}economy} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{index}\PYG{o}{=}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{)}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[(}\PYG{l+m+mi}{1} \PYG{o}{+} \PYG{n}{gamma}\PYG{p}{)}\PYG{o}{**}\PYG{n}{t} \PYG{k}{for} \PYG{n}{t} \PYG{o+ow}{in} \PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{]}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{]} \PYG{o}{*} \PYG{n}{C\PYGZus{}ss} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{])}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}K\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{]} \PYG{o}{*} \PYG{n}{K\PYGZus{}ss} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{])}
+    \PYG{c+c1}{\PYGZsh{} add Z; multiply in front of Y}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Z\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}z\PYGZsq{}}\PYG{p}{])}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Y\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Z\PYGZsq{}}\PYG{p}{]} \PYG{o}{*} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{]} \PYG{o}{**} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{theta}\PYG{p}{)}\PYGZbs{}
+        \PYG{o}{*} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}K\PYGZsq{}}\PYG{p}{]} \PYG{o}{**} \PYG{n}{theta}
+    \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}I\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Y\PYGZsq{}}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{my\PYGZus{}economy}
+
+
+\PYG{k}{def} \PYG{n+nf}{graph\PYGZus{}my\PYGZus{}economy}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{p}{,} \PYG{n}{filename}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}my\PYGZhy{}economy\PYGZhy{}simulations.pdf\PYGZsq{}}\PYG{p}{):}
+    \PYG{n}{fig}\PYG{p}{,} \PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{],}
+           \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}C\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}K\PYGZsq{}}\PYG{p}{],}
+           \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}K\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Y\PYGZsq{}}\PYG{p}{],}
+           \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}Y\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{my\PYGZus{}economy}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}I\PYGZsq{}}\PYG{p}{],}
+           \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{r}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}I\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{frameon}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{filename}\PYG{p}{:}
+        \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}
+
+
+\PYG{k}{if} \PYG{n+nv+vm}{\PYGZus{}\PYGZus{}name\PYGZus{}\PYGZus{}} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}\PYGZus{}\PYGZus{}main\PYGZus{}\PYGZus{}\PYGZsq{}}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{} These parameter values used in multiple functions}
+    \PYG{n}{C\PYGZus{}ss}\PYG{o}{=}\PYG{l+m+mf}{0.988469588504255}
+    \PYG{n}{K\PYGZus{}ss}\PYG{o}{=}\PYG{l+m+mf}{1.60214152474980}
+    \PYG{n}{theta}\PYG{o}{=}\PYG{l+m+mf}{0.3}
+    \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mf}{0.02}
+    \PYG{n}{log\PYGZus{}linear\PYGZus{}economy} \PYG{o}{=} \PYG{n}{simulate\PYGZus{}log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{()}
+    \PYG{n}{graph\PYGZus{}log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{)}
+    \PYG{n}{my\PYGZus{}economy} \PYG{o}{=} \PYG{n}{remove\PYGZus{}log\PYGZus{}linearization}\PYG{p}{(}\PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{p}{)}
+    \PYG{n}{graph\PYGZus{}my\PYGZus{}economy}\PYG{p}{(}\PYG{n}{my\PYGZus{}economy}\PYG{p}{)}
+    \PYG{n}{my\PYGZus{}economy}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}simulated\PYGZus{}economy.csv\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{log\PYGZus{}linear\PYGZus{}economy}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}simulated\PYGZus{}log\PYGZus{}linear\PYGZus{}economy.csv\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

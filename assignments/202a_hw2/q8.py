@@ -94,7 +94,10 @@ def remove_log_linearization(log_linear_economy):
     my_economy['A'] = [(1 + gamma)**t for t in my_economy.index]
     my_economy['C'] = my_economy['A'] * C_ss * np.exp(log_linear_economy['c'])
     my_economy['K'] = my_economy['A'] * K_ss * np.exp(log_linear_economy['k'])
-    my_economy['Y'] = my_economy['A'] ** (1 - theta) * my_economy['K'] ** theta
+    # add Z; multiply in front of Y
+    my_economy['Z'] = np.exp(log_linear_economy['z'])
+    my_economy['Y'] = my_economy['Z'] * my_economy['A'] ** (1 - theta)\
+        * my_economy['K'] ** theta
     my_economy['I'] = my_economy['Y'] - my_economy['C']
     return my_economy
 
