@@ -1,4 +1,4 @@
-% Created 2020-12-11 Fri 00:54
+% Created 2020-12-11 Fri 00:57
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -395,7 +395,7 @@ autocorrelation in the residuals, to your answers in (4) and (5). Does the RBC
 model provide a good approximation to consumption dynamics? What does it
 tell us about using consumption data to try to discriminate between the Hall model and the RBC model?
 
-The regression coefficients from both our real data and our simulated data are very similar. However, there is behavior in our simulated data that doesn't match the actual data. Our answers in number 9 have correlation in the residuals that we don't see in the real data. We also fit an AR(2) to the simulated data, and the results match much more closely. With only consumption data, we are not able to discriminate between the Hall model and the RBC model.
+The regression coefficients from both our real data and our simulated data are very similar. However, there is behavior in our simulated data that doesn't match the actual data. Our answers in number 9 have correlation in the residuals that we don't see in the real data. We also fit an AR(2) to the simulated data, and the results match much more closely. The main hypothesis of Hall's model is that additional lags of consumption (or other control values) do not have predictive power for future consumption. This is true in the FRED data, but not true in our simulations, where an AR(2) process fits better.
 
 \begin{figure}[htp]
 \begin{center}
