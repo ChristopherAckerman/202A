@@ -1,4 +1,4 @@
-% Created 2020-12-10 Thu 15:42
+% Created 2020-12-10 Thu 15:45
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -393,9 +393,9 @@ and evaluate whether there is autocorrelation in the residuals.
 \item Compare the regression coefficient in (9) and your assessment of the
 autocorrelation in the residuals, to your answers in (4) and (5). Does the RBC
 model provide a good approximation to consumption dynamics? What does it
-tell us about using consumption data to try to discriminate between the Hall
+tell us about using consumption data to try to discriminate between the Hall model and the RBC model?
 
-The regression coefficients from both our real data and our simulated data are very similar. However, there is behavior in our simulated data that doesn't match the actual data. Our answers in number 9 have correlation in the residuals that we don't see in the real data. We also fit an AR(2) to the simulated data, and the results match much more closely. 
+The regression coefficients from both our real data and our simulated data are very similar. However, there is behavior in our simulated data that doesn't match the actual data. Our answers in number 9 have correlation in the residuals that we don't see in the real data. We also fit an AR(2) to the simulated data, and the results match much more closely. With only consumption data, we are not able to discriminate between the Hall model and the RBC model.
 
 \begin{figure}[htp]
 \begin{center}
